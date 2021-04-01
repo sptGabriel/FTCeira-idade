@@ -4,3 +4,5 @@ logs
 node
 dbdata
 coverage
+package-lock.json
+yarn.error.log

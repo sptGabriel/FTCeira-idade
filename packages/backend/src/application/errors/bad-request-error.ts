@@ -1,12 +1,16 @@
+import { IErrorModel } from '../ports/error-model'
 import { DefaultError } from './default-app-error'
 
 export class BadRequestERROR extends DefaultError {
   constructor(
-    public readonly errors: any,
+    message?: string,
+    public readonly errors?: IErrorModel[],
     public readonly statusCode = 400,
-    msg?: string
   ) {
-    super('Unable to process the request due to invalid syntax.', errors)
-		this.name = 'BADREQUEST_ERROR'
+    super(
+      message || 'Unable to process the request due to invalid syntax.',
+      errors,
+    )
+    this.name = 'BADREQUEST_ERROR'
   }
 }

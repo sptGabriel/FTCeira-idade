@@ -34,24 +34,18 @@ export const logger = createLogger({
   ),
   transports: [
     new transports.File({
-      filename: 'error.log',
+      filename: 'logging/errors.log',
+      //filename:  __dirname+`../../../logging/errors.log`,
       level: 'error',
-      dirname: __dirname+`../../../logging/errors.log`,
       maxsize: 5242880,
       format: format.json(),
     }),
     new transports.File({
-      filename: __dirname+`../../../logging/combined.log`,
+      filename: 'logging/combined.log',
       level: 'info',
       maxsize: 5242880,
     }),
 
     new transports.Console(),
-  ],
-  exceptionHandlers: [
-    new transports.File({
-      filename: __dirname+`../../../logging/exceptions.log`,
-      maxsize: 5242880,
-    }),
   ],
 })

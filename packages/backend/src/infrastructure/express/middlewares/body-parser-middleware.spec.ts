@@ -3,7 +3,7 @@ import request, { Request } from 'supertest'
 import app from '../setup/app'
 
 describe('Body parser Middleware', () => {
-  test('Body parser Middleware', async () => {
+  it('Body parser Middleware', async () => {
     app.post('/body_parser', (req, res) => {
       res.send(req.body)
     })

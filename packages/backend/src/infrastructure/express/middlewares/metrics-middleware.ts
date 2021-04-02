@@ -1,4 +1,4 @@
-const promBundle = require('express-prom-bundle')
+import promBundle from 'express-prom-bundle'
 
 export const metricsMiddleware = promBundle({
   includeMethod: true,

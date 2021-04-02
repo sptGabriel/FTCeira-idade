@@ -1,5 +1,5 @@
-import { config } from '../db/config'
-import { Connection } from '../db/connection'
+import { config } from '../database/config'
+import { Connection } from '../database/connection'
 import app from './setup/app'
 
 const port = process.env.port || 8080

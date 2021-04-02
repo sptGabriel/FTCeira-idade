@@ -3,6 +3,7 @@ import { bodyParser } from '../middlewares/body-parser-middleware'
 import { contentType } from '../middlewares/content-type-middleware'
 import { cors } from '../middlewares/cors-middleware'
 import { errorHandler } from '../middlewares/error-handler-middleware'
+import { loggerMiddleware } from '../middlewares/logger-middleware'
 import { metricsMiddleware } from '../middlewares/metrics-middleware'
 import { rateLimitter } from '../middlewares/rate-limit-middleware'
 
@@ -16,5 +17,6 @@ app.use(contentType)
 setupRoutes(app, router)
 app.use(rateLimitter)
 app.use(metricsMiddleware)
+app.use(loggerMiddleware)
 app.use(errorHandler)
 export default app

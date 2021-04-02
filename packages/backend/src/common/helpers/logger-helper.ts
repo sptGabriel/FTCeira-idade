@@ -22,7 +22,7 @@ const level = () => {
   return isDevelopment ? 'debug' : 'warn'
 }
 
-export const logger = createLogger({
+export const Logger = createLogger({
   level: level(),
   levels,
   format: format.combine(

@@ -1,4 +1,4 @@
-import { describe, test } from '@jest/globals'
+import { describe, it } from '@jest/globals'
 import request, { Request } from 'supertest'
 import app from '../setup/app'
 

@@ -8,6 +8,7 @@ interface retry {
 }
 
 export const retryPromise = async <T>(opts: retry): Promise<T> => {
+  if(!opts) throw new Error('Invalid operation')
   const { fn, interval, retryMsg } = opts
   try {
     return await fn

@@ -28,7 +28,7 @@ describe('Jwt Adapter', () => {
 
   it('Should call sign with correct values and undefined expiresIn', async () => {
     jest.spyOn(jwt, 'sign')
-    const adapter = new JwtAdapter('secret', null as unknown as number)
+    const adapter = new JwtAdapter('secret', (null as unknown) as number)
     await adapter.encrypt('x')
     expect(jwt.sign).toHaveReturnedTimes(1)
     expect(jwt.sign).toHaveBeenCalledWith({ id: 'x' }, 'secret', {
@@ -64,7 +64,7 @@ describe('Jwt Adapter', () => {
 
   it('Should call verify with correct values and undefined expiresIn', async () => {
     jest.spyOn(jwt, 'verify')
-    const adapter = new JwtAdapter('secret', null as unknown as number)
+    const adapter = new JwtAdapter('secret', (null as unknown) as number)
     await adapter.decrypt('x')
     expect(jwt.verify).toHaveReturnedTimes(1)
     expect(jwt.verify).toHaveBeenCalledWith('x', 'secret')

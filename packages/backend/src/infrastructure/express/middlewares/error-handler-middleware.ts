@@ -3,9 +3,9 @@ import { DefaultError } from '~/application/errors/default-app-error'
 
 export const errorHandler = (
   error: Error | DefaultError,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction,
+  _next: NextFunction,
 ) => {
   const internal = {
     error: 'Internal_ERROR',

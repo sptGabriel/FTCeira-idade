@@ -1,20 +1,20 @@
 import { describe, test } from '@jest/globals'
 import { NextFunction, Request, Response } from 'express'
-import request from 'supertest'
-import { error } from 'winston'
 import { BadRequestERROR } from '~/application/errors/bad-request-error'
-import app from '../setup/app'
 import { errorHandler } from './error-handler-middleware'
 
 describe('Content Type  Middleware', () => {
   let mockRequest: Partial<Request>
   const mockResponse = () => {
-    const res = {} as any
+    const res = {} as {
+      status: jest.FunctionLike
+      json: jest.FunctionLike
+    }
     res.status = jest.fn().mockReturnValue(res)
     res.json = jest.fn().mockReturnValue(res)
     return res
   }
-  let nextFunction: NextFunction = jest.fn()
+  const nextFunction: NextFunction = jest.fn()
 
   test('should return a internal error', async () => {
     const res = mockResponse()

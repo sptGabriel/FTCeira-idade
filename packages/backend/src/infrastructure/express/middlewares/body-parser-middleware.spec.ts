@@ -1,5 +1,5 @@
 import { describe, it } from '@jest/globals'
-import request, { Request } from 'supertest'
+import request from 'supertest'
 import app from '../setup/app'
 
 describe('Body parser Middleware', () => {
@@ -7,9 +7,9 @@ describe('Body parser Middleware', () => {
     app.post('/body_parser', (req, res) => {
       res.send(req.body)
     })
-    await request(app)
+    const result = await request(app)
       .post('/body_parser')
-      .send({ pass: 'body-parser' })
-      .expect({ pass: 'body-parser' })
+      .send({ bodyParser: 'pass' })
+    expect(result.body).toMatchObject({ bodyParser: 'pass' })
   })
 })

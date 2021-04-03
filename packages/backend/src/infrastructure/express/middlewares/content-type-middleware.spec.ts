@@ -1,5 +1,5 @@
-import { describe, test } from '@jest/globals'
-import request, { Request } from 'supertest'
+import { describe } from '@jest/globals'
+import request from 'supertest'
 import app from '../setup/app'
 
 describe('Content Type  Middleware', () => {
@@ -7,14 +7,19 @@ describe('Content Type  Middleware', () => {
     app.get('/content_type', (req, res) => {
       res.send('')
     })
-    await request(app).get('/content_type').expect('content-type', /json/)
+    const result = await request(app).get('/content_type')
+    expect(result.headers['content-type']).toBe(
+      'application/json; charset=utf-8',
+    )
   })
   it('should return xml default when force', async () => {
     app.get('/content_type_xml', (req, res) => {
       res.type('xml')
       res.send('')
     })
-
-    await request(app).get('/content_type_xml').expect('content-type', /xml/)
+    const result = await request(app).get('/content_type_xml')
+    expect(result.headers['content-type']).toBe(
+      'application/xml; charset=utf-8',
+    )
   })
 })

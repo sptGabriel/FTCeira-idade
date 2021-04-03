@@ -14,7 +14,7 @@ export const adaptRoute = (controller: IController) => {
       })
       response.status(result.statusCode).json(result.body)
     } catch (error) {
-      let { originalUrl, method, ip } = request
+      const { originalUrl, method, ip } = request
       Logger.error(`${error.message} - ${originalUrl} - ${method} - ${ip}`)
       next(error)
     }

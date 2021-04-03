@@ -1,6 +1,5 @@
-import knex, { Knex } from "knex"
-import { retryPromise } from "~/common/helpers/retryablePromise-helper"
-
+import knex, { Knex } from 'knex'
+import { retryPromise } from '~/common/helpers/retryablePromise-helper'
 
 export const Connection = {
   client: (null as unknown) as Knex<any, unknown[]>,

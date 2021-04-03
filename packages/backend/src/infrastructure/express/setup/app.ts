@@ -6,7 +6,6 @@ import { errorHandler } from '../middlewares/error-handler-middleware'
 import { loggerMiddleware } from '../middlewares/logger-middleware'
 import { metricsMiddleware } from '../middlewares/metrics-middleware'
 import { rateLimitter } from '../middlewares/rate-limit-middleware'
-
 import { setupRoutes } from './routes'
 
 const router = Router()

@@ -1,4 +1,4 @@
-import { IErrorModel } from "./error-model";
+import { IErrorModel } from './error-model'
 
 export interface ApplicationERROR {
   name: string

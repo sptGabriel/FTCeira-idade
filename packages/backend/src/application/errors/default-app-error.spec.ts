@@ -1,3 +1,4 @@
+import { describe, it } from '@jest/globals'
 import { BadRequestERROR } from './bad-request-error'
 
 describe('Bad Request Error', () => {

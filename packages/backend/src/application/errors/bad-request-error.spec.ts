@@ -1,4 +1,4 @@
-import { BadRequestERROR } from './bad-request-error'
+import { describe, it } from '@jest/globals'
 import { DefaultError } from './default-app-error'
 
 describe('Default Error', () => {
@@ -16,7 +16,7 @@ describe('Default Error', () => {
     }
     expect(action).toThrow('Internal error')
   })
-  it('should throw', async () => {
+  it('should serialize error', async () => {
     const action = new DefaultError()
     expect(action.serialize()).toMatchObject({
       errors: undefined,

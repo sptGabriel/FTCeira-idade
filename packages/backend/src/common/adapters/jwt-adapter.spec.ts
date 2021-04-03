@@ -28,7 +28,7 @@ describe('Jwt Adapter', () => {
 
   it('Should call sign with correct values and undefined expiresIn', async () => {
     jest.spyOn(jwt, 'sign')
-    const adapter = new JwtAdapter('secret', undefined)
+    const adapter = new JwtAdapter('secret', null as unknown as number)
     await adapter.encrypt('x')
     expect(jwt.sign).toHaveReturnedTimes(1)
     expect(jwt.sign).toHaveBeenCalledWith({ id: 'x' }, 'secret', {
@@ -51,7 +51,7 @@ describe('Jwt Adapter', () => {
     const encrypt = async () => {
       await adapter.encrypt('any_id')
     }
-    expect(encrypt).rejects.toThrow('problem to generate access TOKEN')
+    await expect(encrypt()).rejects.toThrow('problem to generate access TOKEN')
   })
 
   it('Should call verify with correct values', async () => {
@@ -64,19 +64,19 @@ describe('Jwt Adapter', () => {
 
   it('Should call verify with correct values and undefined expiresIn', async () => {
     jest.spyOn(jwt, 'verify')
-    const adapter = new JwtAdapter('secret', undefined)
+    const adapter = new JwtAdapter('secret', null as unknown as number)
     await adapter.decrypt('x')
     expect(jwt.verify).toHaveReturnedTimes(1)
     expect(jwt.verify).toHaveBeenCalledWith('x', 'secret')
   })
 
-	it('Should return a payload on verify success', async () => {
+  it('Should return a payload on verify success', async () => {
     const provider = sut()
     const value = await provider.decrypt('any_token')
     expect(value).toBe('payload')
   })
 
-	it('Should return error if verify failed', async () => {
+  it('Should return error if verify failed', async () => {
     const adapter = sut()
     jest.spyOn(jwt, 'verify').mockImplementationOnce(() => {
       throw new Error('problem to decrypt token') as any
@@ -84,6 +84,6 @@ describe('Jwt Adapter', () => {
     const decrypt = async () => {
       await adapter.decrypt('token')
     }
-    expect(decrypt).rejects.toThrow('problem to decrypt token')
+    await expect(decrypt).rejects.toThrow('problem to decrypt token')
   })
 })

@@ -4,6 +4,8 @@ import { Navigate } from 'react-router-dom';
 import DashboardLayout from 'src/layouts/DashboardLayout';
 import MainLayout from 'src/layouts/MainLayout';
 
+import DashboardView from 'src/views/dashboard/DashboardView';
+
 import LoginView from 'src/views/auth/LoginView';
 import ResetView from 'src/views/auth/ResetView';
 import RecoverView from 'src/views/auth/RecoverView';
@@ -34,7 +36,7 @@ import QuestionEdit from 'src/views/question/QuestionEdit';
 // import QuestionDelete from 'src/views/question/QuestionDelete';
 
 import ClassRoomListView from 'src/views/classroom/ClassRoomListView';
-import DashboardView from 'src/views/dashboard/DashboardView';
+import ClassRoomPerformanceView from 'src/views/classroom/ClassRoomPerformanceView';
 
 import CourseListView from 'src/views/course/CourseListView';
 import CourseEdit from 'src/views/course/CourseEdit';
@@ -86,7 +88,7 @@ const routes = [
       // { path: 'classroom-edit', element: <ClassRoomEdit /> },
       // { path: 'classroom-register', element: <ClassRoomRegister /> },
       // { path: 'classroom-delete', element: <ClassRoomDelete /> },
-      // { path: 'classroom-performance', element: <ClassroomPerformanceView /> },
+      { path: 'classroom-performance', element: <ClassRoomPerformanceView /> },
 
       { path: 'account', element: <AccountView /> },
       { path: '*', element: <Navigate to="/404" /> }

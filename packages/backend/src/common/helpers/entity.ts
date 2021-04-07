@@ -1,30 +1,53 @@
-import { v4 } from 'uuid'
-import { Identifier } from './Identifier'
-
-const isEntity = (v: any): v is Entity => {
+export const isEntity = (v: any): v is Entity<any> => {
   return v instanceof Entity
 }
 
-export class UniqueEntityID extends Identifier<string | number> {
-  constructor(id?: string | number) {
-    super(id ? id : v4())
+export class Identifier<T> {
+  constructor(private value: T) {
+    this.value = value
   }
-}
-
-export abstract class Entity {
-  protected readonly _id: UniqueEntityID
-
-  constructor(id?: UniqueEntityID) {
-    this._id = id ? id : new UniqueEntityID()
-  }
-
-  public equals(object?: Entity): boolean {
-    if (object == null || object == undefined || !isEntity(object)) {
+  equals(id?: Identifier<T>): boolean {
+    if (id === null || id === undefined) {
       return false
     }
-    if (this === object) return true
-    return this._id.equals(object._id)
+    if (!(id instanceof this.constructor)) {
+      return false
+    }
+    return id.toValue() === this.value
+  }
+  toString() {
+    const constructorName = this.constructor.name
+    return `${constructorName}(${String(this.value)})`
+  }
+  toValue(): T {
+    return this.value
   }
 }
 
+export class Entity<ID extends Identifier<any>> {
+  private readonly _id: ID
 
+  constructor(props: ID) {
+    this._id = Object.freeze(props)
+  }
+
+  /*
+   * Check equality by identifier
+   */
+  equals(object?: Entity<ID>): boolean {
+    if (object == null || object == undefined) {
+      return false
+    }
+    if (this === object) {
+      return true
+    }
+    if (!isEntity(object)) {
+      return false
+    }
+    return this.id.equals(object.id);
+  }
+
+  get id (): ID {
+    return this.id
+  }
+}

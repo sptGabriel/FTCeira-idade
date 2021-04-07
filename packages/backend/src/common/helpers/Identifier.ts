@@ -2,7 +2,6 @@ export class Identifier<T> {
   constructor(private value: T) {
     this.value = value
   }
-
   equals(id?: Identifier<T>): boolean {
     if (id === null || id === undefined) {
       return false
@@ -12,12 +11,10 @@ export class Identifier<T> {
     }
     return id.toValue() === this.value
   }
-
   toString() {
     const constructorName = this.constructor.name
     return `${constructorName}(${String(this.value)})`
   }
-
   toValue(): T {
     return this.value
   }

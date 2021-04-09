@@ -2,7 +2,7 @@ export const isEntity = (v: any): v is Entity<any> => {
   return v instanceof Entity
 }
 
-export class Identifier<T> {
+export abstract class Identifier<T> {
   constructor(private value: T) {
     this.value = value
   }
@@ -24,7 +24,8 @@ export class Identifier<T> {
   }
 }
 
-export class Entity<ID extends Identifier<any>> {
+
+export abstract class Entity<ID extends Identifier<any>> {
   private readonly _id: ID
 
   constructor(props: ID) {
@@ -47,7 +48,15 @@ export class Entity<ID extends Identifier<any>> {
     return this.id.equals(object.id);
   }
 
-  get id (): ID {
+  get id(): ID {
     return this.id
   }
+}
+
+export interface IRepository<T extends Entity<Identifier<any>>
+  = Entity<Identifier<any>>> {
+  AddOrUpdate(obj: T): Promise<void>
+  GetById(id: string): Promise<T>
+  Remove(id: string): Promise<T>
+  Count(): number
 }

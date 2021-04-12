@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-import DashboardLayout from 'src/layouts/DashboardLayout';
+import UserLayout from 'src/layouts/UserLayout';
 import MainLayout from 'src/layouts/MainLayout';
 
 import DashboardView from 'src/views/dashboard/DashboardView';
@@ -12,7 +12,7 @@ import RecoverView from 'src/views/auth/RecoverView';
 import RegisterView from 'src/views/auth/RegisterView';
 import AccountView from 'src/views/account/AccountView';
 
-// import HomeView from 'src/views/home/HomeView';
+import HomeView from 'src/views/home/HomeView';
 
 import EnrollmentListView from 'src/views/enrollment/EnrollmentListView';
 // import EnrollmentRegister from 'src/views/enrollment/EnrollmentRegister';
@@ -26,6 +26,7 @@ import StudentListView from 'src/views/student/StudentListView';
 import StudentEdit from 'src/views/student/StudentEdit';
 import StudentPerformanceView from 'src/views/student/StudentPerformanceView';
 // import StudentDelete from 'src/views/student/StudentDelete';
+import StudentAssessmentListView from 'src/views/student/StudentAssessmentListView';
 
 import AssessmentListView from 'src/views/assessment/AssessmentListView';
 import AssessmentRegister from 'src/views/assessment/AssessmentRegister';
@@ -35,10 +36,10 @@ import QuestionRegister from 'src/views/question/QuestionRegister';
 import QuestionEdit from 'src/views/question/QuestionEdit';
 // import QuestionDelete from 'src/views/question/QuestionDelete';
 
-import ClassRoomListView from 'src/views/classroom/ClassRoomListView';
+import ClassRoomGridView from 'src/views/classroom/ClassRoomGridView';
 import ClassRoomPerformanceView from 'src/views/classroom/ClassRoomPerformanceView';
 
-import CourseListView from 'src/views/course/CourseListView';
+import CourseGridView from 'src/views/course/CourseGridView';
 import CourseEdit from 'src/views/course/CourseEdit';
 import CourseRegister from 'src/views/course/CourseRegister';
 import CoursePerformanceView from 'src/views/course/CoursePerformanceView';
@@ -49,8 +50,9 @@ import NotFoundView from 'src/views/errors/NotFoundView';
 const routes = [
   {
     path: 'app',
-    element: <DashboardLayout />,
+    element: <UserLayout />,
     children: [
+      { path: 'home', element: <HomeView /> },
       { path: 'dashboard', element: <DashboardView /> },
 
       { path: 'teachers', element: <TeacherListView /> },
@@ -62,13 +64,14 @@ const routes = [
       { path: 'student-edit', element: <StudentEdit /> },
       //  { path: 'student-delete', element: <StudentDelete /> },
       { path: 'student-performance', element: <StudentPerformanceView /> },
+      { path: 'student-assessments', element: <StudentAssessmentListView /> },
 
       { path: 'enrollments', element: <EnrollmentListView /> },
       { path: 'enrollment-edit', element: <EnrollmentEdit /> },
       // { path: 'enrollment-register', element: <EnrollmentRegister /> },
       //  { path: 'enrollment-delete', element: <EnrollmentDelete /> },
 
-      { path: 'courses', element: <CourseListView /> },
+      { path: 'courses', element: <CourseGridView /> },
       { path: 'course-edit', element: <CourseEdit /> },
       { path: 'course-register', element: <CourseRegister /> },
       { path: 'course-performance', element: <CoursePerformanceView /> },
@@ -84,7 +87,7 @@ const routes = [
       { path: 'question-register', element: <QuestionRegister /> },
       // { path: 'question-delete', element: <QuestionDelete /> },
 
-      { path: 'classrooms', element: <ClassRoomListView /> },
+      { path: 'classrooms', element: <ClassRoomGridView /> },
       // { path: 'classroom-edit', element: <ClassRoomEdit /> },
       // { path: 'classroom-register', element: <ClassRoomRegister /> },
       // { path: 'classroom-delete', element: <ClassRoomDelete /> },
@@ -98,7 +101,6 @@ const routes = [
     path: '/',
     element: <MainLayout />,
     children: [
-      // { path: 'home', element: <HomeView /> },
       { path: 'login', element: <LoginView /> },
       { path: 'reset', element: <ResetView /> },
       { path: 'recover', element: <RecoverView /> },

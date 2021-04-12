@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Toolbar from './Toolbar';
-import QuestionCard from './QuestionCard';
+import Component from './Component';
 import data from './data';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const QuestionList = () => {
+const QuestionListView = () => {
   const classes = useStyles();
   const [questions] = useState(data);
 
@@ -48,7 +48,7 @@ const QuestionList = () => {
                     key={question.id}
                     xs
                   >
-                    <QuestionCard
+                    <Component
                       className={classes.questionCard}
                       question={question}
                     />
@@ -64,4 +64,4 @@ const QuestionList = () => {
   );
 };
 
-export default QuestionList;
+export default QuestionListView;

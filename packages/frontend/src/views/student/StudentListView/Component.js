@@ -18,7 +18,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import labels from '../../../utils/labels';
-import '../../../utils/datagrid.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -30,6 +29,12 @@ const useStyles = makeStyles((theme) => ({
   },
   actions: {
     paddingTop: theme.spacing(2)
+  },
+  '@global': {
+    'div.MuiDataGridColumnsPanel-container > :first-of-type': {
+      visibility: 'hidden !important',
+      position: 'absolute'
+    }
   }
 }));
 
@@ -42,7 +47,7 @@ const CustomToolbar = () => {
   );
 };
 
-const Results = ({
+const Component = ({
   className, students, loading, ...rest
 }) => {
   const classes = useStyles();
@@ -155,11 +160,11 @@ const Results = ({
   );
 };
 
-Results.propTypes = {
+Component.propTypes = {
   className: PropTypes.string,
   students: PropTypes.array.isRequired,
   loading: PropTypes.bool,
   avatarURL: PropTypes.string
 };
 
-export default Results;
+export default Component;

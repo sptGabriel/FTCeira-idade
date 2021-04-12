@@ -5,8 +5,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
-import Results from './Results';
-import Toolbar from './Toolbar';
+import Component from './Component';
 import data from './data';
 
 const useStyles = makeStyles((theme) => ({
@@ -18,24 +17,23 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ClassRoomListView = () => {
+const StudentAssessmentListView = () => {
   const classes = useStyles();
   const [loading] = useState(false);
-  const [classrooms] = useState(data);
+  const [assessments] = useState(data);
 
   return (
     <Page
       className={classes.root}
-      title="Turmas"
+      title="Avaliações"
     >
       <Container maxWidth={false}>
-        <Toolbar />
         <Box mt={3}>
-          <Results classrooms={classrooms} loading={loading} />
+          <Component assessments={assessments} loading={loading} />
         </Box>
       </Container>
     </Page>
   );
 };
 
-export default ClassRoomListView;
+export default StudentAssessmentListView;

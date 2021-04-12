@@ -8,7 +8,7 @@ import {
 import { Pagination } from '@material-ui/lab';
 import Page from 'src/components/Page';
 import Toolbar from './Toolbar';
-import CourseCard from './CourseCard';
+import Component from './Component';
 import data from './data';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,9 +28,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CourseList = () => {
+const ClassRoomGrid = () => {
   const classes = useStyles();
-  const [courses] = useState(data);
+  const [classrooms] = useState(data);
   const [limit] = useState(9);
   const [page, setPage] = useState(1);
 
@@ -41,7 +41,7 @@ const CourseList = () => {
   return (
     <Page
       className={classes.root}
-      title="Cursos"
+      title="Turmas"
     >
       <Container maxWidth={false}>
         <Toolbar />
@@ -50,17 +50,17 @@ const CourseList = () => {
             container
             spacing={3}
           >
-            {courses.slice((page - 1) * limit, (page - 1) * limit + limit).map((course) => (
+            {classrooms.slice((page - 1) * limit, (page - 1) * limit + limit).map((classroom) => (
               <Grid
                 item
-                key={course.id}
+                key={classroom.id}
                 lg={4}
                 md={6}
                 xs={12}
               >
-                <CourseCard
+                <Component
                   className={classes.card}
-                  course={course}
+                  classroom={classroom}
                 />
               </Grid>
             ))}
@@ -75,7 +75,7 @@ const CourseList = () => {
             className={classes.pagination}
             color="primary"
             size="small"
-            count={Math.ceil(courses.length / 9)}
+            count={Math.ceil(classrooms.length / 9)}
             onChange={handlePageChange}
             defaultPage={1}
             page={page}
@@ -86,4 +86,4 @@ const CourseList = () => {
     </Page>
   );
 };
-export default CourseList;
+export default ClassRoomGrid;

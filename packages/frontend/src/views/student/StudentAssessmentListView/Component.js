@@ -12,12 +12,8 @@ import {
   DataGrid, GridToolbarContainer, GridColumnsToolbarButton, GridFilterToolbarButton
 } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import BarChartIcon from '@material-ui/icons/BarChart';
 import labels from '../../../utils/labels';
-import '../../../utils/datagrid.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -42,7 +38,7 @@ const CustomToolbar = () => {
 };
 
 const Results = ({
-  className, classrooms, loading, ...rest
+  className, assessments, loading, ...rest
 }) => {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -50,29 +46,36 @@ const Results = ({
 
   const clickActions = (action) => {
     switch (action) {
-      case 'chart':
-        navigate('/app/classroom-performance', { replace: false });
-        break;
       case 'view':
-        navigate('/app/classroom-view', { replace: false });
+        navigate('/app/student-assessment-view', { replace: false });
         break;
       case 'edit':
-        navigate('/app/classroom-edit', { replace: false });
+        //
         break;
       case 'delete':
-        navigate('/app/classroom-delete', { replace: false });
+        //
         break;
       default:
         break;
     }
   };
-  //------------
-
+  // ------------
   const columns = [
-    { field: 'code', headerName: 'Código', width: 200 },
-    { field: 'description', headerName: 'Descrição', width: 650 },
-    { field: 'course', headerName: 'Curso', width: 350 },
-    { field: 'shift', headerName: 'Turno', width: 100 },
+    {
+      field: 'description',
+      headerName: 'Descricao',
+      width: 750
+    },
+    {
+      field: 'initial_date',
+      headerName: 'Data inicial',
+      width: 200
+    },
+    {
+      field: 'end_date',
+      headerName: 'Data final',
+      width: 150
+    },
     {
       field: 'acoes',
       headerName: 'Ações',
@@ -91,16 +94,7 @@ const Results = ({
           spacing={1}
         >
           <Grid item>
-            <BarChartIcon className={classes.button} onClick={() => { clickActions('chart'); }} />
-          </Grid>
-          <Grid item>
             <VisibilityIcon className={classes.button} onClick={() => { clickActions('view'); }} />
-          </Grid>
-          <Grid item>
-            <EditIcon className={classes.button} onClick={() => { clickActions('edit'); }} />
-          </Grid>
-          <Grid item>
-            <DeleteIcon className={classes.button} onClick={() => { clickActions('delete'); }} />
           </Grid>
         </Grid>
       ),
@@ -112,19 +106,17 @@ const Results = ({
       className={clsx(classes.root, className)}
       {...rest}
     >
-
       <Box minWidth="md">
-        <TableToolbar className title="Turmas" />
+        <TableToolbar className title="Avaliações" />
         <div style={{ width: '100%' }}>
           <DataGrid
-            rows={classrooms}
+            rows={assessments}
             columns={columns.map((column) => ({
               ...column,
               disableClickEventBubbling: true,
             }))}
             pageSize={10}
             autoHeight
-            checkboxSelection
             components={{
               Toolbar: CustomToolbar,
             }}
@@ -140,8 +132,9 @@ const Results = ({
 
 Results.propTypes = {
   className: PropTypes.string,
-  classrooms: PropTypes.array.isRequired,
-  loading: PropTypes.bool
+  assessments: PropTypes.array.isRequired,
+  loading: PropTypes.bool,
+  avatarURL: PropTypes.string
 };
 
 export default Results;

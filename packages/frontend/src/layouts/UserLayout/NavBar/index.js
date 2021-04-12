@@ -13,15 +13,24 @@ import {
   Button
 } from '@material-ui/core';
 import {
+  Home as HomeIcon,
   BarChart as BarChartIcon,
-  ShoppingBag as ShoppingBagIcon,
+  BookOpen as ClassRoomIcon,
+  Book as CourseIcon,
   Users as UsersIcon,
+  FileText as AssessmentIcon,
+  Edit as QuestionIcon,
   LogOut as LogOutIcon
 } from 'react-feather';
 import NavItem from './NavItem';
 import data from './data';
 
 const items = [
+  {
+    href: '/app/home',
+    icon: HomeIcon,
+    title: 'Home'
+  },
   {
     href: '/app/dashboard',
     icon: BarChartIcon,
@@ -39,24 +48,24 @@ const items = [
   },
   {
     href: '/app/courses',
-    icon: ShoppingBagIcon,
+    icon: CourseIcon,
     title: 'Cursos'
   },
   {
     href: '/app/classrooms',
-    icon: ShoppingBagIcon,
+    icon: ClassRoomIcon,
     title: 'Turmas'
   },
   {
-    href: '/app/assessments',
-    icon: ShoppingBagIcon,
-    title: 'Avaliações'
-  },
-  {
     href: '/app/questions',
-    icon: ShoppingBagIcon,
+    icon: QuestionIcon,
     title: 'Questões'
   },
+  {
+    href: '/app/assessments',
+    icon: AssessmentIcon,
+    title: 'Avaliações'
+  }
 ];
 
 const useStyles = makeStyles((theme) => ({

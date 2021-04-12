@@ -48,7 +48,7 @@ const LoginView = () => {
               password: Yup.string().max(255).required('Senha obrigatória')
             })}
             onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+              navigate('/app/home', { replace: true });
             }}
           >
             {({

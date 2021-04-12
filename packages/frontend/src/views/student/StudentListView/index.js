@@ -5,7 +5,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
-import Results from './Results';
+import Component from './Component';
 import Toolbar from './Toolbar';
 import data from './data';
 
@@ -31,7 +31,7 @@ const StudentListView = () => {
       <Container maxWidth={false}>
         <Toolbar />
         <Box mt={3}>
-          <Results students={students} loading={loading} />
+          <Component students={students} loading={loading} />
         </Box>
       </Container>
     </Page>

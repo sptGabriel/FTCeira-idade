@@ -12,12 +12,10 @@ import {
   DataGrid, GridToolbarContainer, GridColumnsToolbarButton, GridFilterToolbarButton
 } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import labels from './labels';
-import '../../../utils/datagrid.css';
+import labels from '../../../utils/labels';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -29,6 +27,12 @@ const useStyles = makeStyles((theme) => ({
   },
   actions: {
     paddingTop: theme.spacing(2)
+  },
+  '@global': {
+    'div.MuiDataGridColumnsPanel-container > :first-of-type': {
+      visibility: 'hidden !important',
+      position: 'absolute'
+    }
   }
 }));
 
@@ -42,7 +46,7 @@ const CustomToolbar = () => {
 };
 
 const Results = ({
-  className, teachers, loading, ...rest
+  className, assessments, loading, ...rest
 }) => {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -51,45 +55,35 @@ const Results = ({
   const clickActions = (action) => {
     switch (action) {
       case 'view':
-        navigate('/app/teacher-view', { replace: false });
+        navigate('/app/assessment-view', { replace: false });
         break;
       case 'edit':
-        navigate('/app/teacher-edit', { replace: false });
+        navigate('/app/assessment-edit', { replace: false });
         break;
       case 'delete':
-        navigate('/app/teacher-delete', { replace: false });
+        navigate('/app/assessment-delete', { replace: false });
         break;
       default:
         break;
     }
   };
-  //------------
-
+  // ------------
   const columns = [
+    { field: 'description', headerName: 'Descrição', width: 750 },
     {
-      field: 'avatarURL',
-      headerName: 'Avatar',
-      width: 100,
-      description: 'Essa coluna não pode ser ordenada',
-      sortable: false,
-      filterable: false,
-      renderCell: ({ avatarURL }) => (
-        <Avatar alt="" src={(avatarURL)} />
-      ),
+      field: 'initial_date',
+      headerName: 'Data inicials',
+      width: 200
     },
-    { field: 'name', headerName: 'Nome', width: 450 },
-    { field: 'email', headerName: 'Email', width: 200 },
-    { field: 'phone', headerName: 'Telefone', width: 150 },
     {
-      field: '_',
-      headerName: 'Endereço',
-      width: 400,
-      valueGetter: (params) => `${params.row.street || ''}, ${params.row.city || ''}`,
+      field: 'end_date',
+      headerName: 'Data final',
+      width: 150
     },
     {
       field: 'acoes',
       headerName: 'Ações',
-      width: 150,
+      width: 200,
       description: 'Essa coluna não pode ser ordenada',
       sortable: false,
       filterable: false,
@@ -123,10 +117,10 @@ const Results = ({
       {...rest}
     >
       <Box minWidth="md">
-        <TableToolbar className title="Docentes" />
+        <TableToolbar className title="Avaliações" />
         <div style={{ width: '100%' }}>
           <DataGrid
-            rows={teachers}
+            rows={assessments}
             columns={columns.map((column) => ({
               ...column,
               disableClickEventBubbling: true,
@@ -149,7 +143,7 @@ const Results = ({
 
 Results.propTypes = {
   className: PropTypes.string,
-  teachers: PropTypes.array.isRequired,
+  assessments: PropTypes.array.isRequired,
   loading: PropTypes.bool,
   avatarURL: PropTypes.string
 };

@@ -1,5 +1,5 @@
-import { ISpecification } from "./interface/specification"
-import { Specification } from "./specification"
+import { ISpecification } from './interface/specification'
+import { Specification } from './specification'
 
 export class NotSpecification<T> extends Specification<T> {
   private other: ISpecification<T>

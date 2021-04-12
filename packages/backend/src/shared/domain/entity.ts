@@ -6,7 +6,7 @@ export abstract class Entity<Props extends IEntity> {
   constructor(props: Props) {
     this.props = Object.freeze(props)
   }
-  
+
   equals(object?: Entity<Props>): boolean {
     if (object == null || !object || !isEntity(object)) return false
     if (this === object) return true

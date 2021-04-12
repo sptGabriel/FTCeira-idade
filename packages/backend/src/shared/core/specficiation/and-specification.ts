@@ -1,6 +1,5 @@
-import { ISpecification } from "./interface/specification"
-import { Specification } from "./specification"
-
+import { ISpecification } from './interface/specification'
+import { Specification } from './specification'
 
 export class AndSpecification<T> extends Specification<T> {
   private left: ISpecification<T>

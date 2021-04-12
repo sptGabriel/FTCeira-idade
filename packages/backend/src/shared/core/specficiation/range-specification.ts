@@ -1,4 +1,4 @@
-import { Specification } from "./specification"
+import { Specification } from './specification'
 
 export class RangeSpecification<T> extends Specification<T> {
   private a: T

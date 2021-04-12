@@ -1,4 +1,4 @@
-import { OrSpecification } from "./or-specification"
+import { OrSpecification } from './or-specification'
 
 export class OrNotSpecification<T> extends OrSpecification<T> {
   isSatisfiedBy(candidate: T): boolean {

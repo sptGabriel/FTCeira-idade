@@ -1,4 +1,4 @@
-import { AndSpecification } from "./and-specification"
+import { AndSpecification } from './and-specification'
 
 export class AndNotSpecification<T> extends AndSpecification<T> {
   isSatisfiedBy(candidate: T): boolean {

@@ -1,10 +1,9 @@
-import { AndNotSpecification } from "./and-not-specification"
-import { AndSpecification } from "./and-specification"
-import { ISpecification } from "./interface/specification"
-import { NotSpecification } from "./not-specification"
-import { OrNotSpecification } from "./or-not-specification"
-import { OrSpecification } from "./or-specification"
-
+import { AndNotSpecification } from './and-not-specification'
+import { AndSpecification } from './and-specification'
+import { ISpecification } from './interface/specification'
+import { NotSpecification } from './not-specification'
+import { OrNotSpecification } from './or-not-specification'
+import { OrSpecification } from './or-specification'
 
 export abstract class Specification<T> implements ISpecification<T> {
   abstract isSatisfiedBy(candidate: T): boolean

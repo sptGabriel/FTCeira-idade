@@ -4,7 +4,6 @@ import { IConnection } from '~/shared/core/interfaces/connection'
 import { config } from '../database/config'
 
 class _DataContext implements IConnection {
-  
   private _connection: Knex<any, unknown[]>
   private _transaction: Knex.Transaction
 
@@ -35,7 +34,6 @@ class _DataContext implements IConnection {
     await this._connection.destroy()
     await this._transaction.destroy()
   }
-  
 }
 export const DataContext = new _DataContext()
 //export const Connection = {

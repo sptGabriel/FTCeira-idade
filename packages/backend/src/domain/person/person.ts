@@ -1,8 +1,8 @@
-import { User } from "./user-entity";
+import { User } from './user-entity'
 
 export interface IPerson {
   id: string
-	user: User
+  user: User
   firstName: string
   lastName: string
   registration: string

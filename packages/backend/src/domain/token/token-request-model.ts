@@ -1,3 +1,3 @@
-import { Token } from './token';
+import { Token } from './token'
 
-export type TokenRequestModel = Omit<Token, 'id'>;
+export type TokenRequestModel = Omit<Token, 'id'>

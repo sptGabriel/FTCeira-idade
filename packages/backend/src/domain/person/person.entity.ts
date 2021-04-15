@@ -1,14 +1,12 @@
-import { Entity } from '~/shared/domain';
-import { IPerson } from './interface/person';
+import { Entity } from '~/shared/domain'
+import { IPerson } from './person'
 
-export class Person extends Entity<IPerson>{
-	
+export class Person extends Entity<IPerson> {
   private constructor(props: IPerson) {
-		super(props)
-	}
-
-  public static create(cmd: any) {
+    super(props)
   }
+
+  public static create(cmd: any) {}
 }
 
 //export class Person extends Entity<IPerson> {

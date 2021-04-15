@@ -6,7 +6,7 @@ export class Person extends Entity<IPerson> {
     super(props)
   }
 
-  public static create(cmd: any) {}
+  public static create(_cmd: any) {}
 }
 
 //export class Person extends Entity<IPerson> {

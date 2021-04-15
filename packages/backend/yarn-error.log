@@ -1,8 +1,8 @@
 Arguments: 
-  /home/linuxbrew/.linuxbrew/Cellar/node/15.6.0/bin/node /mnt/c/Program Files (x86)/Yarn/bin/yarn.js add shallow-equal-object
+  /home/linuxbrew/.linuxbrew/Cellar/node/15.6.0/bin/node /mnt/c/Program Files (x86)/Yarn/bin/yarn.js add fluentvalidation-ts
 
 PATH: 
-  /home/gbcdev/.vscode-server/bin/c185983a683d14c396952dd432459097bc7f757f/bin:/home/gbcdev/.zinit/polaris/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files (x86)/Yarn/bin/:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Users/gbc-dev/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/gbc-dev/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/gbc-dev/AppData/Roaming/npm:/mnt/c/Users/gbc-dev/AppData/Local/Yarn/bin:/mnt/c/Program Files/MicroK蠸:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/bin
+  /home/gbcdev/.vscode-server/bin/08a217c4d27a02a5bcde898fd7981bda5b49391b/bin:/home/gbcdev/.zinit/polaris/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files (x86)/Yarn/bin/:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Users/gbc-dev/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/gbc-dev/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/gbc-dev/AppData/Roaming/npm:/mnt/c/Users/gbc-dev/AppData/Local/Yarn/bin:/mnt/c/Program Files/MicroK蠸:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/bin
 
 Yarn version: 
   1.22.5
@@ -119,6 +119,7 @@ npm manifest:
       "morgan": "^1.10.0",
       "pg": "^8.5.1",
       "prom-client": "^13.1.0",
+      "shallow-equal-object": "^1.1.1",
       "uuid": "^8.3.2",
       "validator": "^13.5.2",
       "winston": "^3.3.3"

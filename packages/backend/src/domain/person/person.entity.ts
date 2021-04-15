@@ -1,15 +1,15 @@
-//import { ICommand } from 'kill-event-sourcing'
-//import { v4 } from 'uuid'
-//import { Entity } from '~/common/helpers/entity'
-//import { User } from './user-entity'
+import { Entity } from '~/shared/domain';
+import { IPerson } from './interface/person';
 
-//export type IPerson = {
-//  id: string
-//  user: User
-//  firstName: string
-//  lastName: string
-//  registration: string
-//}
+export class Person extends Entity<IPerson>{
+	
+  private constructor(props: IPerson) {
+		super(props)
+	}
+
+  public static create(cmd: any) {
+  }
+}
 
 //export class Person extends Entity<IPerson> {
 //  constructor(props: IPerson) {

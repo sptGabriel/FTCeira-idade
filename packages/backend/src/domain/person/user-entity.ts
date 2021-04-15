@@ -1,13 +1,13 @@
-//export class User {
-//  private _login: string
-//  private _password: string
+import { Entity } from "~/shared/domain"
+import { IUser } from "./user"
 
-//  private constructor(_login: string, _password: string) {
-//    this._login = _login
-//    this._password = _password
-//  }
+export class User extends Entity<IUser> {
 
-//  public static CreateNew(login: string, password: string) {
-//    return new User(login, password)
-//  }
-//}
+  private constructor(props: any) {
+		super(props)
+  }
+
+  public static build() {
+    //return new User(login, password)
+  }
+}

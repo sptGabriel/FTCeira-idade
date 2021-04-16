@@ -1,5 +1,4 @@
-export interface IUser {
-  id: string
+export interface IUserJSON {
   login: string
   password: string
   refreshToken: string

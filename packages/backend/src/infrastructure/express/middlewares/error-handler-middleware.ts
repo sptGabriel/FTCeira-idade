@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { DefaultError } from '~/application/errors/default-app-error'
+import { DefaultError } from '~/application/errors/default-app.error'
 
 export const errorHandler = (
   error: Error | DefaultError,

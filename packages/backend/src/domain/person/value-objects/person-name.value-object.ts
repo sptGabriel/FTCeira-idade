@@ -1,5 +1,8 @@
+import validator from 'validator'
 import { IUnprocessableModel } from '~/application/errors/unprocessable-entity.error'
-import { Either } from '~/common/helpers/either-helper'
+import { rangeError } from '~/common/factories/errors/unprocessable-length-error.factory'
+import { missingFieldError as missingError } from '~/common/factories/errors/unprocessable-missing-error.factory'
+import { Either, left, right } from '~/common/helpers/either-helper'
 import { ValueObject } from '~/shared/domain'
 
 interface IName {
@@ -27,16 +30,32 @@ export class PersonName extends ValueObject<IName> {
     return this.props.lastName
   }
 
-  public static build(_data: IName): Either<IUnprocessableModel, PersonName> {
-    throw new Error(`not implemented yet`)
-    //let resource = 'person'
-    //let errors = [] as IUnprocessableModel[]
-    //const lastName = data.lastName ?? errors.push(buildMissingFieldErr('lastName', resource))
-    //const firstName = data.firstName ?? errors.push(requiredErr('firstName'))
-    //const fullName = lastName + firstName
-    //if (fullName.length < this.minLength) errors.push(minErr(this.minLength))
-    //if (fullName.length > this.maxLength) errors.push(maxErr(this.maxLength))
-    //const name = new PersonName({ firstName, lastName })
-    //return errors.length > 0 ? left(errors) : right(name)
+  private static isAppropriateLength(value: string): boolean {
+    const num = value.length
+    return num >= this.minLength && num <= this.maxLength
+  }
+  private static validateSize(value: string) {
+    return validator.isByteLength(value, {
+      min: this.minLength,
+      max: this.maxLength,
+    })
+  }
+
+  public static build(data: IName): Either<IUnprocessableModel[], PersonName> {
+    const errors = [] as IUnprocessableModel[]
+    const lastName = data.lastName ?? errors.push(missingError('lastName'))
+    const firstName = data.firstName ?? errors.push(missingError('firstName'))
+    if (errors.length > 0) return left(errors)
+    if (!this.isAppropriateLength(firstName)) {
+      const err = rangeError('firstName', this.maxLength, this.minLength)
+      errors.push(err)
+    }
+    if (!this.isAppropriateLength(lastName)) {
+      const err = rangeError('lastName', this.maxLength, this.minLength)
+      errors.push(err)
+    }
+    if (errors.length > 0) return left(errors)
+    const name = new PersonName({ firstName, lastName })
+    return right(name)
   }
 }

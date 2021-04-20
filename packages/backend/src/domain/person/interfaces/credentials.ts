@@ -1,5 +1,5 @@
-import { UserPassword } from '../value-objects/password.value-object'
-import { RefreshToken } from './jwt'
+import { Login } from '../value-objects/login.value-object'
+import { Password } from '../value-objects/password.value-object'
 
 export interface ICredentialsJSON {
   login: string
@@ -8,7 +8,7 @@ export interface ICredentialsJSON {
 }
 
 export interface ICredentialsProps {
-  login: string
-  password: UserPassword
-  refreshToken?: RefreshToken
+  login: Login
+  password: Password
+  refreshToken?: string
 }

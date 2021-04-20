@@ -1,5 +1,7 @@
+import { Credentials } from '../value-objects/person-credentials.value-object'
+import { PersonEmail } from '../value-objects/person-email.value-object'
 import { PersonName } from '../value-objects/person-name.value-object'
-import { ICredentialsJSON, ICredentialsProps } from './credentials'
+import { ICredentialsJSON } from './credentials'
 
 export interface IPersonJSON {
   credentails: ICredentialsJSON
@@ -8,6 +10,7 @@ export interface IPersonJSON {
 }
 
 export interface IPersonProps {
-  credentials: ICredentialsProps
+  credentials: Credentials
   name: PersonName
+  email: PersonEmail
 }

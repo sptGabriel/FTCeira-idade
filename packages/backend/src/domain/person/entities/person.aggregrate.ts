@@ -1,36 +1,37 @@
-//import { IValidator } from 'fluentvalidation-ts/dist/IValidator'
-//import { v4 } from 'uuid'
-//import { IErrorModel } from '~/application/ports/error-model'
-//import { Either, left, right } from '~/common/helpers/either-helper'
-//import { Entity } from '~/shared/domain'
-//import { ICredentialsJSON, ICredentialsProps } from '../interfaces/credentials'
-//import { IPersonJSON, IPersonProps } from '../interfaces/person'
-//import { PersonName } from '../value-objects/person-name.value-object'
+import { IUnprocessableModel } from '~/application/errors/unprocessable-entity.error'
+import { Either, right } from '~/common/helpers/either-helper'
+import { Entity } from '~/shared/domain'
+import { IPersonProps } from '../interfaces/person'
+import { Credentials } from '../value-objects/person-credentials.value-object'
+import { PersonEmail } from '../value-objects/person-email.value-object'
+import { PersonName } from '../value-objects/person-name.value-object'
 
-//export class Person extends Entity<IPersonProps> {
-//  private constructor(props: IPersonProps, id?: string) {
-//    super(props, id)
-//  }
+export class Person extends Entity<IPersonProps> {
+  private constructor(props: IPersonProps, id?: string) {
+    super(props, id)
+  }
 
-//  //private static canBuild(props: IPersonJSON): IErrorModel[] {
-//  //  let errors = [] as IErrorModel[]
-//  //  if (typeof props.firstName !== 'string') errors.push({} as any)
-//  //  if (typeof props.lastName !== 'string') errors.push({} as any)
-//  //  if (props.firstName.length < 4) errors.push({} as any)
-//  //  if (props.lastName.length < 2) errors.push({} as any)
-//  //  return errors
-//  //}
+  public get credentials(): Credentials {
+    return this.props.credentials
+  }
 
-//  public static build(
-//    props: IPersonProps,
-//    id: string,
-//  ): Either<IErrorModel[], Person> {
-//    const person = new Person(props, id)
-//    return right(person)
-//  }
+  public get name(): PersonName {
+    return this.props.name
+  }
 
-//  public createUser(data: ICredentialsProps) {
-//    if (this.props.credentials) return
-//    this.props.credentials = data
-//  }
-//}
+  public get email(): PersonEmail {
+    return this.props.email
+  }
+
+  public static build(
+    props: IPersonProps & { id: string },
+  ): Either<IUnprocessableModel[], Person> {
+    const person = new Person(props, props.id)
+    return right(person)
+  }
+
+  public createUser(data: Credentials) {
+    if (this.props.credentials) return
+    this.props.credentials = data
+  }
+}

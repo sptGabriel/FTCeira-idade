@@ -4,7 +4,7 @@ import { IUnprocessableModel } from '~/application/errors/unprocessable-entity.e
 import { minError } from '~/common/factories/errors/unprocessable-min-error.factory'
 import { Either, left, right } from '~/common/helpers/either-helper'
 
-export class Password extends ValueObject<{ value: string }> {
+export class Login extends ValueObject<{ value: string }> {
   public static minLength = 8
 
   private constructor(props: { value: string }) {
@@ -19,13 +19,12 @@ export class Password extends ValueObject<{ value: string }> {
     return password.length >= this.minLength
   }
 
-  public static build(value: string): Either<IUnprocessableModel[], Password> {
+  public static build(value: string): Either<IUnprocessableModel[], Login> {
     const errors = [] as IUnprocessableModel[]
-    const password = value ?? errors.push(missingError('password'))
+    const login = value ?? errors.push(missingError('Login'))
     if (typeof value === 'string' && !this.isAppropriateLength(value)) {
-      errors.push(minError('password', this.minLength))
+      errors.push(minError('Login', this.minLength))
     }
-    if (errors.length > 0) return left(errors)
-    return right(new Password({ value: password }))
+    return errors.length > 0 ? left(errors) : right(new Login({ value: login }))
   }
 }

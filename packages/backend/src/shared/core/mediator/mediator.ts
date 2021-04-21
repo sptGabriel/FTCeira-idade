@@ -14,7 +14,6 @@ export class Mediator implements IMediator {
     if (!command) throw new InvalidCommandException()
     const handler = this.registry.get(command.constructor.name)
     if (!handler) throw new HandlerNotFoundException(command.constructor.name)
-    if (!command.CanExecute()) throw new InvalidCommandException()
     return handler.execute(command)
   }
 }

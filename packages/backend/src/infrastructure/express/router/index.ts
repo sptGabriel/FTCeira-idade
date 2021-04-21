@@ -1,8 +1,8 @@
-//import { Router } from 'express'
-//import { personRouter } from './person.route'
+import { Router } from 'express'
+import { personRouter } from './person.route'
 
-//const router = Router()
+const router = Router()
 
-//router.use('/persons', personRouter)
+router.use('/persons', personRouter)
 
-//export { router }
+export { router }

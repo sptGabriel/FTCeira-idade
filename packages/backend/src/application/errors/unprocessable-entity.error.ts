@@ -17,9 +17,13 @@ export class UnprocessableERROR extends BaseError {
     if (errors) this.errors = errors
   }
 
+  private formatErrors() {
+    return this.errors.map((err) => ({ resource: this.resource, ...err }))
+  }
+
   public serialize() {
-    const { message, statusCode } = this
-    const errors = this.errors.length > 0 ? this.errors : undefined
-    return { message, statusCode, errors }
+    const { message } = this
+    const errors = this.errors.length > 0 ? this.formatErrors() : undefined
+    return { message, errors }
   }
 }

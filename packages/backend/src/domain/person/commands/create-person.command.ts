@@ -1,35 +1,27 @@
-//import { v4 } from 'uuid'
-//import { BadRequestERROR } from '~/application/errors/bad-request-error'
-//import { IErrorModel } from '~/application/ports/error-model'
-//import { ICommand } from '~/shared/core/mediator/interfaces/command'
-//import { IPersonJSON } from '../interfaces/person'
-//import { IUserJSON } from '../interfaces/user'
+import { v4 } from 'uuid'
+import { ICommand } from '~/shared/core/mediator/interfaces/command'
+import { Credentials } from '../value-objects/person-credentials.value-object'
+import { PersonEmail } from '../value-objects/person-email.value-object'
+import { PersonName } from '../value-objects/person-name.value-object'
 
-//export class CreatePersonCommand implements ICommand {
-//  private readonly id: string
-//  private readonly login!: string
-//  private readonly password!: string
-//  private readonly personId!: string
-//  private readonly firstName!: string
-//  private readonly lastName!: string
+export class CreatePersonCommand implements ICommand {
+  private readonly id: string
+  constructor(
+    private readonly _name: PersonName,
+    private readonly _email: PersonEmail,
+    private readonly _credentials: Credentials,
+  ) {
+    this.id = v4()
+  }
 
-//  constructor(person: Omit<IPersonJSON & IUserJSON, 'user' | 'personId'>) {
-//    this.id = v4()
-//    this.personId = this.id
-//    this.login = person.login
-//    this.password = person.password
-//    this.firstName = person.firstName
-//    this.lastName = person.lastName
-//  }
+  public get name(): PersonName {
+    return this._name
+  }
+  public get email(): PersonEmail {
+    return this._email
+  }
 
-//  public CanExecute(): boolean {
-//    const errors = [] as IErrorModel[]
-//    for (const field in this) {
-//      if (!this[field]) {
-//        errors.push({ code: 215, message: `Required field: ${field}` })
-//      }
-//    }
-//    if (errors.length > 0) throw new BadRequestERROR({ errors })
-//    return errors.length <= 0
-//  }
-//}
+  public get credentials(): Credentials {
+    return this._credentials
+  }
+}

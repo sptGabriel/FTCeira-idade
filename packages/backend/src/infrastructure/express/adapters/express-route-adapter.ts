@@ -12,7 +12,11 @@ export const adaptRoute = (controller: IController) => {
         headers: request.headers,
         accountId: request.userId,
       })
-      response.status(result.statusCode).json(result.body)
+      if (result.isRight()) {
+        return response.status(result.value.statusCode).json(result.value.body)
+      } else {
+        response.status(result.value.statusCode).json(result.value.serialize())
+      }
     } catch (error) {
       const { originalUrl, method, ip } = request
       Logger.error(`${error.message} - ${originalUrl} - ${method} - ${ip}`)

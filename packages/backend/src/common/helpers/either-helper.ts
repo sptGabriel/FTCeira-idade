@@ -39,3 +39,11 @@ export const left = <L, A>(l: L): Either<L, A> => {
 export const right = <L, A>(a: A): Either<L, A> => {
   return new Right<L, A>(a)
 }
+
+export const hasErrors = (values: Either<any, any>[]): any => {
+  const errors: any = []
+  for (const either of values) {
+    if (either.isLeft()) errors.push(...either.value)
+  }
+  return errors.length > 0 ? errors : false
+}

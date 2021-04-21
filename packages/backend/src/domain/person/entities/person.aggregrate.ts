@@ -1,5 +1,3 @@
-import { IUnprocessableModel } from '~/application/errors/unprocessable-entity.error'
-import { Either, right } from '~/common/helpers/either-helper'
 import { Entity } from '~/shared/domain'
 import { IPersonProps } from '../interfaces/person'
 import { Credentials } from '../value-objects/person-credentials.value-object'
@@ -23,11 +21,9 @@ export class Person extends Entity<IPersonProps> {
     return this.props.email
   }
 
-  public static build(
-    props: IPersonProps & { id: string },
-  ): Either<IUnprocessableModel[], Person> {
+  public static build(props: IPersonProps & { id?: string }): Person {
     const person = new Person(props, props.id)
-    return right(person)
+    return person
   }
 
   public createUser(data: Credentials) {

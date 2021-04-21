@@ -1,11 +1,11 @@
 import { IResponseHandler } from '~/application/ports/response-handler'
 import { IResponseModel } from '~/application/ports/response-model'
 
-export class DeletedResponse implements IResponseHandler<void> {
-  async response(): Promise<IResponseModel<void>> {
+export class CreatedResponse<T> implements IResponseHandler<T> {
+  async response(body: T): Promise<IResponseModel<T>> {
     return {
-      statusCode: 204,
-      body: undefined,
+      statusCode: 201,
+      body: body,
     }
   }
 }

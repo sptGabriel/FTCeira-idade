@@ -1,3 +1,1 @@
-export interface ICommand {
-  CanExecute(): boolean
-}
+export interface ICommand {}

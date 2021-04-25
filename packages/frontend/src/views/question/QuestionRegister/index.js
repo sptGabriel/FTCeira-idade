@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Grid,
+  Container,
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
@@ -17,25 +18,26 @@ const QuestionRegister = () => {
   return (
     <Page
       className={classes.root}
-      title="Questão - Registrar"
+      title="Nova questão"
     >
-      <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="flex-start"
-        spacing={3}
-      >
+      <Container maxWidth="lg">
         <Grid
-          item
-          lg={8}
-          md={6}
-          xs={12}
+          container
+          direction="row"
+          justify="center"
+          alignItems="flex-start"
+          spacing={3}
         >
-          <QuestionRegisterDetails />
+          <Grid
+            item
+            lg={8}
+            md={6}
+            xs={12}
+          >
+            <QuestionRegisterDetails />
+          </Grid>
         </Grid>
-      </Grid>
-
+      </Container>
     </Page>
   );
 };

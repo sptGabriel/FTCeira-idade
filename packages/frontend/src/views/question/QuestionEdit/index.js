@@ -1,18 +1,14 @@
 import React from 'react';
 import {
-  Container,
   Grid,
+  Container,
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import QuestionEditDetails from './QuestionEditDetails';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
-    backgroundColor: theme.palette.background.dark,
-    minHeight: '100%',
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
   }
 }));
 
@@ -22,10 +18,9 @@ const QuestionEdit = () => {
   return (
     <Page
       className={classes.root}
-      title="Questões - Editar"
+      title="Questão"
     >
-      <Container maxWidth="false">
-        {/* <Container maxWidth="lg"> */}
+      <Container maxWidth="lg">
         <Grid
           container
           direction="row"

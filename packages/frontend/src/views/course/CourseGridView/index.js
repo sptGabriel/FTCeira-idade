@@ -32,10 +32,13 @@ const CourseList = () => {
   const classes = useStyles();
   const [courses] = useState(data);
   const [limit] = useState(9);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(
+    localStorage.getItem('pagination_course') ? parseFloat(localStorage.getItem('pagination_course')) : 1
+  );
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
+    localStorage.setItem('pagination_course', newPage);
   };
 
   return (
@@ -77,7 +80,6 @@ const CourseList = () => {
             size="small"
             count={Math.ceil(courses.length / 9)}
             onChange={handlePageChange}
-            defaultPage={1}
             page={page}
             siblingCount={0}
           />

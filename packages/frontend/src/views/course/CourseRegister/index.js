@@ -9,6 +9,7 @@ import CourseRegisterDetails from './CourseRegisterDetails';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    backgroundColor: theme.palette.background.dark,
     minHeight: '100%',
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3)
@@ -21,10 +22,10 @@ const CourseRegister = () => {
   return (
     <Page
       className={classes.root}
-      title="Curso - Registrar"
+      title="Novo curso"
     >
-      {/* <Container maxWidth="lg"> */}
-      <Container maxWidth="false">
+      <Container maxWidth="lg">
+        {/* <Container maxWidth="false"> */}
         <Grid
           container
           direction="row"

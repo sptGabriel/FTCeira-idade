@@ -39,7 +39,7 @@ import QuestionEdit from 'src/views/question/QuestionEdit';
 
 import ClassRoomGridView from 'src/views/classroom/ClassRoomGridView';
 // import ClassRoomRegister from 'src/views/classroom/ClassRoomRegister';
-// import ClassRoomEdit from 'src/views/classroom/ClassRoomEdit';
+import ClassRoomEdit from 'src/views/classroom/ClassRoomEdit';
 import ClassRoomPerformanceView from 'src/views/classroom/ClassRoomPerformanceView';
 
 import CourseGridView from 'src/views/course/CourseGridView';
@@ -93,7 +93,7 @@ const routes = [
       // { path: 'question-delete', element: <QuestionDelete /> },
 
       { path: 'classrooms', element: <ClassRoomGridView /> },
-      // { path: 'classroom-edit', element: <ClassRoomEdit /> },
+      { path: 'classroom-edit', element: <ClassRoomEdit /> },
       //  { path: 'classroom-register', element: <ClassRoomRegister /> },
       // { path: 'classroom-delete', element: <ClassRoomDelete /> },
       { path: 'classroom-performance', element: <ClassRoomPerformanceView /> },

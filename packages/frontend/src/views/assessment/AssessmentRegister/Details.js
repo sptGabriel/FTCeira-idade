@@ -1,3 +1,4 @@
+import 'date-fns';
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
@@ -10,13 +11,34 @@ import {
   Divider,
   Grid,
   TextField,
-  makeStyles
+  makeStyles,
+  Checkbox,
+  FormControlLabel
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: theme.spacing(2),
     maxWidth: 1024,
+  },
+  initial_date: {
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+  },
+  final_date: {
+    marginLeft: theme.spacing(2),
+  },
+  note: {
+    maxWidth: 110,
+    marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(2),
+  },
+  nquestions: {
+    maxWidth: 150,
+  },
+  quiz: {
+    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(1),
   }
 }));
 
@@ -27,16 +49,24 @@ const Details = ({ className, ...rest }) => {
     description: '',
     initial_date: '',
     end_date: '',
-    note: '',
+    note: 0,
     course: 'Sistemas de Informação',
-    classroom: ''
+    auto_quiz: false,
+    number_questions: 0
   });
 
   const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
+    if (event.target.name === 'auto_quiz') {
+      setValues({
+        ...values,
+        [event.target.name]: event.target.checked
+      });
+    } else {
+      setValues({
+        ...values,
+        [event.target.name]: event.target.value
+      });
+    }
   };
 
   return (
@@ -65,86 +95,76 @@ const Details = ({ className, ...rest }) => {
                 fullWidth
                 required
                 multiline
-                rows={4}
+                rows={3}
                 label="Descrição"
                 name="description"
                 value={values.description}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                required
-                label="Data inicial"
-                name="initial_date"
-                value={values.initial_date}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                required
-                label="Data final"
-                name="end_date"
                 onChange={handleChange}
-                value={values.end_date}
                 variant="outlined"
               />
             </Grid>
+
             <Grid
               item
-              md={3}
-              xs={12}
             >
               <TextField
-                fullWidth
-                label="Nota da avaliação"
+                required
+                name="initial_date"
+                label="Data inicial"
+                type="date"
+                variant="outlined"
+                value={values.initial_date}
+                onChange={handleChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <TextField
+                className={classes.final_date}
+                required
+                name="end_date"
+                label="Data final"
+                type="date"
+                variant="outlined"
+                value={values.end_date}
+                onChange={handleChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <FormControlLabel
+                className={classes.quiz}
+                control={(
+                  <Checkbox
+                    name="auto_quiz"
+                    checked={values.auto_quiz}
+                    onChange={handleChange}
+                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                  />
+            )}
+                label="Questionário automático"
+              />
+              <TextField
+                className={classes.note}
+                label="Nota"
                 name="note"
                 type="number"
                 onChange={handleChange}
                 value={values.note}
                 variant="outlined"
+                disabled={values.auto_quiz}
+                required={!values.auto_quiz}
               />
-            </Grid>
-            <Grid
-              item
-              md={3}
-              xs={12}
-            >
               <TextField
-                fullWidth
-                required
-                disabled
-                label="Curso"
-                name="course"
+                className={classes.nquestions}
+                label="Nº questões"
+                name="number_questions"
+                type="number"
                 onChange={handleChange}
-                value={values.course}
+                value={values.number_questions}
                 variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={3}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                required
-                label="Turma COMBO"
-                name="classroom"
-                onChange={handleChange}
-                value={values.classroom}
-                variant="outlined"
+                disabled={!values.auto_quiz}
+                required={values.auto_quiz}
               />
             </Grid>
 

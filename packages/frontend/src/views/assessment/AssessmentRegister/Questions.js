@@ -9,7 +9,6 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-// import FavoriteIcon from '@material-ui/icons/Favorite';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -21,9 +20,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
   },
   note: {
-    maxWidth: 140,
+    maxWidth: 130,
     marginLeft: theme.spacing(2),
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
+  },
+  note_align: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -38,33 +41,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const QuestionCard = ({
-  className, question, ...rest
+  className, data, change, ...rest
 }) => {
   const classes = useStyles();
 
-  const [expanded, setExpanded] = React.useState(false);
-  const [checked, setChecked] = useState(false);
-  const [questions, setQuestions] = useState(question);
-  // const [questions, setQuestions] = useState({
-  //   id: '',
-  //   questioning: '',
-  //   type: '',
-  //   alternatives: [],
-  //   answer: '',
-  //   course: '',
-  //   note: ''
-  // });
-
-  const checkSelected = (event) => {
-    setChecked(event.target.checked);
-  };
-
-  const handleChange = (event) => {
-    setQuestions({
-      ...questions,
-      [event.target.name]: event.target.value,
-    });
-  };
+  const [expanded, setExpanded] = useState(false);
+  const [questions] = useState(data);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -77,7 +59,6 @@ const QuestionCard = ({
       className={classes.root}
       {...rest}
     >
-
       <Card>
         <CardContent>
           <Typography gutterBottom variant="subtitle1" component="p">
@@ -86,13 +67,11 @@ const QuestionCard = ({
         </CardContent>
         <CardActions disableSpacing>
           <Checkbox
-            checked={checked}
-            onChange={checkSelected}
+            name="selected"
+            checked={data.selected}
+           // onChange={change}
             inputProps={{ 'aria-label': 'primary checkbox' }}
           />
-          {/* <IconButton aria-label="favorites">
-            <FavoriteIcon />
-          </IconButton> */}
           <IconButton aria-label="edit">
             <EditIcon />
           </IconButton>
@@ -100,15 +79,18 @@ const QuestionCard = ({
             <DeleteIcon />
           </IconButton>
           <Typography aria-label="type">
-            {question.type}
+            {questions.type}
           </Typography>
           <TextField
             className={classes.note}
             label="valor da questão"
             name="note"
             type="number"
-            onChange={handleChange}
-            value={questions.note}
+          //  onChange={change}
+            value={data.note}
+            inputProps={{
+              classes: { root: classes.note_align }
+            }}
           />
           <IconButton
             className={clsx(classes.expand, {
@@ -145,7 +127,8 @@ const QuestionCard = ({
 
 QuestionCard.propTypes = {
   className: PropTypes.string,
-  question: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
+  change: PropTypes.any,
 };
 
 export default QuestionCard;

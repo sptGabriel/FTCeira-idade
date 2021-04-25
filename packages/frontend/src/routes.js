@@ -30,7 +30,7 @@ import StudentAssessmentListView from 'src/views/student/StudentAssessmentListVi
 
 import AssessmentListView from 'src/views/assessment/AssessmentListView';
 import AssessmentRegister from 'src/views/assessment/AssessmentRegister';
-import AssessmentEdit from 'src/views/assessment/AssessmentEdit';
+// import AssessmentEdit from 'src/views/assessment/AssessmentEdit';
 
 import QuestionListView from 'src/views/question/QuestionListView';
 import QuestionRegister from 'src/views/question/QuestionRegister';
@@ -38,8 +38,8 @@ import QuestionEdit from 'src/views/question/QuestionEdit';
 // import QuestionDelete from 'src/views/question/QuestionDelete';
 
 import ClassRoomGridView from 'src/views/classroom/ClassRoomGridView';
-import ClassRoomRegister from 'src/views/classroom/ClassRoomRegister';
-import ClassRoomEdit from 'src/views/classroom/ClassRoomEdit';
+// import ClassRoomRegister from 'src/views/classroom/ClassRoomRegister';
+// import ClassRoomEdit from 'src/views/classroom/ClassRoomEdit';
 import ClassRoomPerformanceView from 'src/views/classroom/ClassRoomPerformanceView';
 
 import CourseGridView from 'src/views/course/CourseGridView';
@@ -83,7 +83,7 @@ const routes = [
       // { path: 'course-delete', element: <CourseDelete /> },
 
       { path: 'assessments', element: <AssessmentListView /> },
-      { path: 'assessment-edit', element: <AssessmentEdit /> },
+      //  { path: 'assessment-edit', element: <AssessmentEdit /> },
       { path: 'assessment-register', element: <AssessmentRegister /> },
       // { path: 'assessment-delete', element: <AssessmentDelete /> },
 
@@ -93,8 +93,8 @@ const routes = [
       // { path: 'question-delete', element: <QuestionDelete /> },
 
       { path: 'classrooms', element: <ClassRoomGridView /> },
-      { path: 'classroom-edit', element: <ClassRoomEdit /> },
-      { path: 'classroom-register', element: <ClassRoomRegister /> },
+      // { path: 'classroom-edit', element: <ClassRoomEdit /> },
+      //  { path: 'classroom-register', element: <ClassRoomRegister /> },
       // { path: 'classroom-delete', element: <ClassRoomDelete /> },
       { path: 'classroom-performance', element: <ClassRoomPerformanceView /> },
 

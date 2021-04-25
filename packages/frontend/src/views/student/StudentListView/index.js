@@ -6,7 +6,6 @@ import {
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Component from './Component';
-import Toolbar from './Toolbar';
 import data from './data';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +28,6 @@ const StudentListView = () => {
       title="Discentes"
     >
       <Container maxWidth={false}>
-        <Toolbar />
         <Box mt={3}>
           <Component students={students} loading={loading} />
         </Box>

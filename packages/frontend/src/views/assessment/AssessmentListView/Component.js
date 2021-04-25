@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
   Box,
   Card,
-  Grid,
+  Grid
 } from '@material-ui/core';
 import TableToolbar from 'src/utils/TableToolbar';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +16,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import labels from '../../../utils/labels';
+import CustomTooltip from '../../../utils/CustomTooltip';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -72,7 +73,7 @@ const Results = ({
     { field: 'description', headerName: 'Descrição', width: 750 },
     {
       field: 'initial_date',
-      headerName: 'Data inicials',
+      headerName: 'Data inicial',
       width: 200
     },
     {
@@ -88,6 +89,7 @@ const Results = ({
       sortable: false,
       filterable: false,
       disableColumnSelector: true,
+      headerAlign: 'center',
       renderCell: () => (
         <Grid
           container
@@ -98,13 +100,19 @@ const Results = ({
           spacing={1}
         >
           <Grid item>
-            <VisibilityIcon className={classes.button} onClick={() => { clickActions('view'); }} />
+            <CustomTooltip title="visualizar">
+              <VisibilityIcon className={classes.button} onClick={() => { clickActions('view'); }} />
+            </CustomTooltip>
           </Grid>
           <Grid item>
-            <EditIcon className={classes.button} onClick={() => { clickActions('edit'); }} />
+            <CustomTooltip title="editar">
+              <EditIcon className={classes.button} onClick={() => { clickActions('edit'); }} />
+            </CustomTooltip>
           </Grid>
           <Grid item>
-            <DeleteIcon className={classes.button} onClick={() => { clickActions('delete'); }} />
+            <CustomTooltip title="excluir">
+              <DeleteIcon className={classes.button} onClick={() => { clickActions('delete'); }} />
+            </CustomTooltip>
           </Grid>
         </Grid>
       ),

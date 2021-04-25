@@ -17,6 +17,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import labels from './labels';
+import CustomTooltip from '../../../utils/CustomTooltip';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -34,6 +35,17 @@ const useStyles = makeStyles((theme) => ({
       visibility: 'hidden !important',
       position: 'absolute'
     }
+  },
+  datagrid: {
+    '& .MuiDataGrid-columnsContainer': {
+      backgroundColor: '#fafafa',
+    },
+    '& .MuiDataGrid-iconSeparator': {
+      display: 'none',
+    },
+    '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
+      borderRight: `1px solid ${'#f0f0f0'}`,
+    },
   }
 }));
 
@@ -82,13 +94,13 @@ const Results = ({
         <Avatar alt="" src={(avatarURL)} />
       ),
     },
-    { field: 'name', headerName: 'Nome', width: 450 },
+    { field: 'name', headerName: 'Nome', width: 465 },
     { field: 'email', headerName: 'Email', width: 200 },
     { field: 'phone', headerName: 'Telefone', width: 150 },
     {
       field: '_',
       headerName: 'Endereço',
-      width: 400,
+      width: 500,
       valueGetter: (params) => `${params.row.street || ''}, ${params.row.city || ''}`,
     },
     {
@@ -99,6 +111,7 @@ const Results = ({
       sortable: false,
       filterable: false,
       disableColumnSelector: true,
+      headerAlign: 'center',
       renderCell: () => (
         <Grid
           container
@@ -109,13 +122,19 @@ const Results = ({
           spacing={1}
         >
           <Grid item>
-            <VisibilityIcon className={classes.button} onClick={() => { clickActions('view'); }} />
+            <CustomTooltip title="visualizar">
+              <VisibilityIcon className={classes.button} onClick={() => { clickActions('view'); }} />
+            </CustomTooltip>
           </Grid>
           <Grid item>
-            <EditIcon className={classes.button} onClick={() => { clickActions('edit'); }} />
+            <CustomTooltip title="editar">
+              <EditIcon className={classes.button} onClick={() => { clickActions('edit'); }} />
+            </CustomTooltip>
           </Grid>
           <Grid item>
-            <DeleteIcon className={classes.button} onClick={() => { clickActions('delete'); }} />
+            <CustomTooltip title="excluir">
+              <DeleteIcon className={classes.button} onClick={() => { clickActions('delete'); }} />
+            </CustomTooltip>
           </Grid>
         </Grid>
       ),
@@ -129,23 +148,26 @@ const Results = ({
     >
       <Box minWidth="md">
         <TableToolbar className title="Docentes" />
-        <div style={{ width: '100%' }}>
-          <DataGrid
-            rows={teachers}
-            columns={columns.map((column) => ({
-              ...column,
-              disableClickEventBubbling: true,
-            }))}
-            pageSize={10}
-            autoHeight
-            checkboxSelection
-            components={{
-              Toolbar: CustomToolbar,
-            }}
-            pagination
-            localeText={translate}
-            loading={loading}
-          />
+        <div style={{ display: 'flex', width: '100%' }}>
+          <div style={{ flexGrow: 1 }}>
+            <DataGrid
+              className={classes.datagrid}
+              rows={teachers}
+              columns={columns.map((column) => ({
+                ...column,
+                disableClickEventBubbling: true,
+              }))}
+              pageSize={10}
+              autoHeight
+              checkboxSelection
+              components={{
+                Toolbar: CustomToolbar,
+              }}
+              pagination
+              localeText={translate}
+              loading={loading}
+            />
+          </div>
         </div>
       </Box>
     </Card>

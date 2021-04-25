@@ -16,10 +16,9 @@ export default [
       '(h) agasdga sd, asdgsad dsa',
       '(i) gsdf gahgjsfg fg'
     ],
-    answer: 8,
-    course: 'asdg',
-    note: '',
-    checked: false
+    course: 'Direito',
+    note: 0,
+    selected: false
   },
   {
     id: uuid(),
@@ -30,30 +29,27 @@ export default [
       '(b) aga a rdgha sad dsa',
       '(c) gsdf gahg sfg fg',
     ],
-    answer: 2,
-    course: 'asdg',
-    note: '',
-    checked: false
+    course: 'Sistema de Informação',
+    note: 0,
+    selected: false
   },
   {
     id: uuid(),
     questioning: 'Pergunta alguma coisa arega tjsry rta jtydhser ?',
     type: 'subjetiva',
     alternatives: [],
-    answer: '',
-    course: 'asdg',
-    note: '',
-    checked: false
+    course: 'Administração',
+    note: 0,
+    selected: false
   },
   {
     id: uuid(),
     questioning: 'Pergunta alguma coisa areger aerg ergerh erher?',
     type: 'subjetiva',
     alternatives: [],
-    answer: '',
-    course: 'asdg',
-    note: '',
-    checked: false
+    course: 'Biomedicina',
+    note: 0,
+    selected: false
   },
   {
     id: uuid(),
@@ -64,10 +60,9 @@ export default [
       '(b) aga a rdgha sad dsa',
       '(c) gsdf gahg sfg fg',
     ],
-    answer: 2,
-    course: 'asdg',
-    note: '',
-    checked: false
+    course: 'Sistema de Informação',
+    note: 0,
+    selected: false
   },
   {
     id: uuid(),
@@ -77,10 +72,9 @@ export default [
       '(a) gasdgasdg sadgasd gasd',
       '(b) gsdf gahg sfg fg',
     ],
-    answer: 2,
-    course: 'asdg',
-    note: '',
-    checked: false
+    course: 'Direito',
+    note: 0,
+    selected: false
   },
   {
     id: uuid(),
@@ -95,20 +89,18 @@ export default [
       '(f) agatrw rdgha sad dsa',
       '(g) aga ruw dgha sad dsa',
     ],
-    answer: 2,
-    course: 'asdg',
-    note: '',
-    checked: false
+    course: 'Administração',
+    note: 0,
+    selected: false
   },
   {
     id: uuid(),
     questioning: 'Pergunta alguma coisa asfser waer awertg awergame oifg aoen adfa sdfa sdfa ghasdg adsgasd gasdga  goa ern?',
     type: 'subjetiva',
     alternatives: [],
-    answer: '',
-    course: 'asdg',
-    note: '',
-    checked: false
+    course: 'Sistema de Informação',
+    note: 0,
+    selected: false
   },
 
 ];

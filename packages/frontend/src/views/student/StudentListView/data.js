@@ -8,7 +8,7 @@ export default [
     avatarUrl: '/static/images/avatars/avatar.png',
     createdAt: '2021-03-11 21:20:14',
     email: 'aaa.bbb@fterceiridade',
-    name: 'Bbb Ccc',
+    name: 'Bbb Ccc fjaspdj pfajsd foajsd fpajd fpásjod fopasdj goapsjd opfgasjd fpoj p',
     phone: '73 93044-3097'
   },
   {

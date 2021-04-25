@@ -5,6 +5,7 @@ import {
   Box,
   Card,
   Grid,
+  Typography,
 } from '@material-ui/core';
 import TableToolbar from 'src/utils/TableToolbar';
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +15,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import labels from '../../../utils/labels';
+import CustomTooltip from '../../../utils/CustomTooltip';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -25,6 +27,17 @@ const useStyles = makeStyles((theme) => ({
   },
   actions: {
     paddingTop: theme.spacing(2)
+  },
+  datagrid: {
+    '& .MuiDataGrid-columnsContainer': {
+      backgroundColor: '#fafafa',
+    },
+    '& .MuiDataGrid-iconSeparator': {
+      display: 'none',
+    },
+    '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
+      borderRight: `1px solid ${'#f0f0f0'}`,
+    },
   }
 }));
 
@@ -44,16 +57,28 @@ const Results = ({
   const navigate = useNavigate();
   const [translate] = useState(labels);
 
+  const handleCellClick = (param, event) => {
+    console.log('Cell:');
+    console.log(param);
+    console.log(param.value);
+    console.log(param.row);
+    console.log(event);
+    if (param.colIndex === 2) {
+      event.stopPropagation();
+    }
+  };
+
+  const handleRowClick = (param, event) => {
+    console.log('Row:');
+    console.log(param);
+    console.log(param.value);
+    console.log(event);
+  };
+
   const clickActions = (action) => {
     switch (action) {
       case 'view':
         navigate('/app/student-assessment-view', { replace: false });
-        break;
-      case 'edit':
-        //
-        break;
-      case 'delete':
-        //
         break;
       default:
         break;
@@ -63,27 +88,53 @@ const Results = ({
   const columns = [
     {
       field: 'description',
-      headerName: 'Descricao',
-      width: 750
-    },
-    {
-      field: 'initial_date',
-      headerName: 'Data inicial',
-      width: 200
+      width: 1024,
+      // flex: 1,
+      renderHeader: () => (
+        <Typography variant="h4" component="p">
+          Descrição
+        </Typography>
+      ),
+      renderCell: (params) => {
+        const { value } = params;
+        return (
+          <Typography variant="body1" component="p">
+            {value}
+          </Typography>
+        );
+      }
     },
     {
       field: 'end_date',
-      headerName: 'Data final',
-      width: 150
+      width: 150,
+      headerAlign: 'center',
+      description: <Typography variant="body2">Prazo final para fazer a avaliação</Typography>,
+      renderHeader: () => (
+        <Typography variant="h4" component="p">
+          Prazo final
+        </Typography>
+      ),
+      renderCell: (params) => {
+        const { value } = params;
+        return (
+          <Typography variant="body1" component="p">
+            {value}
+          </Typography>
+        );
+      }
     },
     {
       field: 'acoes',
-      headerName: 'Ações',
-      width: 200,
-      description: 'Essa coluna não pode ser ordenada',
+      width: 110,
       sortable: false,
       filterable: false,
       disableColumnSelector: true,
+      headerAlign: 'center',
+      renderHeader: () => (
+        <Typography variant="h4" component="p">
+          Ação
+        </Typography>
+      ),
       renderCell: () => (
         <Grid
           container
@@ -94,7 +145,9 @@ const Results = ({
           spacing={1}
         >
           <Grid item>
-            <VisibilityIcon className={classes.button} onClick={() => { clickActions('view'); }} />
+            <CustomTooltip title="visualizar detalhes dessa avaliação">
+              <VisibilityIcon className={classes.button} onClick={() => { clickActions('view'); }} />
+            </CustomTooltip>
           </Grid>
         </Grid>
       ),
@@ -107,7 +160,11 @@ const Results = ({
       {...rest}
     >
       <Box minWidth="md">
-        <TableToolbar className title="Avaliações" />
+        <TableToolbar
+          title={
+            <h3>Avaliações</h3>
+         }
+        />
         <div style={{ width: '100%' }}>
           <DataGrid
             rows={assessments}
@@ -115,7 +172,7 @@ const Results = ({
               ...column,
               disableClickEventBubbling: true,
             }))}
-            pageSize={10}
+            pageSize={9}
             autoHeight
             components={{
               Toolbar: CustomToolbar,
@@ -123,6 +180,10 @@ const Results = ({
             pagination
             localeText={translate}
             loading={loading}
+            density="comfortable"
+            onCellClick={handleCellClick}
+            onRowClick={handleRowClick}
+            className={classes.datagrid}
           />
         </div>
       </Box>

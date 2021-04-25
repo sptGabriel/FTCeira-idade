@@ -18,6 +18,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import labels from '../../../utils/labels';
+import CustomTooltip from '../../../utils/CustomTooltip';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -35,6 +36,17 @@ const useStyles = makeStyles((theme) => ({
       visibility: 'hidden !important',
       position: 'absolute'
     }
+  },
+  datagrid: {
+    '& .MuiDataGrid-columnsContainer': {
+      backgroundColor: '#fafafa',
+    },
+    '& .MuiDataGrid-iconSeparator': {
+      display: 'none',
+    },
+    '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
+      borderRight: `1px solid ${'#f0f0f0'}`,
+    },
   }
 }));
 
@@ -72,14 +84,12 @@ const Component = ({
         break;
     }
   };
-  //------------
 
   const columns = [
     {
       field: 'avatarURL',
       headerName: 'Avatar',
       width: 100,
-      description: 'Essa coluna não pode ser ordenada',
       sortable: false,
       filterable: false,
       renderCell: ({ avatarURL }) => (
@@ -92,7 +102,7 @@ const Component = ({
     {
       field: '_',
       headerName: 'Endereço',
-      width: 400,
+      width: 465,
       //  `${params.getValue('street')}`,
       valueGetter: (params) => `${params.row.street || ''}, ${params.row.city || ''}`,
     },
@@ -100,10 +110,10 @@ const Component = ({
       field: 'acoes',
       headerName: 'Ações',
       width: 200,
-      description: 'Essa coluna não pode ser ordenada',
       sortable: false,
       filterable: false,
       disableColumnSelector: true,
+      headerAlign: 'center',
       renderCell: () => (
         <Grid
           container
@@ -114,16 +124,24 @@ const Component = ({
           spacing={1}
         >
           <Grid item>
-            <BarChartIcon className={classes.button} onClick={() => { clickActions('chart'); }} />
+            <CustomTooltip title="desempenho">
+              <BarChartIcon className={classes.button} onClick={() => { clickActions('chart'); }} />
+            </CustomTooltip>
           </Grid>
           <Grid item>
-            <VisibilityIcon className={classes.button} onClick={() => { clickActions('view'); }} />
+            <CustomTooltip title="visualizar">
+              <VisibilityIcon className={classes.button} onClick={() => { clickActions('view'); }} />
+            </CustomTooltip>
           </Grid>
           <Grid item>
-            <EditIcon className={classes.button} onClick={() => { clickActions('edit'); }} />
+            <CustomTooltip title="editar">
+              <EditIcon className={classes.button} onClick={() => { clickActions('edit'); }} />
+            </CustomTooltip>
           </Grid>
           <Grid item>
-            <DeleteIcon className={classes.button} onClick={() => { clickActions('delete'); }} />
+            <CustomTooltip title="excluir">
+              <DeleteIcon className={classes.button} onClick={() => { clickActions('delete'); }} />
+            </CustomTooltip>
           </Grid>
         </Grid>
       ),
@@ -137,23 +155,26 @@ const Component = ({
     >
       <Box minWidth="md">
         <TableToolbar className title="Discentes" />
-        <div style={{ width: '100%' }}>
-          <DataGrid
-            rows={students}
-            columns={columns.map((column) => ({
-              ...column,
-              disableClickEventBubbling: true,
-            }))}
-            pageSize={10}
-            autoHeight
-            checkboxSelection
-            components={{
-              Toolbar: CustomToolbar,
-            }}
-            pagination
-            localeText={translate}
-            loading={loading}
-          />
+        <div style={{ display: 'flex', width: '100%' }}>
+          <div style={{ flexGrow: 1 }}>
+            <DataGrid
+              className={classes.datagrid}
+              rows={students}
+              columns={columns.map((column) => ({
+                ...column,
+                disableClickEventBubbling: true,
+              }))}
+              pageSize={10}
+              autoHeight
+              checkboxSelection
+              components={{
+                Toolbar: CustomToolbar,
+              }}
+              pagination
+              localeText={translate}
+              loading={loading}
+            />
+          </div>
         </div>
       </Box>
     </Card>

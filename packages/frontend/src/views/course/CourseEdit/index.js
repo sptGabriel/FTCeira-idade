@@ -22,7 +22,7 @@ const CourseEdit = () => {
   return (
     <Page
       className={classes.root}
-      title="Discente - Editar"
+      title="Curso"
     >
       <Container maxWidth="lg">
         {/* <Container maxWidth="false"> */}

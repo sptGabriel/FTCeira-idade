@@ -6,6 +6,7 @@ export default [
     description: 'gfasd ad ada sdfhasduah isd fGergtrt',
     initial_date: '2021-03-11',
     end_date: '2021-03-11',
+    status: 'realidada',
     questions: [1, 2, 4, 9, 18, 10, 45, 20, 80]
   },
   {
@@ -13,6 +14,7 @@ export default [
     description: 'afasd ad ada sdfhasduah isd fadstadfs pgdfng',
     initial_date: '2021-03-11',
     end_date: '2021-03-11',
+    status: 'realizada',
     questions: [1, 2, 4, 9, 18, 10, 45, 20, 80]
   },
   {
@@ -20,6 +22,7 @@ export default [
     description: 'fasd ad ada sdfhasduah isd dfg dfg',
     initial_date: '2021-03-11',
     end_date: '2021-03-11',
+    status: 'pendente',
     questions: [1, 2, 4, 9, 18, 10, 45, 20, 80]
   },
   {
@@ -27,6 +30,7 @@ export default [
     description: 'hfasd ad ada sdfhasduah isd fakjng',
     initial_date: '2021-03-11',
     end_date: '2021-03-11',
+    status: 'pendente',
     questions: [1, 2, 4, 9, 18, 10, 45, 20, 80]
   },
   {
@@ -34,6 +38,7 @@ export default [
     description: 'ftasd ad ada sdfhasduadfh gdfgg',
     initial_date: '2021-03-11',
     end_date: '2021-03-11',
+    status: 'realizada',
     questions: [1, 2, 4, 9, 18, 10, 45, 20, 80]
   },
   {
@@ -41,6 +46,7 @@ export default [
     description: 'yfaasd ad ada sdfhasduah idsfg gdfgg ng',
     initial_date: '2021-03-11',
     end_date: '2021-03-11',
+    status: 'pendente',
     questions: [1, 2, 4, 9, 18, 10, 45, 20, 80]
   },
   {
@@ -48,6 +54,7 @@ export default [
     description: 'gfasd sad ada sdfhasduah isd g',
     initial_date: '2021-03-11',
     end_date: '2021-03-11',
+    status: 'pendente',
     questions: [1, 2, 4, 9, 18, 10, 45, 20, 80]
   },
   {
@@ -55,6 +62,7 @@ export default [
     description: 'gfagsd ad ada sdfhasduah isd fad',
     initial_date: '2021-03-11',
     end_date: '2021-03-11',
+    status: 'realizada',
     questions: [1, 2, 4, 9, 18, 10, 45, 20, 80]
   },
   {
@@ -62,6 +70,7 @@ export default [
     description: 'jfasd ad ada sdfhasduah isd fadstar',
     initial_date: '2021-03-11',
     end_date: '2021-03-11',
+    status: 'realizada',
     questions: [1, 2, 4, 9, 18, 10, 45, 20, 80]
   },
   {
@@ -69,6 +78,7 @@ export default [
     description: 'jfarsd ad ada sdfhasduah isd fadstarg',
     initial_date: '2021-03-11',
     end_date: '2021-03-11',
+    status: 'realizada',
     questions: [1, 2, 4, 9, 18, 10, 45, 20, 80]
   }
 ];

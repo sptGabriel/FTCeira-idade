@@ -21,7 +21,7 @@ const Toolbar = ({ className, ...rest }) => {
   const navigate = useNavigate();
 
   const addClassRoom = () => {
-    navigate('/app/classrooms', { replace: true });
+    navigate('/app/classroom-register', { replace: true });
   };
 
   return (
@@ -33,13 +33,6 @@ const Toolbar = ({ className, ...rest }) => {
         display="flex"
         justifyContent="flex-end"
       >
-        <Button
-          className={classes.performanceButton}
-          color="primary"
-          variant="contained"
-        >
-          Desempenho
-        </Button>
         <Button
           color="primary"
           variant="contained"

@@ -12,10 +12,8 @@ import {
   makeStyles,
   MenuItem,
   CardMedia,
-  Box,
   Container
 } from '@material-ui/core';
-import Page from 'src/components/Page';
 import { v4 as uuid } from 'uuid';
 
 const useStyles = makeStyles((theme) => ({
@@ -25,8 +23,13 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3)
   },
-  select: {
-    marginTop: theme.spacing(1)
+  selectShift: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1)
+  },
+  selectCourse: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(0.5)
   },
 }));
 
@@ -40,12 +43,12 @@ const CourseEditDetails = () => {
     description: 'Descrição do curso 1',
     media: '/static/images/blank.png',
     title: 'Nome do curso 1',
+    course: 'sistemas de informacao',
     students: 0,
     shift: 'noturno'
   });
 
   const [src, setSrc] = useState(course.media);
-  //--------------------
 
   const handleChange = (event) => {
     setCourse({
@@ -67,151 +70,160 @@ const CourseEditDetails = () => {
   };
 
   return (
-    <Page
-      className={classes.root}
-      title="Register"
-    >
-      <Box
-        display="flex"
-        flexDirection="column"
-        height="100%"
-        justifyContent="center"
-      >
-        <Container maxWidth="sm">
-          <Card>
-            <CardHeader
-              subheader="Todas as informações podem ser editadas posteriormente pelo usuário"
-              title="Inserir nova questão"
-            />
-          </Card>
-          <br />
-          <Card>
-            <CardActions>
-              <Button
-                color="primary"
-                component="span"
-                variant="contained"
-                onClick={handleButtonClick}
-              >
-                Upload
-              </Button>
-              <input
-                accept="image/*"
-                id="button-file"
-                onChange={imageChange}
-                type="file"
-                style={{ display: 'none' }}
-                ref={hiddenFileInput}
-              />
-            </CardActions>
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                image={src}
-                title="title"
-              />
-            </CardActionArea>
-            <Divider />
-            <form
-              autoComplete="off"
-              noValidate
+    <Container maxWidth="sm">
+      <Card>
+        <CardHeader
+          title="Editar curso"
+          subheader="Todas as informações podem ser editadas"
+        />
+        <Divider />
+        <CardActions>
+          <Button
+            color="primary"
+            component="span"
+            variant="contained"
+            onClick={handleButtonClick}
+          >
+            Upload
+          </Button>
+          <input
+            accept="image/*"
+            id="button-file"
+            onChange={imageChange}
+            type="file"
+            style={{ display: 'none' }}
+            ref={hiddenFileInput}
+          />
+        </CardActions>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            image={src}
+            title="title"
+          />
+        </CardActionArea>
+        <Divider />
+        <form
+          autoComplete="off"
+          noValidate
+        >
+          <CardContent>
+            <Grid
+              container
+              spacing={1}
             >
-              <CardContent>
-                <Grid
-                  container
-                  spacing={1}
+              <Grid
+                item
+                xs={12}
+              >
+                <TextField
+                  fullWidth
+                  id="title"
+                  label="Título"
+                  margin="dense"
+                  name="title"
+                  onChange={handleChange}
+                  required
+                  value={course.title}
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid
+                item
+                xs={12}
+              >
+                <TextField
+                  fullWidth
+                  id="description"
+                  label="Descrição"
+                  margin="dense"
+                  multiline
+                  name="description"
+                  onChange={handleChange}
+                  required
+                  rows={4}
+                  value={course.description}
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid
+                item
+                xs={12}
+              >
+                <TextField
+                  className={classes.selectCourse}
+                  fullWidth
+                  required
+                  id="course"
+                  name="course"
+                  onChange={handleChange}
+                  select
+                  size="small"
+                  label="Curso"
+                  value={course.course}
+                  variant="outlined"
                 >
-                  <Grid
-                    item
-                    xs={12}
-                  >
-                    <TextField
-                      fullWidth
-                      id="title"
-                      label="Título"
-                      margin="dense"
-                      name="title"
-                      onChange={handleChange}
-                      required
-                      value={course.title}
-                      variant="outlined"
-                    />
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                  >
-                    <TextField
-                      fullWidth
-                      id="description"
-                      label="Descrição"
-                      margin="dense"
-                      multiline
-                      name="description"
-                      onChange={handleChange}
-                      required
-                      rows={4}
-                      value={course.description}
-                      variant="outlined"
-                    />
-                  </Grid>
-                  <Grid
-                    item
-                    xs
-                  >
-                    <TextField
-                      fullWidth
-                      id="students"
-                      label="Total de vagas"
-                      margin="dense"
-                      name="students"
-                      onChange={handleChange}
-                      required
-                      type="number"
-                      value={course.students}
-                      variant="outlined"
-                    />
-                  </Grid>
-                  <Grid
-                    item
-                    xs
-                  >
-                    <TextField
-                      className={classes.select}
-                      fullWidth
-                      required
-                      id="shif"
-                      name="shift"
-                      onChange={handleChange}
-                      select
-                      size="small"
-                      label="Turno"
-                      value={course.shift}
-                      variant="outlined"
-                    >
-                      <MenuItem value="" />
-                      <MenuItem value="matutino">Matutino</MenuItem>
-                      <MenuItem value="vespertino">Vespertino</MenuItem>
-                      <MenuItem value="noturno">Noturno</MenuItem>
-                    </TextField>
-                  </Grid>
-                </Grid>
-              </CardContent>
-              <Divider />
-              <CardActions>
-                <Button
-                  color="primary"
-                  onClick={handleSubmit}
-                  variant="contained"
+                  <MenuItem value="" />
+                  <MenuItem value="sistemas de informacao">Sistemas de Informação</MenuItem>
+                  <MenuItem value="administracao">Administração</MenuItem>
+                  <MenuItem value="engenharia">Engenharia Civil</MenuItem>
+                </TextField>
+              </Grid>
+              <Grid
+                item
+                xs
+              >
+                <TextField
+                  fullWidth
+                  id="students"
+                  label="Total de vagas"
+                  margin="dense"
+                  name="students"
+                  onChange={handleChange}
+                  required
+                  type="number"
+                  value={course.students}
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid
+                item
+                xs
+              >
+                <TextField
+                  className={classes.selectShift}
+                  fullWidth
+                  required
+                  id="shif"
+                  name="shift"
+                  onChange={handleChange}
+                  select
+                  size="small"
+                  label="Turno"
+                  value={course.shift}
+                  variant="outlined"
                 >
-                  Salvar
-                </Button>
-              </CardActions>
-            </form>
-          </Card>
-        </Container>
-      </Box>
-    </Page>
+                  <MenuItem value="" />
+                  <MenuItem value="matutino">Matutino</MenuItem>
+                  <MenuItem value="vespertino">Vespertino</MenuItem>
+                  <MenuItem value="noturno">Noturno</MenuItem>
+                </TextField>
+              </Grid>
+            </Grid>
+          </CardContent>
+          <Divider />
+          <CardActions>
+            <Button
+              color="primary"
+              onClick={handleSubmit}
+              variant="contained"
+            >
+              Salvar
+            </Button>
+          </CardActions>
+        </form>
+      </Card>
+    </Container>
   );
 };
 

@@ -30,7 +30,7 @@ import StudentAssessmentListView from 'src/views/student/StudentAssessmentListVi
 
 import AssessmentListView from 'src/views/assessment/AssessmentListView';
 import AssessmentRegister from 'src/views/assessment/AssessmentRegister';
-// import AssessmentEdit from 'src/views/assessment/AssessmentEdit';
+import AssessmentEdit from 'src/views/assessment/AssessmentEdit';
 
 import QuestionListView from 'src/views/question/QuestionListView';
 import QuestionRegister from 'src/views/question/QuestionRegister';
@@ -83,7 +83,7 @@ const routes = [
       // { path: 'course-delete', element: <CourseDelete /> },
 
       { path: 'assessments', element: <AssessmentListView /> },
-      //  { path: 'assessment-edit', element: <AssessmentEdit /> },
+      { path: 'assessment-edit', element: <AssessmentEdit /> },
       { path: 'assessment-register', element: <AssessmentRegister /> },
       // { path: 'assessment-delete', element: <AssessmentDelete /> },
 

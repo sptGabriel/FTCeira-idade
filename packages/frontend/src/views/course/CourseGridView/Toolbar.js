@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -19,6 +20,11 @@ const useStyles = makeStyles(() => ({
 
 const Toolbar = ({ className, ...rest }) => {
   const classes = useStyles();
+  const navigate = useNavigate();
+
+  const addCourse = () => {
+    navigate('/app/course-register', { replace: false });
+  };
 
   return (
     <div
@@ -32,6 +38,7 @@ const Toolbar = ({ className, ...rest }) => {
         <Button
           color="primary"
           variant="contained"
+          onClick={addCourse}
         >
           Adicionar curso
         </Button>

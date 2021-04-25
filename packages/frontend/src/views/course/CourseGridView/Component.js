@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import {
-  Avatar,
   Box,
   Card,
   CardContent,
@@ -17,7 +16,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ViewIcon from '@material-ui/icons/Visibility';
 import AssessmentIcon from '@material-ui/icons/DescriptionOutlined';
+import QuestionIcon from '@material-ui/icons/PostAdd';
 import { useNavigate } from 'react-router-dom';
+import CustomTooltip from '../../../utils/CustomTooltip';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,6 +45,9 @@ const Component = ({ className, course, ...rest }) => {
     switch (action) {
       case 'chart':
         navigate('/app/course-performance', { replace: false });
+        break;
+      case 'question':
+        navigate('/app/questions', { replace: false });
         break;
       case 'assessment':
         navigate('/app/assessments', { replace: false });
@@ -72,13 +76,7 @@ const Component = ({ className, course, ...rest }) => {
           display="flex"
           justifyContent="center"
           mb={3}
-        >
-          <Avatar
-            alt="Course"
-            src={course.media}
-            variant="square"
-          />
-        </Box>
+        />
         <Typography
           align="center"
           color="textPrimary"
@@ -91,6 +89,7 @@ const Component = ({ className, course, ...rest }) => {
           align="center"
           color="textPrimary"
           variant="body1"
+          noWrap
         >
           {course.description}
         </Typography>
@@ -106,38 +105,53 @@ const Component = ({ className, course, ...rest }) => {
           <Grid
             className={classes.statsItem}
             item
-          >
-            {/* outros icones - deletar se não for necessário */}
-          </Grid>
+          />
           <Grid
             className={classes.statsItem}
             item
           >
-            <BarChartIcon
-              className={clsx(classes.statsIcon, classes.handPointer)}
-              color="action"
-              onClick={() => clickActions('chart')}
-            />
-            <AssessmentIcon
-              className={clsx(classes.statsIcon, classes.handPointer)}
-              color="action"
-              onClick={() => clickActions('assessment')}
-            />
-            <ViewIcon
-              className={clsx(classes.statsIcon, classes.handPointer)}
-              color="action"
-              onClick={() => clickActions('view')}
-            />
-            <EditIcon
-              className={clsx(classes.statsIcon, classes.handPointer)}
-              color="action"
-              onClick={() => clickActions('edit')}
-            />
-            <DeleteIcon
-              className={clsx(classes.statsIcon, classes.handPointer)}
-              color="action"
-              onClick={() => clickActions('delete')}
-            />
+            <CustomTooltip title="desempenho">
+              <BarChartIcon
+                className={clsx(classes.statsIcon, classes.handPointer)}
+                color="action"
+                onClick={() => clickActions('chart')}
+              />
+            </CustomTooltip>
+            <CustomTooltip title="questões">
+              <QuestionIcon
+                className={clsx(classes.statsIcon, classes.handPointer)}
+                color="action"
+                onClick={() => clickActions('question')}
+              />
+            </CustomTooltip>
+            <CustomTooltip title="avaliações">
+              <AssessmentIcon
+                className={clsx(classes.statsIcon, classes.handPointer)}
+                color="action"
+                onClick={() => clickActions('assessment')}
+              />
+            </CustomTooltip>
+            <CustomTooltip title="visualizar">
+              <ViewIcon
+                className={clsx(classes.statsIcon, classes.handPointer)}
+                color="action"
+                onClick={() => clickActions('view')}
+              />
+            </CustomTooltip>
+            <CustomTooltip title="editar">
+              <EditIcon
+                className={clsx(classes.statsIcon, classes.handPointer)}
+                color="action"
+                onClick={() => clickActions('edit')}
+              />
+            </CustomTooltip>
+            <CustomTooltip title="excluir">
+              <DeleteIcon
+                className={clsx(classes.statsIcon, classes.handPointer)}
+                color="action"
+                onClick={() => clickActions('delete')}
+              />
+            </CustomTooltip>
             <Typography
               color="textSecondary"
               display="inline"
@@ -148,10 +162,12 @@ const Component = ({ className, course, ...rest }) => {
             className={classes.statsItem}
             item
           >
-            <PeopleIcon
-              className={classes.statsIcon}
-              color="action"
-            />
+            <CustomTooltip title="discentes matriculados">
+              <PeopleIcon
+                className={classes.statsIcon}
+                color="action"
+              />
+            </CustomTooltip>
             <Typography
               color="textSecondary"
               display="inline"
@@ -159,6 +175,7 @@ const Component = ({ className, course, ...rest }) => {
             >
               {course.students}
             </Typography>
+
           </Grid>
         </Grid>
       </Box>

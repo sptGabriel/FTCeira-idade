@@ -64,14 +64,14 @@ const LoginView = () => {
                 <Box mb={3}>
                   <Typography
                     color="textPrimary"
-                    variant="h2"
+                    variant="h1"
                   >
                     Entrar
                   </Typography>
                   <Typography
                     color="textSecondary"
                     gutterBottom
-                    variant="body2"
+                    variant="body1"
                   >
                     Faça login na plataforma
                     {' '}
@@ -116,7 +116,7 @@ const LoginView = () => {
                   <Link
                     component={RouterLink}
                     to="/recover"
-                    variant="h6"
+                    variant="body1"
                   >
                     Recuperar
                   </Link>
@@ -143,7 +143,7 @@ const LoginView = () => {
                   <Link
                     component={RouterLink}
                     to="/register"
-                    variant="h6"
+                    variant="body1"
                   >
                     Criar
                   </Link>

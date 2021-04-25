@@ -5,9 +5,7 @@ import { Formik } from 'formik';
 import {
   Box,
   Button,
-  Checkbox,
   Container,
-  FormHelperText,
   Link,
   TextField,
   Typography,
@@ -50,8 +48,7 @@ const RegisterView = () => {
               cpf: '',
               email: '',
               phone: '',
-              password: '',
-              policy: false
+              password: ''
             }}
             validationSchema={
               Yup.object().shape({
@@ -60,8 +57,7 @@ const RegisterView = () => {
                 cpf: Yup.string().min(14, 'Esse campo deve ter 14 caracteres').max(14, 'Esse campo deve ter no máximo 14 caracteres').required('CPF obrigatório'),
                 email: Yup.string().email('Deve ser um email válido').max(255).required('Email obrigatório'),
                 phone: Yup.string().min(10, '99 99999-9999').max(15, 'Esse campo deve ter no máximo 15 caracteres'),
-                password: Yup.string().max(255).required('Senha obrigatória'),
-                policy: Yup.boolean().oneOf([true], 'Este campo deve ser verificado')
+                password: Yup.string().max(255).required('Senha obrigatória')
               })
             }
             onSubmit={() => {
@@ -81,14 +77,14 @@ const RegisterView = () => {
                 <Box mb={3}>
                   <Typography
                     color="textPrimary"
-                    variant="h2"
+                    variant="h1"
                   >
                     Criar nova conta
                   </Typography>
                   <Typography
                     color="textSecondary"
                     gutterBottom
-                    variant="body2"
+                    variant="body1"
                   >
                     Use um email válido e o seu CPF para criar nova conta
                   </Typography>
@@ -173,38 +169,6 @@ const RegisterView = () => {
                   value={values.password}
                   variant="outlined"
                 />
-                <Box
-                  alignItems="center"
-                  display="flex"
-                  ml={-1}
-                >
-                  <Checkbox
-                    checked={values.policy}
-                    name="policy"
-                    onChange={handleChange}
-                  />
-                  <Typography
-                    color="textSecondary"
-                    variant="body1"
-                  >
-                    Eu li os
-                    {' '}
-                    <Link
-                      color="primary"
-                      component={RouterLink}
-                      to="#"
-                      underline="always"
-                      variant="h6"
-                    >
-                      Termos e Condições
-                    </Link>
-                  </Typography>
-                </Box>
-                {Boolean(touched.policy && errors.policy) && (
-                  <FormHelperText error>
-                    {errors.policy}
-                  </FormHelperText>
-                )}
                 <Box my={2}>
                   <Button
                     color="primary"
@@ -226,7 +190,7 @@ const RegisterView = () => {
                   <Link
                     component={RouterLink}
                     to="/login"
-                    variant="h6"
+                    variant="body1"
                   >
                     Entrar
                   </Link>

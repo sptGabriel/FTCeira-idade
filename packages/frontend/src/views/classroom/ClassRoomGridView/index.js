@@ -32,10 +32,13 @@ const ClassRoomGrid = () => {
   const classes = useStyles();
   const [classrooms] = useState(data);
   const [limit] = useState(9);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(
+    localStorage.getItem('pagination_classroom') ? parseFloat(localStorage.getItem('pagination_classroom')) : 1
+  );
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
+    localStorage.setItem('pagination_classroom', newPage);
   };
 
   return (

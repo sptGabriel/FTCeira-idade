@@ -16,7 +16,10 @@ import PeopleIcon from '@material-ui/icons/People';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import AssessmentIcon from '@material-ui/icons/DescriptionOutlined';
+import QuestionIcon from '@material-ui/icons/PostAdd';
 import { useNavigate } from 'react-router-dom';
+import CustomTooltip from '../../../utils/CustomTooltip';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,6 +55,12 @@ const Component = ({ className, classroom, ...rest }) => {
         break;
       case 'delete':
         navigate('/app/classroom-delete', { replace: false });
+        break;
+      case 'assessment':
+        navigate('/app/assessments', { replace: false });
+        break;
+      case 'question':
+        navigate('/app/questions', { replace: false });
         break;
       default:
         break;
@@ -97,10 +106,12 @@ const Component = ({ className, classroom, ...rest }) => {
             className={classes.statsItem}
             item
           >
-            <AccessTimeIcon
-              className={classes.statsIcon}
-              color="action"
-            />
+            <CustomTooltip title="turno">
+              <AccessTimeIcon
+                className={classes.statsIcon}
+                color="action"
+              />
+            </CustomTooltip>
             <Typography
               color="textSecondary"
               display="inline"
@@ -113,26 +124,48 @@ const Component = ({ className, classroom, ...rest }) => {
             className={classes.statsItem}
             item
           >
-            <BarChartIcon
-              className={clsx(classes.statsIcon, classes.handPointer)}
-              color="action"
-              onClick={() => clickActions('chart')}
-            />
-            <VisibilityIcon
-              className={clsx(classes.statsIcon, classes.handPointer)}
-              color="action"
-              onClick={() => clickActions('view')}
-            />
-            <EditIcon
-              className={clsx(classes.statsIcon, classes.handPointer)}
-              color="action"
-              onClick={() => clickActions('edit')}
-            />
-            <DeleteIcon
-              className={clsx(classes.statsIcon, classes.handPointer)}
-              color="action"
-              onClick={() => clickActions('delete')}
-            />
+            <CustomTooltip title="desempenho">
+              <BarChartIcon
+                className={clsx(classes.statsIcon, classes.handPointer)}
+                color="action"
+                onClick={() => clickActions('chart')}
+              />
+            </CustomTooltip>
+            <CustomTooltip title="questões">
+              <QuestionIcon
+                className={clsx(classes.statsIcon, classes.handPointer)}
+                color="action"
+                onClick={() => clickActions('question')}
+              />
+            </CustomTooltip>
+            <CustomTooltip title="avaliações">
+              <AssessmentIcon
+                className={clsx(classes.statsIcon, classes.handPointer)}
+                color="action"
+                onClick={() => clickActions('assessment')}
+              />
+            </CustomTooltip>
+            <CustomTooltip title="visualizar">
+              <VisibilityIcon
+                className={clsx(classes.statsIcon, classes.handPointer)}
+                color="action"
+                onClick={() => clickActions('view')}
+              />
+            </CustomTooltip>
+            <CustomTooltip title="editar">
+              <EditIcon
+                className={clsx(classes.statsIcon, classes.handPointer)}
+                color="action"
+                onClick={() => clickActions('edit')}
+              />
+            </CustomTooltip>
+            <CustomTooltip title="excluir">
+              <DeleteIcon
+                className={clsx(classes.statsIcon, classes.handPointer)}
+                color="action"
+                onClick={() => clickActions('delete')}
+              />
+            </CustomTooltip>
             <Typography
               color="textSecondary"
               display="inline"
@@ -143,10 +176,12 @@ const Component = ({ className, classroom, ...rest }) => {
             className={classes.statsItem}
             item
           >
-            <PeopleIcon
-              className={classes.statsIcon}
-              color="action"
-            />
+            <CustomTooltip title="discentes matriculados">
+              <PeopleIcon
+                className={classes.statsIcon}
+                color="action"
+              />
+            </CustomTooltip>
             <Typography
               color="textSecondary"
               display="inline"

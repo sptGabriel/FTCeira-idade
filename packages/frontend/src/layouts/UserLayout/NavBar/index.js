@@ -22,6 +22,7 @@ import {
   Edit as QuestionIcon,
   LogOut as LogOutIcon
 } from 'react-feather';
+import CustomTooltip from 'src/utils/CustomTooltip';
 import NavItem from './NavItem';
 import data from './data';
 
@@ -65,6 +66,11 @@ const items = [
     href: '/app/assessments',
     icon: AssessmentIcon,
     title: 'Avaliações'
+  },
+  {
+    href: '/app/student-assessments',
+    icon: AssessmentIcon,
+    title: 'Avaliações Discentes'
   }
 ];
 
@@ -123,12 +129,14 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         flexDirection="column"
         p={2}
       >
-        <Avatar
-          className={classes.avatar}
-          component={RouterLink}
-          src={user.avatar}
-          to="/app/account"
-        />
+        <CustomTooltip title="Editar o seu perfil">
+          <Avatar
+            className={classes.avatar}
+            component={RouterLink}
+            src={user.avatar}
+            to="/app/account"
+          />
+        </CustomTooltip>
         <Typography
           className={classes.name}
           color="textPrimary"

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Box,
   Grid,
-  makeStyles,
-  Typography
+  makeStyles
 } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import PropTypes from 'prop-types';
@@ -29,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ComponentCourse = ({
-  className, courses, courseCategory, ...rest
+  className, courses, ...rest
 }) => {
   const classes = useStyles();
   const [limit] = useState(3);
@@ -39,7 +38,7 @@ const ComponentCourse = ({
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    setResults(courses.filter((res) => res.category === courseCategory));
+    setResults(courses);
   }, []);
 
   useEffect(() => {
@@ -54,36 +53,13 @@ const ComponentCourse = ({
     setPage(newPage);
   };
 
-  // const CircularProgressWithLabel = (v) => {
-  //   return (
-  //     <Box position="relative" display="inline-flex">
-  //       <CircularProgress variant="determinate" />
-  //       <Box
-  //         top={0}
-  //         left={0}
-  //         bottom={0}
-  //         right={0}
-  //         position="absolute"
-  //         display="flex"
-  //         alignItems="center"
-  //         justifyContent="center"
-  //       >
-  //         <Typography variant="caption" component="div" color="textSecondary">
-  //           {`${Math.round(
-  //             v,
-  //           )}%`}
-  //         </Typography>
-  //       </Box>
-  //     </Box>
-  //   );
-  // };
-
   return (
     <div
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <Toolbar title={courseCategory} />
+      {/* <Toolbar title={courseCategory} /> */}
+      <Toolbar />
       <Box mt={3}>
         <Grid
           container
@@ -116,7 +92,7 @@ const ComponentCourse = ({
             <Pagination
               className={classes.pagination}
               color="primary"
-              size="small"
+              size="large"
               count={totalPages}
               onChange={handlePageChange}
               defaultPage={1}
@@ -124,7 +100,7 @@ const ComponentCourse = ({
               siblingCount={0}
             />
           )
-          : <div><Typography color="textPrimary" variant="subtitle1">em breve</Typography></div>}
+          : <div />}
       </Box>
     </div>
   );
@@ -132,9 +108,7 @@ const ComponentCourse = ({
 
 ComponentCourse.propTypes = {
   className: PropTypes.string,
-  courses: PropTypes.any,
-  value: PropTypes.number.isRequired,
-  courseCategory: PropTypes.string
+  courses: PropTypes.any
 };
 
 export default ComponentCourse;

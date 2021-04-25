@@ -11,12 +11,9 @@ import {
 
 const useStyles = makeStyles(() => ({
   root: {},
-  select: {
-    maxWidth: '200px'
-  }
 }));
 
-const Toolbar = ({ className, title, ...rest }) => {
+const Toolbar = ({ className, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -33,7 +30,7 @@ const Toolbar = ({ className, title, ...rest }) => {
             alignItems="center"
           >
             <Grid item>
-              <Typography variant="h3">{title}</Typography>
+              <Typography variant="h3" component="h1">Avaliações</Typography>
             </Grid>
           </Grid>
         </CardContent>
@@ -43,8 +40,7 @@ const Toolbar = ({ className, title, ...rest }) => {
 };
 
 Toolbar.propTypes = {
-  className: PropTypes.string,
-  title: PropTypes.string.isRequired
+  className: PropTypes.string
 };
 
 export default Toolbar;

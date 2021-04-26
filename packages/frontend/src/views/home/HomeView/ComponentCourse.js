@@ -32,7 +32,9 @@ const ComponentCourse = ({
 }) => {
   const classes = useStyles();
   const [limit] = useState(3);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(
+    localStorage.getItem('pagination_home') ? parseFloat(localStorage.getItem('pagination_home')) : 1
+  );
   const [totalCourses, setTotalCourses] = useState();
   const [totalPages, setTotalPages] = useState();
   const [results, setResults] = useState([]);
@@ -51,6 +53,7 @@ const ComponentCourse = ({
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
+    localStorage.setItem('pagination_home', newPage);
   };
 
   return (

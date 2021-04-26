@@ -34,6 +34,17 @@ const useStyles = makeStyles((theme) => ({
       visibility: 'hidden !important',
       position: 'absolute'
     }
+  },
+  datagrid: {
+    '& .MuiDataGrid-columnsContainer': {
+      backgroundColor: '#fafafa',
+    },
+    '& .MuiDataGrid-iconSeparator': {
+      display: 'none',
+    },
+    '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
+      borderRight: `1px solid ${'#f0f0f0'}`,
+    },
   }
 }));
 
@@ -128,6 +139,7 @@ const Results = ({
         <TableToolbar className title="Avaliações" />
         <div style={{ width: '100%' }}>
           <DataGrid
+            className={classes.datagrid}
             rows={assessments}
             columns={columns.map((column) => ({
               ...column,

@@ -65,6 +65,14 @@ const Component = ({
   const classes = useStyles();
   const navigate = useNavigate();
   const [translate] = useState(labels);
+  const [page, setPage] = useState(
+    localStorage.getItem('pagination_student') ? parseFloat(localStorage.getItem('pagination_student')) : 1
+  );
+
+  const handlePageChange = (event) => {
+    setPage(event.page);
+    localStorage.setItem('pagination_student', event.page);
+  };
 
   const clickActions = (action) => {
     switch (action) {
@@ -165,6 +173,7 @@ const Component = ({
                 disableClickEventBubbling: true,
               }))}
               pageSize={10}
+              page={page}
               autoHeight
               checkboxSelection
               components={{
@@ -173,6 +182,7 @@ const Component = ({
               pagination
               localeText={translate}
               loading={loading}
+              onPageChange={handlePageChange}
             />
           </div>
         </div>

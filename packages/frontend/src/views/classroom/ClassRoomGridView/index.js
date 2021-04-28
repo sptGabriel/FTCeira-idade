@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Box,
   Container,
@@ -36,10 +36,10 @@ const ClassRoomGrid = () => {
     localStorage.getItem('pagination_classroom') ? parseFloat(localStorage.getItem('pagination_classroom')) : 1
   );
 
-  const handlePageChange = (event, newPage) => {
+  const handlePageChange = useCallback((event, newPage) => {
     setPage(newPage);
     localStorage.setItem('pagination_classroom', newPage);
-  };
+  }, []);
 
   return (
     <Page
@@ -89,4 +89,5 @@ const ClassRoomGrid = () => {
     </Page>
   );
 };
+
 export default ClassRoomGrid;

@@ -66,7 +66,7 @@ const Component = ({
   const navigate = useNavigate();
   const [translate] = useState(labels);
   const [page, setPage] = useState(
-    localStorage.getItem('pagination_student') ? parseFloat(localStorage.getItem('pagination_student')) : 1
+    localStorage.getItem('pagination_student') ? parseFloat(localStorage.getItem('pagination_student')) : 0
   );
 
   const handlePageChange = (event) => {

@@ -49,4 +49,36 @@ export default [
     shift: 'vespertino',
     students: 45
   },
+  {
+    id: uuid(),
+    code: 'CBWFTC02021',
+    description: 'Curso básico Windows',
+    course: 'Windows Básico 7',
+    shift: 'vespertino',
+    students: 45
+  },
+  {
+    id: uuid(),
+    code: 'CBWFTC02021',
+    description: 'Curso básico Windows 8',
+    course: 'Windows Básico',
+    shift: 'vespertino',
+    students: 45
+  },
+  {
+    id: uuid(),
+    code: 'CBWFTC02021',
+    description: 'Curso básico Windows',
+    course: 'Windows Básico 9',
+    shift: 'vespertino',
+    students: 45
+  },
+  {
+    id: uuid(),
+    code: 'CBWFTC02021',
+    description: 'Curso básico Windows',
+    course: 'Windows Básico 10',
+    shift: 'vespertino',
+    students: 45
+  },
 ];

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   Box,
   Container,
@@ -36,10 +36,10 @@ const CourseList = () => {
     localStorage.getItem('pagination_course') ? parseFloat(localStorage.getItem('pagination_course')) : 1
   );
 
-  const handlePageChange = (event, newPage) => {
+  const handlePageChange = useCallback((event, newPage) => {
     setPage(newPage);
     localStorage.setItem('pagination_course', newPage);
-  };
+  }, []);
 
   return (
     <Page
@@ -88,4 +88,5 @@ const CourseList = () => {
     </Page>
   );
 };
+
 export default CourseList;

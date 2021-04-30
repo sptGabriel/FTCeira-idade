@@ -56,6 +56,14 @@ const Results = ({
   const classes = useStyles();
   const navigate = useNavigate();
   const [translate] = useState(labels);
+  const [page, setPage] = useState(
+    localStorage.getItem('pagination_assessment_s') ? parseFloat(localStorage.getItem('pagination_assessment_s')) : 0
+  );
+
+  const handlePageChange = (event) => {
+    setPage(event.page);
+    localStorage.setItem('pagination_assessment_s', event.page);
+  };
 
   const handleCellClick = (param, event) => {
     console.log('Cell:');
@@ -106,7 +114,7 @@ const Results = ({
     },
     {
       field: 'end_date',
-      width: 150,
+      width: 300,
       headerAlign: 'center',
       description: <Typography variant="body2">Prazo final para fazer a avaliação</Typography>,
       renderHeader: () => (
@@ -173,6 +181,7 @@ const Results = ({
               disableClickEventBubbling: true,
             }))}
             pageSize={9}
+            page={page}
             autoHeight
             components={{
               Toolbar: CustomToolbar,
@@ -184,6 +193,7 @@ const Results = ({
             onCellClick={handleCellClick}
             onRowClick={handleRowClick}
             className={classes.datagrid}
+            onPageChange={handlePageChange}
           />
         </div>
       </Box>

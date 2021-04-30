@@ -38,6 +38,11 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
       borderRight: `1px solid ${'#f0f0f0'}`,
     },
+  },
+  headerAlignItems: {
+    '& .MuiDataGrid, .MuiDataGrid-colCellTitleContainer': {
+      alignItems: 'center'
+    }
   }
 }));
 
@@ -174,27 +179,29 @@ const Results = ({
          }
         />
         <div style={{ width: '100%' }}>
-          <DataGrid
-            rows={assessments}
-            columns={columns.map((column) => ({
-              ...column,
-              disableClickEventBubbling: true,
-            }))}
-            pageSize={9}
-            page={page}
-            autoHeight
-            components={{
-              Toolbar: CustomToolbar,
-            }}
-            pagination
-            localeText={translate}
-            loading={loading}
-            density="comfortable"
-            onCellClick={handleCellClick}
-            onRowClick={handleRowClick}
-            className={classes.datagrid}
-            onPageChange={handlePageChange}
-          />
+          <div className={classes.headerAlignItems}>
+            <DataGrid
+              rows={assessments}
+              columns={columns.map((column) => ({
+                ...column,
+                disableClickEventBubbling: true,
+              }))}
+              pageSize={9}
+              page={page}
+              autoHeight
+              components={{
+                Toolbar: CustomToolbar,
+              }}
+              pagination
+              localeText={translate}
+              loading={loading}
+              density="comfortable"
+              onCellClick={handleCellClick}
+              onRowClick={handleRowClick}
+              className={classes.datagrid}
+              onPageChange={handlePageChange}
+            />
+          </div>
         </div>
       </Box>
     </Card>

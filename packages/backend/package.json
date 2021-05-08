@@ -20,7 +20,7 @@
     "lint:ts": "tsc --noEmit",
     "test": "jest --bail --runInBand --setupFiles dotenv/config",
     "test:coverage": "npm test -- --coverage",
-    "prePush": "npm run test:coverage && npm run lint && npm run lint:ts",
+    "prePush": "npm run lint && npm run lint:ts",
     "migrate:make": "knex --knexfile src/infrastructure/knex/knexfile.ts migrate:make -x ts",
     "migrate:dev": "knex --knexfile ./src/infrastructure/knex/knexfile.ts migrate:latest --env development",
     "migrate:prod": "knex --knexfile ./src/infrastructure/knex/knexfile.ts migrate:latest --env production",
@@ -32,8 +32,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run prePush"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
@@ -87,15 +86,18 @@
     "express-prom-bundle": "^6.3.5",
     "express-rate-limit": "^5.2.6",
     "fluentvalidation-ts": "^2.2.1",
-    "gbc-mediator": "^1.0.5",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.2",
+    "moment": "^2.29.1",
     "mongodb": "^3.6.5",
     "morgan": "^1.10.0",
     "pg": "^8.5.1",
     "prom-client": "^13.1.0",
+    "reflect-metadata": "^0.1.13",
     "shallow-equal-object": "^1.1.1",
+    "tsyringe": "^4.5.0",
+    "typeorm": "^0.2.32",
     "uuid": "^8.3.2",
     "validator": "^13.5.2",
     "winston": "^3.3.3"

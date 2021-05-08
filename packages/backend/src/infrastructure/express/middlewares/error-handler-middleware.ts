@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
-import { DefaultError } from '~/application/errors/default-app-error'
+import { BaseError } from '~/application/errors/base-app.error'
+import { DefaultError } from '~/application/errors/default-app.error'
 
 export const errorHandler = (
   error: Error | DefaultError,
@@ -11,6 +12,6 @@ export const errorHandler = (
     error: 'Internal_ERROR',
     message: 'Internal error',
   }
-  if (!(error instanceof DefaultError)) return res.status(500).json(internal)
+  if (!(error instanceof BaseError)) return res.status(500).json(internal)
   return res.status(error.statusCode).json(error.serialize())
 }

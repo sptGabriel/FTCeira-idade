@@ -11,4 +11,5 @@ export type CreatePersonDTO = {
   cpf: string
   birthDate: Date
   role: string
+  iesCourse?: string
 }

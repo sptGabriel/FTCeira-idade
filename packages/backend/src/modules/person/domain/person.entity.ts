@@ -10,6 +10,12 @@ export enum PersonRole {
   STUDENT = 'student',
 }
 
+export enum IesCourse {
+  ADM = 'administração',
+  SI = 'sistemas',
+  ENF = 'enfermagem',
+}
+
 @Entity()
 export default class Person {
   constructor() {
@@ -34,6 +40,12 @@ export default class Person {
     default: PersonRole.STUDENT,
   })
   public role: string
+  @Column({
+    type: 'enum',
+    enum: IesCourse,
+    nullable: true
+  })
+  public iesCourse: string
   @OneToOne(() => User, (user) => user.person)
   public user!: User
   @OneToMany(() => Registration, (registration) => registration.student, {

@@ -4,7 +4,6 @@ import {
   JoinColumn,
   OneToOne,
   PrimaryColumn,
-  PrimaryGeneratedColumn,
 } from 'typeorm'
 import { v4 } from 'uuid'
 import Person from '~/modules/person/domain/person.entity'

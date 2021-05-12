@@ -1,18 +1,19 @@
-import {
-  Column,
-  Db,
-  Entity,
-  OneToOne,
-  PrimaryColumn,
-  PrimaryGeneratedColumn,
-} from 'typeorm'
+import { Column, Entity, OneToMany, OneToOne, PrimaryColumn } from 'typeorm'
 import { v4 } from 'uuid'
+import QuestionnaireAnswer from '~/modules/questionnaire/domain/questionnaire-answer.entity'
+import Registration from './registration.entity'
 import User from './user.entity'
 
 export enum PersonRole {
   TEACHER = 'teacher',
   COORDINATOR = 'coordinator',
   STUDENT = 'student',
+}
+
+export enum IesCourse {
+  ADM = 'administração',
+  SI = 'sistemas',
+  ENF = 'enfermagem',
 }
 
 @Entity()
@@ -39,6 +40,18 @@ export default class Person {
     default: PersonRole.STUDENT,
   })
   public role: string
+  @Column({
+    type: 'enum',
+    enum: IesCourse,
+    nullable: true
+  })
+  public iesCourse: string
   @OneToOne(() => User, (user) => user.person)
-  user!: User
+  public user!: User
+  @OneToMany(() => Registration, (registration) => registration.student, {
+    eager: true
+  })
+  public registrations: Registration[]
+  @OneToMany(() => QuestionnaireAnswer, (qa) => qa.student, {lazy: true})
+  public answers: QuestionnaireAnswer[]
 }

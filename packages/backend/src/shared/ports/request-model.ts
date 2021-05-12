@@ -8,5 +8,5 @@ export interface RequestModel<
   params?: Params
   query?: Query
   headers?: Headers
-  accountId?: string
+  userId?: string
 }

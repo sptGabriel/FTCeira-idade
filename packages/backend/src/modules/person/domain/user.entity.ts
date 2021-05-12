@@ -4,7 +4,6 @@ import {
   JoinColumn,
   OneToOne,
   PrimaryColumn,
-  PrimaryGeneratedColumn,
 } from 'typeorm'
 import { v4 } from 'uuid'
 import Person from '~/modules/person/domain/person.entity'
@@ -17,7 +16,7 @@ export default class User {
 
   @PrimaryColumn()
   public readonly id: string
-  @OneToOne(() => Person)
+  @OneToOne(() => Person, { eager: true })
   @JoinColumn()
   person: Person
   @Column()

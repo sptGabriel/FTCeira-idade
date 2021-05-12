@@ -38,5 +38,6 @@ export const CreatePersonSchema = Joi.object({
     'any.required': `{#label} is a required field`,
   }),
   birthDate: Joi.date().raw().required(),
-  role: Joi.string().valid('teacher', 'coordinator', 'student'),
+  role: Joi.string().valid('teacher', 'student').required(),
+  iesCourse: Joi.string().valid('administração', 'sistemas', 'enfermagem'),
 })

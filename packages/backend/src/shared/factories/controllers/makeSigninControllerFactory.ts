@@ -1,8 +1,8 @@
 import { SiginHandler } from '~/application/useCases/signin/sign-in.handler'
 import { SignInController } from '~/modules/person/ui/sign-in.controller'
-import { SuccessResponse } from '../responses/sucess-response'
-import { BcryptAdapter } from '../utils/bcrypt.adapter'
-import { JwtAdapter } from '../utils/jwt-adapter'
+import { SuccessResponse } from '../../responses/sucess-response'
+import { BcryptAdapter } from '../../utils/bcrypt.adapter'
+import { JwtAdapter } from '../../utils/jwt-adapter'
 
 export const makeSigninControllerFactory = () => {
   const salt = 12

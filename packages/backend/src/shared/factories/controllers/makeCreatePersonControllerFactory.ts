@@ -1,6 +1,5 @@
-import Person from '~/modules/person/domain/person.entity'
 import { CreatePersonController } from '~/modules/person/ui/create-person.controller'
-import { CreatedResponse } from '../responses/created-response'
+import { CreatedResponse } from '../../responses/created-response'
 
 export const makeCreatePersonControllerFactory = () => {
   const createdPersonPresenter = new CreatedResponse()

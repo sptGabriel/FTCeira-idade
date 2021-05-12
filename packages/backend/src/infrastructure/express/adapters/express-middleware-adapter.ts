@@ -5,7 +5,7 @@ export const adaptMiddleware = (middleware: IMiddleware) => {
   return async (request: Request, response: Response, next: NextFunction) => {
     try {
       await middleware
-        .execute({
+        .handle({
           accessToken: request.headers?.authorization?.split(' ')[1],
           ...(request.headers || {}),
         })

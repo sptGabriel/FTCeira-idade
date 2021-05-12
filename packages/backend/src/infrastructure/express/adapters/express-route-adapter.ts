@@ -9,7 +9,7 @@ export const adaptRoute = (controller: IController) => {
         params: request.params,
         body: request.body,
         headers: request.headers,
-        accountId: request.userId,
+        userId: request.userId,
       })
       return result.isRight()
         ? response.status(result.value.statusCode).json(result.value.body)

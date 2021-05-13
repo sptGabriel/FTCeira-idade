@@ -1,22 +1,13 @@
-//import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm"
-//import { v4 } from "uuid"
-//import CourseHasClasses from "~/modules/course/domain/course-has-classes.entity"
+import { Column, Entity, ManyToOne } from "typeorm"
+import Person from "~/modules/person/domain/person.entity"
+import Course from "./course.entity"
 
-//@Entity()
-//export default class ClasseHasTeachers {
-//  constructor() {
-//    if (!this.id) this.id = v4()
-//  }
-//  @PrimaryColumn()
-//  public readonly id: string
-//  @Column({name: "start_date"})
-//  public startDate: string
-//  @Column({name: "end_date"})
-//  public endDate: string
-//	@Column()
-//  public periodo: string
-//	@Column({type: 'int'})
-//  public max: number
-//	@OneToMany(type => CourseHasClasses, courseClasses => courseClasses.classe)
-//  courseClasses: CourseHasClasses[];
-//}
+@Entity()
+export default class CourseHasTeachers {
+  @ManyToOne(() => Course, (course) => course.teachers, {primary: true})
+  course: Course
+	@ManyToOne(() => Person, (person) => person.teachers, {primary: true})
+  teacher: Person
+	@Column({default: false})
+	approved: boolean
+}

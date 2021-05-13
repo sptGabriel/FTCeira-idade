@@ -39,7 +39,7 @@ export default class Question {
   @OneToMany(
     () => QuestionAlternative,
     (questionnares) => questionnares.question,
-    { lazy: true, cascade: ['insert', 'update'] },
+    { eager: true, cascade: ['insert', 'update'] },
   )
   public alternatives: QuestionAlternative[]
   @OneToOne(() => Answer, (answer) => answer.question)

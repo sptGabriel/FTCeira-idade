@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, OneToOne, PrimaryColumn } from 'typeorm'
 import { v4 } from 'uuid'
+import CourseHasTeachers from '~/modules/course/domain/classes-has-teachers.entity'
 import QuestionnaireAnswer from '~/modules/questionnaire/domain/questionnaire-answer.entity'
 import Registration from './registration.entity'
 import User from './user.entity'
@@ -54,4 +55,6 @@ export default class Person {
   public registrations: Registration[]
   @OneToMany(() => QuestionnaireAnswer, (qa) => qa.student, {lazy: true})
   public answers: QuestionnaireAnswer[]
+  @OneToMany(() => CourseHasTeachers, cht => cht.teacher)
+  public teachers: CourseHasTeachers[]
 }

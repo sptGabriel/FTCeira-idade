@@ -2,6 +2,7 @@ import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 import { v4 } from 'uuid'
 import Questionnaire from '~/modules/questionnaire/domain/questionnaire.entity'
 import Class from './class.entity'
+import CourseHasTeachers from './classes-has-teachers.entity'
 
 
 export enum CURSOS_IES {
@@ -34,9 +35,11 @@ export default class Course {
   })
   public iesCourse: string
   @OneToMany(() => Class, (_class) => _class.course, {eager: true})
-  classes: Class[]
+  public classes: Class[]
   @OneToMany(() => Questionnaire, questionnares => questionnares.course)
-  questionnaires: Questionnaire[]
+  public questionnaires: Questionnaire[]
+  @OneToMany(() => CourseHasTeachers, cht => cht.course)
+  public teachers: CourseHasTeachers[]
   //@OneToMany(() => Registration, registration => registration.course)
   //registrations: Registration[]
 }

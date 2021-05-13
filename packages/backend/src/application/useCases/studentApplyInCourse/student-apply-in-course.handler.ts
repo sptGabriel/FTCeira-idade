@@ -24,18 +24,18 @@ export class StudentApplyInCourseHandler {
   }
 
   async execute(id: string, classId: string): Promise<any> {
+    const user = await this.userRepository.findOne({ where: { id } })
+    if (!user) throw new BadRequestERROR({ message: `This user not exist` })
+    if (user.person.role !== 'student') {
+      throw new BadRequestERROR({ message: `Invalid Operation` })
+    }
     const alreadyApplied = this.registrationRepository.findOne({
-      where: { student: { id }, class: { id: classId } },
+      where: { student: { id: user.person.id }, class: { id: classId } },
     })
     if (alreadyApplied) {
       throw new BadRequestERROR({
         message: `User already has an application for this course`,
       })
-    }
-    const user = await this.userRepository.findOne({ where: { id } })
-    if (!user) throw new BadRequestERROR({ message: `This user not exist` })
-    if (user.person.role !== 'student') {
-      throw new BadRequestERROR({ message: `Invalid Operation` })
     }
     const classe = await this.classRepository.findOne({
       where: { id: classId },

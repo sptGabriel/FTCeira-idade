@@ -1,6 +1,3 @@
-export type StudentApplyInCourseDTO = {
-  courseId: string
-}
 import Joi from 'joi'
 
 export const StudentApplyInCourseSchema = Joi.object({

@@ -19,11 +19,8 @@ import { v4 as uuid } from 'uuid';
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
-    height: '100%',
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
   },
-  selectShift: {
+  selectStatus: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1)
   },
@@ -31,21 +28,25 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(0.5)
   },
+  image: {
+    height: 300,
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  }
 }));
 
 const CourseEditDetails = () => {
   const classes = useStyles();
   const hiddenFileInput = useRef(null);
 
-  // dados do curso selecionado ------------------
   const [course, setCourse] = useState({
     id: uuid(),
     description: 'Descrição do curso 1',
     media: '/static/images/blank.png',
     title: 'Nome do curso 1',
     course: 'sistemas de informacao',
-    students: 0,
-    shift: 'noturno'
+    status: 'ativo'
   });
 
   const [src, setSrc] = useState(course.media);
@@ -62,7 +63,7 @@ const CourseEditDetails = () => {
   };
 
   const handleSubmit = useCallback(() => {
-    console.log(course.title, course.description, course.students, course.shift);
+    console.log(course.title, course.description, course.course);
   }, [course]);
 
   const handleButtonClick = () => {
@@ -75,6 +76,7 @@ const CourseEditDetails = () => {
         <CardHeader
           title="Editar curso"
           subheader="Todas as informações podem ser editadas"
+          titleTypographyProps={{ variant: 'h4' }}
         />
         <Divider />
         <CardActions>
@@ -100,6 +102,7 @@ const CourseEditDetails = () => {
             component="img"
             image={src}
             title="title"
+            className={classes.image}
           />
         </CardActionArea>
         <Divider />
@@ -141,14 +144,14 @@ const CourseEditDetails = () => {
                   name="description"
                   onChange={handleChange}
                   required
-                  rows={4}
+                  rows={8}
                   value={course.description}
                   variant="outlined"
                 />
               </Grid>
               <Grid
                 item
-                xs={12}
+                xs={6}
               >
                 <TextField
                   className={classes.selectCourse}
@@ -169,44 +172,27 @@ const CourseEditDetails = () => {
                   <MenuItem value="engenharia">Engenharia Civil</MenuItem>
                 </TextField>
               </Grid>
+
               <Grid
                 item
-                xs
+                xs={6}
               >
                 <TextField
-                  fullWidth
-                  id="students"
-                  label="Total de vagas"
-                  margin="dense"
-                  name="students"
-                  onChange={handleChange}
-                  required
-                  type="number"
-                  value={course.students}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid
-                item
-                xs
-              >
-                <TextField
-                  className={classes.selectShift}
+                  className={classes.selectStatus}
                   fullWidth
                   required
-                  id="shif"
-                  name="shift"
+                  id="status"
+                  name="status"
                   onChange={handleChange}
                   select
                   size="small"
-                  label="Turno"
-                  value={course.shift}
+                  label="Status"
+                  value={course.status}
                   variant="outlined"
                 >
-                  <MenuItem value="" />
-                  <MenuItem value="matutino">Matutino</MenuItem>
-                  <MenuItem value="vespertino">Vespertino</MenuItem>
-                  <MenuItem value="noturno">Noturno</MenuItem>
+                  <MenuItem value="ativo" />
+                  <MenuItem value="ativo">Ativo</MenuItem>
+                  <MenuItem value="inativo">Inativo</MenuItem>
                 </TextField>
               </Grid>
             </Grid>

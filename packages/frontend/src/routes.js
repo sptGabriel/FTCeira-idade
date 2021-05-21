@@ -14,7 +14,7 @@ import AccountView from 'src/views/account/AccountView';
 
 import HomeView from 'src/views/home/HomeView';
 
-// import EnrollmentListView from 'src/views/enrollment/EnrollmentListView';
+import EnrollmentListView from 'src/views/enrollment/EnrollmentListView';
 // import EnrollmentEdit from 'src/views/enrollment/EnrollmentEdit';
 
 import TeacherListView from 'src/views/teacher/TeacherListView';
@@ -67,7 +67,7 @@ const routes = [
       // { path: 'student-assessment-application', element: <StudentAssessmentApplication /> },
       // { path: 'student-assessment-correction', element: <StudentAssessmentCorrection /> },
 
-      // { path: 'enrollments', element: <EnrollmentListView /> },
+      { path: 'enrollments', element: <EnrollmentListView /> },
       // { path: 'enrollment-edit', element: <EnrollmentEdit /> },
 
       { path: 'courses', element: <CourseGridView /> },

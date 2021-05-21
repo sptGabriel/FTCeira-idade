@@ -30,7 +30,7 @@ const Toolbar = ({ className, ...rest }) => {
             alignItems="center"
           >
             <Grid item>
-              <Typography variant="h3" component="h1">Avaliações</Typography>
+              <Typography variant="h3" component="h1">Cursos</Typography>
             </Grid>
           </Grid>
         </CardContent>

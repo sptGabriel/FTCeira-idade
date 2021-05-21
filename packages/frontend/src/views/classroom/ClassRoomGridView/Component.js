@@ -15,7 +15,6 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import PeopleIcon from '@material-ui/icons/People';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import AssessmentIcon from '@material-ui/icons/DescriptionOutlined';
 import QuestionIcon from '@material-ui/icons/PostAdd';
 import { useNavigate } from 'react-router-dom';
@@ -46,9 +45,6 @@ const Component = ({ className, classroom, ...rest }) => {
     switch (action) {
       case 'chart':
         navigate('/app/classroom-performance', { replace: false });
-        break;
-      case 'view':
-        navigate('/app/classroom-view', { replace: false });
         break;
       case 'edit':
         navigate('/app/classroom-edit', { replace: false });
@@ -86,13 +82,13 @@ const Component = ({ className, classroom, ...rest }) => {
         >
           {classroom.code}
         </Typography>
-        <Typography
+        {/* <Typography
           align="center"
           color="textPrimary"
           variant="body1"
         >
           {classroom.description}
-        </Typography>
+        </Typography> */}
       </CardContent>
       <Box flexGrow={1} />
       <Divider />
@@ -143,13 +139,6 @@ const Component = ({ className, classroom, ...rest }) => {
                 className={clsx(classes.statsIcon, classes.handPointer)}
                 color="action"
                 onClick={() => clickActions('assessment')}
-              />
-            </CustomTooltip>
-            <CustomTooltip title="visualizar">
-              <VisibilityIcon
-                className={clsx(classes.statsIcon, classes.handPointer)}
-                color="action"
-                onClick={() => clickActions('view')}
               />
             </CustomTooltip>
             <CustomTooltip title="editar">

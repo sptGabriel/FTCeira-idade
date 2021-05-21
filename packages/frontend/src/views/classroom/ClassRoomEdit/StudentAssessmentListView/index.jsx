@@ -3,7 +3,6 @@ import {
   Grid,
   makeStyles
 } from '@material-ui/core';
-// import Page from 'src/components/Page';
 import Component from './Component';
 import data from './data';
 
@@ -15,15 +14,9 @@ const useStyles = makeStyles(() => ({
 
 const StudentAssessmentListView = () => {
   const classes = useStyles();
-  // const [loading] = useState(false);
   const [assessments] = useState(data);
 
   return (
-  // <Page
-  //   title="Avaliações"
-  // >
-  //   <Container maxWidth={false}>
-  //     <Box mt={3}>
     <Grid
       container
       direction="row"
@@ -34,9 +27,6 @@ const StudentAssessmentListView = () => {
         <Component assessments={assessments} />
       </Grid>
     </Grid>
-  //     </Box>
-  //   </Container>
-  // </Page>
   );
 };
 

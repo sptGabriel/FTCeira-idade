@@ -14,7 +14,6 @@ import {
 } from '@material-ui/core';
 
 const StudentEditDetails = () => {
-  // dados do usuário selecionado
   const [student] = useState({
     firstName: 'Aaa',
     lastName: 'Bbb',
@@ -27,8 +26,9 @@ const StudentEditDetails = () => {
     <Container maxWidth="sm">
       <Card>
         <CardHeader
-          title="Cadastro"
+          title="Editar discente"
           subheader="As informações podem ser editadas"
+          titleTypographyProps={{ variant: 'h4' }}
         />
         <Divider />
         <Formik
@@ -57,7 +57,7 @@ const StudentEditDetails = () => {
             handleBlur,
             handleChange,
             handleSubmit,
-            isSubmitting,
+            // isSubmitting,
             touched,
             values
           }) => (
@@ -141,7 +141,6 @@ const StudentEditDetails = () => {
               <Box my={2}>
                 <Button
                   color="primary"
-                  disabled={isSubmitting}
                   fullWidth
                   size="large"
                   type="submit"

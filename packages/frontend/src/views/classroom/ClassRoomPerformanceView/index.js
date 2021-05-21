@@ -4,30 +4,28 @@ import {
   Grid,
   makeStyles
 } from '@material-ui/core';
-import Page from 'src/components/Page';
+import PropTypes from 'prop-types';
+import LearningPerformance from '../../dashboard/DashboardView/LearningPerformance';
 import data1 from './data1';
 import data2 from './data2';
-import LearningPerformance from '../../dashboard/DashboardView/LearningPerformance';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
-    minHeight: '100%',
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
+    marginTop: theme.spacing(-1)
+  },
+  performance: {
+    marginTop: theme.spacing(3)
   }
 }));
 
-const CoursePerformanceView = () => {
+const ClassRoomPerformanceView = ({ title }) => {
   const classes = useStyles();
   const [dataset1] = useState(data1);
   const [dataset2] = useState(data2);
 
   return (
-    <Page
-      className={classes.root}
-      title="Desempenho do curso"
-    >
+    <div className={title ? classes.root : classes.performance}>
       <Container maxWidth={false}>
         <Grid
           container
@@ -40,7 +38,7 @@ const CoursePerformanceView = () => {
             xl={12}
             xs={12}
           >
-            <LearningPerformance title="DESEMPENHO - DISCENTES DA TURMA" dataset={dataset1} />
+            <LearningPerformance title="DESEMPENHO - TURMAS DO CURSO" dataset={dataset2} filter={false} />
           </Grid>
           <Grid
             item
@@ -49,12 +47,16 @@ const CoursePerformanceView = () => {
             xl={12}
             xs={12}
           >
-            <LearningPerformance title="DESEMPENHO - TURMAS DO CURSO" dataset={dataset2} />
+            <LearningPerformance title="DESEMPENHO - DISCENTES DA TURMA" dataset={dataset1} filter={false} />
           </Grid>
         </Grid>
       </Container>
-    </Page>
+    </div>
   );
 };
 
-export default CoursePerformanceView;
+ClassRoomPerformanceView.propTypes = {
+  title: PropTypes.string
+};
+
+export default ClassRoomPerformanceView;

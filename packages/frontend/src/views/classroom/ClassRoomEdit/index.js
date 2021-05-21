@@ -11,7 +11,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import QuestionListView from 'src/views/question/QuestionListView/index';
 import AssessmentListView from 'src/views/assessment/AssessmentListView/index';
-// import StudentAssessmentListView from './StudentAssessmentListView';
+import StudentAssessmentListView from './StudentAssessmentListView';
 import ClassRoomEdit from './Component';
 import ClassRoomPerformanceView from '../ClassRoomPerformanceView';
 
@@ -109,7 +109,7 @@ const Component = () => {
             <AssessmentListView title="Avaliações do curso" />
           </TabPanel>
           <TabPanel value={value} index={4}>
-            {/* <StudentAssessmentListView title="Avaliações realizadas" /> */}
+            <StudentAssessmentListView title="Avaliações realizadas" />
           </TabPanel>
         </Box>
       </Container>

@@ -40,7 +40,7 @@ const CoursePerformanceView = () => {
             xl={12}
             xs={12}
           >
-            <LearningPerformance title="DESEMPENHO - TURMAS DO CURSO" dataset={dataset1} />
+            <LearningPerformance title="DESEMPENHO - TURMAS DO CURSO" dataset={dataset1} filter={false} />
           </Grid>
           <Grid
             item
@@ -49,7 +49,7 @@ const CoursePerformanceView = () => {
             xl={12}
             xs={12}
           >
-            <LearningPerformance title="DESEMPENHO - DISCENTES DO CURSO" dataset={dataset2} />
+            <LearningPerformance title="DESEMPENHO - DISCENTES DO CURSO" dataset={dataset2} filter />
           </Grid>
         </Grid>
       </Container>

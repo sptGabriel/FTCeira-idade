@@ -8,6 +8,7 @@ import {
   Divider,
   Grid,
   TextField,
+  Box,
   makeStyles,
   MenuItem,
   Container
@@ -15,10 +16,7 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // backgroundColor: theme.palette.background.dark,
-    // height: '100%',
-    // paddingBottom: theme.spacing(3),
-    // paddingTop: theme.spacing(3)
+    backgroundColor: theme.palette.background.dark,
   },
   selectShift: {
     marginTop: theme.spacing(1),
@@ -33,10 +31,8 @@ const useStyles = makeStyles((theme) => ({
 const ClassRooomEditDetails = () => {
   const classes = useStyles();
 
-  // dados da turma selecionada
   const [classroom, setClassRoom] = useState({
-    description: 'hdfgdfgjdf',
-    title: 'dfgdgffgjfgj',
+    code: 'dfgdgffgjfgj',
     course: 'sistemas de informacao',
     students: 10,
     shift: 'noturno'
@@ -50,7 +46,7 @@ const ClassRooomEditDetails = () => {
   };
 
   const handleSubmit = useCallback(() => {
-    console.log(classroom.title, classroom.description, classroom.course, classroom.students, classroom.shift);
+    console.log(classroom.code, classroom.course, classroom.students, classroom.shift);
   }, [classroom]);
 
   return (
@@ -58,9 +54,9 @@ const ClassRooomEditDetails = () => {
       <Card>
         <CardHeader
           title="Editar turma"
-          subheader="Todas as informações podem ser editadas"
+          subheader="Todas as informações disponíveis podem ser editadas"
+          titleTypographyProps={{ variant: 'h4' }}
         />
-
         <Divider />
         <form
           autoComplete="off"
@@ -77,31 +73,13 @@ const ClassRooomEditDetails = () => {
               >
                 <TextField
                   fullWidth
-                  id="title"
-                  label="Título"
+                  id="code"
+                  label="Código"
                   margin="dense"
-                  name="title"
+                  name="code"
                   onChange={handleChange}
                   required
-                  value={classroom.title}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid
-                item
-                xs={12}
-              >
-                <TextField
-                  fullWidth
-                  id="description"
-                  label="Descrição"
-                  margin="dense"
-                  multiline
-                  name="description"
-                  onChange={handleChange}
-                  required
-                  rows={4}
-                  value={classroom.description}
+                  value={classroom.code}
                   variant="outlined"
                 />
               </Grid>
@@ -113,20 +91,14 @@ const ClassRooomEditDetails = () => {
                   className={classes.selectCourse}
                   fullWidth
                   required
+                  disabled
                   id="course"
                   name="course"
-                  onChange={handleChange}
-                  select
                   size="small"
                   label="Curso"
                   value={classroom.course}
                   variant="outlined"
-                >
-                  <MenuItem value="" />
-                  <MenuItem value="sistemas de informacao">Sistemas de Informação</MenuItem>
-                  <MenuItem value="administracao">Administração</MenuItem>
-                  <MenuItem value="engenharia">Engenharia Civil</MenuItem>
-                </TextField>
+                />
               </Grid>
               <Grid
                 item
@@ -172,13 +144,24 @@ const ClassRooomEditDetails = () => {
           </CardContent>
           <Divider />
           <CardActions>
-            <Button
-              color="primary"
-              onClick={handleSubmit}
-              variant="contained"
-            >
-              Salvar
-            </Button>
+            <Box flexGrow={1}>
+              <Button
+                color="primary"
+                onClick={handleSubmit}
+                variant="contained"
+              >
+                Salvar
+              </Button>
+            </Box>
+            <Box>
+              <Button
+                color="secondary"
+                onClick={handleSubmit}
+                variant="contained"
+              >
+                Excluir turma
+              </Button>
+            </Box>
           </CardActions>
         </form>
       </Card>

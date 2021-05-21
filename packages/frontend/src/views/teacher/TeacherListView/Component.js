@@ -102,14 +102,35 @@ const Results = ({
         <Avatar alt="" src={(avatarURL)} />
       ),
     },
-    { field: 'name', headerName: 'Nome', width: 465 },
-    { field: 'email', headerName: 'Email', width: 200 },
-    { field: 'phone', headerName: 'Telefone', width: 150 },
     {
-      field: '_',
-      headerName: 'Endereço',
-      width: 500,
-      valueGetter: (params) => `${params.row.street || ''}, ${params.row.city || ''}`,
+      field: 'fullname',
+      headerName: 'Nome',
+      flex: 1,
+      valueGetter: (params) => `${params.row.firstname || ''} ${params.row.lastname || ''}`,
+    },
+    {
+      field: 'cpf',
+      headerName: 'CPF',
+      width: 150
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
+      width: 300
+    },
+    {
+      field: 'birth',
+      headerName: 'Aniversário',
+      width: 150,
+      headerAlign: 'center',
+      align: 'center'
+    },
+    {
+      field: 'phone',
+      headerName: 'Telefone',
+      width: 150,
+      align: 'center',
+      headerAlign: 'center'
     },
     {
       field: 'acoes',
@@ -157,27 +178,25 @@ const Results = ({
       <Box minWidth="md">
         <TableToolbar className title="Docentes" />
         <div style={{ display: 'flex', width: '100%' }}>
-          <div style={{ flexGrow: 1 }}>
-            <DataGrid
-              className={classes.datagrid}
-              rows={teachers}
-              columns={columns.map((column) => ({
-                ...column,
-                disableClickEventBubbling: true,
-              }))}
-              pageSize={10}
-              page={page}
-              autoHeight
-              checkboxSelection
-              components={{
-                Toolbar: CustomToolbar,
-              }}
-              pagination
-              localeText={translate}
-              loading={loading}
-              onPageChange={handlePageChange}
-            />
-          </div>
+          <DataGrid
+            className={classes.datagrid}
+            rows={teachers}
+            columns={columns.map((column) => ({
+              ...column,
+              disableClickEventBubbling: true,
+            }))}
+            pageSize={10}
+            page={page}
+            autoHeight
+            checkboxSelection
+            components={{
+              Toolbar: CustomToolbar,
+            }}
+            pagination
+            localeText={translate}
+            loading={loading}
+            onPageChange={handlePageChange}
+          />
         </div>
       </Box>
     </Card>

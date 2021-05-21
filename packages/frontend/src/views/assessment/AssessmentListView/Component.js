@@ -58,7 +58,7 @@ const CustomToolbar = () => {
 };
 
 const Results = ({
-  className, assessments, loading, ...rest
+  className, assessments, title, loading, ...rest
 }) => {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -89,21 +89,29 @@ const Results = ({
   };
   // ------------
   const columns = [
-    { field: 'description', headerName: 'Descrição', width: 750 },
+    {
+      field: 'description',
+      headerName: 'Descrição',
+      flex: 1
+    },
     {
       field: 'initial_date',
       headerName: 'Data inicial',
-      width: 200
+      headerAlign: 'center',
+      align: 'center',
+      width: 150
     },
     {
       field: 'end_date',
       headerName: 'Data final',
+      headerAlign: 'center',
+      align: 'center',
       width: 150
     },
     {
       field: 'acoes',
       headerName: 'Ações',
-      width: 200,
+      width: 150,
       description: 'Essa coluna não pode ser ordenada',
       sortable: false,
       filterable: false,
@@ -144,7 +152,7 @@ const Results = ({
       {...rest}
     >
       <Box minWidth="md">
-        <TableToolbar className title="Avaliações" />
+        <TableToolbar className title={title} />
         <div style={{ width: '100%' }}>
           <DataGrid
             className={classes.datagrid}
@@ -175,6 +183,7 @@ Results.propTypes = {
   className: PropTypes.string,
   assessments: PropTypes.array.isRequired,
   loading: PropTypes.bool,
+  title: PropTypes.string,
   avatarURL: PropTypes.string
 };
 

@@ -13,7 +13,6 @@ import {
   useTheme,
   makeStyles,
   Fade,
-  MenuItem,
   Menu
 } from '@material-ui/core';
 
@@ -29,11 +28,14 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
     position: 'absolute',
     zIndex: 10,
+  },
+  filter: {
+    visibility: 'hidden'
   }
 }));
 
 const LearningPerformance = ({
-  className, title, dataset, ...rest
+  className, title, dataset, filter, ...rest
 }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -42,6 +44,7 @@ const LearningPerformance = ({
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    console.log(event.currentTarget);
   };
 
   const handleClose = () => {
@@ -49,7 +52,6 @@ const LearningPerformance = ({
   };
 
   const options = {
-    // animation: false,
     cornerRadius: 0,
     layout: { padding: 0 },
     legend: { display: false },
@@ -109,12 +111,13 @@ const LearningPerformance = ({
     >
       <CardHeader
         action={(
-          <Button aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick}>
+          <Button aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick} className={!filter ? classes.filter : null}>
             filtro
           </Button>
         )}
         title={title}
       />
+
       <Menu
         id="fade-menu"
         anchorEl={anchorEl}
@@ -122,11 +125,8 @@ const LearningPerformance = ({
         open={open}
         onClose={handleClose}
         TransitionComponent={Fade}
-      >
-        <MenuItem onClick={handleClose}>filtro 1</MenuItem>
-        <MenuItem onClick={handleClose}>filtro 2</MenuItem>
-        <MenuItem onClick={handleClose}>filtro 3</MenuItem>
-      </Menu>
+      />
+
       <Divider />
       <CardContent>
         <Box
@@ -152,7 +152,8 @@ const LearningPerformance = ({
 LearningPerformance.propTypes = {
   className: PropTypes.string,
   title: PropTypes.string.isRequired,
-  dataset: PropTypes.any.isRequired
+  dataset: PropTypes.any.isRequired,
+  filter: PropTypes.bool
 };
 
 export default LearningPerformance;

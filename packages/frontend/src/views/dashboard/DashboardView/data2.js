@@ -3,11 +3,11 @@ import { colors } from '@material-ui/core';
 export default
 {
   datasets: [
-    {
-      label: 'Total',
-      backgroundColor: '#0093ff',
-      data: [18, 5, 19, 27, 29, 19, 20, 18, 5, 19]
-    },
+    // {
+    //   label: 'Total',
+    //   backgroundColor: '#0093ff',
+    //   data: [18, 5, 19, 27, 29, 19, 20, 18, 5, 19]
+    // },
     {
       label: 'Média',
       backgroundColor: colors.grey[200],

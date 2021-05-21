@@ -19,9 +19,6 @@ import CustomTooltip from '../../../utils/CustomTooltip';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
-  avatar: {
-    marginRight: theme.spacing(2)
-  },
   button: {
     cursor: 'pointer',
   },
@@ -39,11 +36,6 @@ const useStyles = makeStyles((theme) => ({
       borderRight: `1px solid ${'#f0f0f0'}`,
     },
   },
-  headerAlignItems: {
-    '& .MuiDataGrid, .MuiDataGrid-colCellTitleContainer': {
-      alignItems: 'center'
-    }
-  }
 }));
 
 const CustomToolbar = () => {
@@ -71,40 +63,30 @@ const Results = ({
   };
 
   const handleCellClick = (param, event) => {
-    console.log('Cell:');
-    console.log(param);
-    console.log(param.value);
-    console.log(param.row);
-    console.log(event);
+    console.log('cell clicked:', param.value);
+    console.log('object: ', param.row);
     if (param.colIndex === 2) {
       event.stopPropagation();
     }
   };
 
-  const handleRowClick = (param, event) => {
-    console.log('Row:');
-    console.log(param);
-    console.log(param.value);
-    console.log(event);
-  };
-
   const clickActions = (action) => {
     switch (action) {
       case 'view':
-        navigate('/app/student-assessment-view', { replace: false });
+        navigate('/app/student-assessment-application', { replace: false });
         break;
       default:
         break;
     }
   };
-  // ------------
+
   const columns = [
     {
       field: 'description',
-      width: 1024,
-      // flex: 1,
+      headerName: 'Descrição',
+      flex: 1,
       renderHeader: () => (
-        <Typography variant="h4" component="p">
+        <Typography>
           Descrição
         </Typography>
       ),
@@ -119,14 +101,16 @@ const Results = ({
     },
     {
       field: 'end_date',
-      width: 300,
-      headerAlign: 'center',
-      description: <Typography variant="body2">Prazo final para fazer a avaliação</Typography>,
+      headerName: 'Prazo final',
+      width: 200,
+      headerAlign: 'right',
+      description: <Typography variant="body1">Prazo final para fazer a avaliação</Typography>,
       renderHeader: () => (
         <Typography variant="h4" component="p">
           Prazo final
         </Typography>
       ),
+      align: 'center',
       renderCell: (params) => {
         const { value } = params;
         return (
@@ -134,15 +118,17 @@ const Results = ({
             {value}
           </Typography>
         );
-      }
+      },
     },
     {
       field: 'acoes',
-      width: 110,
+      flex: 1,
+      headerName: 'Ações',
       sortable: false,
       filterable: false,
       disableColumnSelector: true,
       headerAlign: 'center',
+      align: 'center',
       renderHeader: () => (
         <Typography variant="h4" component="p">
           Ação
@@ -173,35 +159,26 @@ const Results = ({
       {...rest}
     >
       <Box minWidth="md">
-        <TableToolbar
-          title={
-            <h3>Avaliações</h3>
-         }
-        />
+        <TableToolbar title={<h4>Avaliações</h4>} />
         <div style={{ width: '100%' }}>
-          <div className={classes.headerAlignItems}>
-            <DataGrid
-              rows={assessments}
-              columns={columns.map((column) => ({
-                ...column,
-                disableClickEventBubbling: true,
-              }))}
-              pageSize={9}
-              page={page}
-              autoHeight
-              components={{
-                Toolbar: CustomToolbar,
-              }}
-              pagination
-              localeText={translate}
-              loading={loading}
-              density="comfortable"
-              onCellClick={handleCellClick}
-              onRowClick={handleRowClick}
-              className={classes.datagrid}
-              onPageChange={handlePageChange}
-            />
-          </div>
+          <DataGrid
+            rows={assessments}
+            columns={columns.map((column) => ({
+              ...column
+            }))}
+            pageSize={9}
+            page={page}
+            autoHeight
+            components={{
+              Toolbar: CustomToolbar,
+            }}
+            pagination
+            localeText={translate}
+            loading={loading}
+            onCellClick={handleCellClick}
+            className={classes.datagrid}
+            onPageChange={handlePageChange}
+          />
         </div>
       </Box>
     </Card>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   Box,
+  Grid,
   Container,
   makeStyles
 } from '@material-ui/core';
@@ -11,9 +12,7 @@ import data from './data';
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
-    minHeight: '100%',
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
+    maxWidth: 1024
   }
 }));
 
@@ -24,12 +23,20 @@ const StudentAssessmentListView = () => {
 
   return (
     <Page
-      className={classes.root}
       title="Avaliações"
     >
       <Container maxWidth={false}>
         <Box mt={3}>
-          <Component assessments={assessments} loading={loading} />
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
+            <Grid item xs container direction="column" className={classes.root}>
+              <Component assessments={assessments} loading={loading} />
+            </Grid>
+          </Grid>
         </Box>
       </Container>
     </Page>

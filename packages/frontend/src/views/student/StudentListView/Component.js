@@ -19,6 +19,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import labels from '../../../utils/labels';
 import CustomTooltip from '../../../utils/CustomTooltip';
+import CustomSnackbar from '../../../components/CustomSnackbar';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -68,6 +69,20 @@ const Component = ({
   const [page, setPage] = useState(
     localStorage.getItem('pagination_student') ? parseFloat(localStorage.getItem('pagination_student')) : 0
   );
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+
+  const handleOpenSnack = (text) => {
+    setMessage(text);
+    setOpen(true);
+  };
+  const handleCloseSnack = (event, reason) => {
+    if (reason === 'clickaway') {
+      setOpen(false);
+      return;
+    }
+    setOpen(false);
+  };
 
   const handlePageChange = (event) => {
     setPage(event.page);
@@ -80,13 +95,13 @@ const Component = ({
         navigate('/app/student-performance', { replace: false });
         break;
       case 'view':
-        navigate('/app/student-view', { replace: false });
+        handleOpenSnack('registro excluído com sucesso');
         break;
       case 'edit':
         navigate('/app/student-edit', { replace: false });
         break;
       case 'delete':
-        navigate('/app/student-delete', { replace: false });
+        handleOpenSnack('registro excluído com sucesso');
         break;
       default:
         break;
@@ -104,20 +119,42 @@ const Component = ({
         <Avatar alt="" src={(avatarURL)} />
       ),
     },
-    { field: 'name', headerName: 'Nome', width: 450 },
-    { field: 'email', headerName: 'Email', width: 200 },
-    { field: 'phone', headerName: 'Telefone', width: 150 },
     {
       field: '_',
-      headerName: 'Endereço',
-      width: 465,
-      //  `${params.getValue('street')}`,
-      valueGetter: (params) => `${params.row.street || ''}, ${params.row.city || ''}`,
+      headerName: 'Nome',
+      flex: 1,
+      valueGetter: (params) => `${params.row.firstname || ''} ${params.row.lastname || ''}`,
+    },
+    {
+      field: 'cpf',
+      headerName: 'CPF',
+      width: 150
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
+      width: 300,
+      editable: true
+    },
+    {
+      field: 'birth',
+      headerName: 'Aniversário',
+      width: 150,
+      headerAlign: 'center',
+      align: 'center'
+    },
+    {
+      field: 'phone',
+      headerName: 'Telefone',
+      width: 150,
+      headerAlign: 'center',
+      align: 'center',
+      editable: true
     },
     {
       field: 'acoes',
       headerName: 'Ações',
-      width: 200,
+      width: 155,
       sortable: false,
       filterable: false,
       disableColumnSelector: true,
@@ -161,30 +198,43 @@ const Component = ({
       className={clsx(classes.root, className)}
       {...rest}
     >
+      <CustomSnackbar
+        message={message}
+        openStatus={open}
+        handleClose={handleCloseSnack}
+        timeClose={6000}
+        severity="success"
+      />
+      {/*
+         severity="error"
+         severity="warning"
+         severity="info"
+         severity="success"
+      */}
+
       <Box minWidth="md">
         <TableToolbar className title="Discentes" />
         <div style={{ display: 'flex', width: '100%' }}>
-          <div style={{ flexGrow: 1 }}>
-            <DataGrid
-              className={classes.datagrid}
-              rows={students}
-              columns={columns.map((column) => ({
-                ...column,
-                disableClickEventBubbling: true,
-              }))}
-              pageSize={10}
-              page={page}
-              autoHeight
-              checkboxSelection
-              components={{
-                Toolbar: CustomToolbar,
-              }}
-              pagination
-              localeText={translate}
-              loading={loading}
-              onPageChange={handlePageChange}
-            />
-          </div>
+          <DataGrid
+            className={classes.datagrid}
+            rows={students}
+            columns={columns.map((column) => ({
+              ...column,
+              disableClickEventBubbling: true,
+            }))}
+            pageSize={10}
+            page={page}
+            autoHeight
+            checkboxSelection
+            components={{
+              Toolbar: CustomToolbar,
+            }}
+            pagination
+            localeText={translate}
+            loading={loading}
+            onPageChange={handlePageChange}
+          />
+
         </div>
       </Box>
     </Card>

@@ -125,8 +125,9 @@ const QuestionEditDetails = ({ className, ...rest }) => {
       {/* <form className={classes.root} onSubmit={handleSubmit}> */}
       <Card>
         <CardHeader
-          title="Nova questão"
-          subheader="Defina as informações necessárias. A imagem e as alternativas são opcionais"
+          title="Editar questão"
+          subheader="As informações podem ser editadas"
+          titleTypographyProps={{ variant: 'h4' }}
         />
         <Divider />
 

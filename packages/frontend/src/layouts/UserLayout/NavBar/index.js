@@ -19,7 +19,7 @@ import {
   Book as CourseIcon,
   Users as UsersIcon,
   FileText as AssessmentIcon,
-  Edit as QuestionIcon,
+  Edit as EnrollmentIcon,
   LogOut as LogOutIcon
 } from 'react-feather';
 import CustomTooltip from 'src/utils/CustomTooltip';
@@ -30,8 +30,19 @@ const items = [
   {
     href: '/app/home',
     icon: HomeIcon,
-    title: 'Home'
+    title: 'Home (estudante)'
   },
+  {
+    href: '/app/enrollments',
+    icon: EnrollmentIcon,
+    title: 'Matrículas (estudante)'
+  },
+  {
+    href: '/app/student-assessments',
+    icon: AssessmentIcon,
+    title: 'Avaliações (estudante)'
+  },
+
   {
     href: '/app/dashboard',
     icon: BarChartIcon,
@@ -57,21 +68,21 @@ const items = [
     icon: ClassRoomIcon,
     title: 'Turmas'
   },
-  {
-    href: '/app/questions',
-    icon: QuestionIcon,
-    title: 'Questões'
-  },
-  {
-    href: '/app/assessments',
-    icon: AssessmentIcon,
-    title: 'Avaliações'
-  },
-  {
-    href: '/app/student-assessments',
-    icon: AssessmentIcon,
-    title: 'Avaliações Discentes'
-  }
+  // {
+  //   href: '/app/questions',
+  //   icon: QuestionIcon,
+  //   title: 'Questões'
+  // },
+  // {
+  //   href: '/app/assessments',
+  //   icon: AssessmentIcon,
+  //   title: 'Avaliações'
+  // },
+  // {
+  //   href: '/app/teste',
+  //   icon: AssessmentIcon,
+  //   title: 'Teste'
+  // }
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -136,6 +147,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             src={user.avatar}
             to="/app/account"
           />
+
         </CustomTooltip>
         <Typography
           className={classes.name}

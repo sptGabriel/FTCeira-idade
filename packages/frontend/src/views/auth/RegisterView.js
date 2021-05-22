@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import axios from 'axios';
 import {
   Box,
   Button,
@@ -12,6 +13,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
+import api from '../../services/api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,8 +28,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RegisterView = () => {
+  const [formValues, setFormValues] = useState([]);
   const classes = useStyles();
   const navigate = useNavigate();
+
+  function signUp(values) {
+    console.log(values);
+
+    // values.map((value) => {
+
+    // });
+    // api.post('/signup',
+    //   {
+    //     Headers: {
+    //       'Content-Type': 'application/json',
+    //       Accept: 'application/json',
+    //     },
+    //     values
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //     console.log(res.data);
+    //   });
+  }
 
   return (
     <Page
@@ -60,8 +83,8 @@ const RegisterView = () => {
                 password: Yup.string().min(8, 'A senha deve ter no minimo 8 caracteres').max(255).required('Senha obrigatória')
               })
             }
-            onSubmit={() => {
-              navigate('/', { replace: true });
+            onSubmit={(values) => {
+              signUp(values);
             }}
           >
             {({

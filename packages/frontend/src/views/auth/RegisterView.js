@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import axios from 'axios';
 import {
   Box,
   Button,
@@ -41,24 +40,53 @@ const RegisterView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
+  const data = {
+    lastName: '',
+    firstName: '',
+    credentials: {
+      email: '',
+      password: ''
+    },
+    phone: '',
+    cpf: '',
+    birthDate: '',
+    role: '',
+    iesCourse: ''
+  };
+
   function signUp(values) {
-    console.log(values);
+    // console.log(values);
 
-    // values.map((value) => {
+    data.lastName = values.lastName;
+    data.firstName = values.firstName;
+    data.credentials.email = values.email;
+    data.credentials.password = values.password;
+    data.phone = values.phone;
+    data.cpf = values.cpf;
+    data.birthDate = values.birth;
+    data.role = values.type;
+    data.iesCourse = values.course;
 
-    // });
-    // api.post('/signup',
-    //   {
-    //     Headers: {
-    //       'Content-Type': 'application/json',
-    //       Accept: 'application/json',
-    //     },
-    //     values
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     console.log(res.data);
-    //   });
+    if (values.type === 'student') {
+      delete data.iesCourse;
+    }
+    api.post('/signup', data,
+      {
+        Headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      .then((res) => {
+        console.log(res.code);
+        console.log(res.data);
+        alert('Cadastro feito com sucesso');
+      }).catch((error) => {
+        if (error.response) {
+          // console.log(error.response.status);
+          // console.log(error.response.headers);
+          if (error.response.status === 409) { alert('E-mail já cadastrado'); }
+        }
+      });
   }
 
   return (
@@ -246,7 +274,7 @@ const RegisterView = () => {
                 <Box my={2}>
                   <Button
                     color="primary"
-                    disabled={isSubmitting}
+                    // disabled={isSubmitting}
                     fullWidth
                     size="large"
                     type="submit"

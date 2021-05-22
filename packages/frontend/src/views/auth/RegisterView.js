@@ -9,7 +9,12 @@ import {
   Link,
   TextField,
   Typography,
-  makeStyles
+  makeStyles,
+  FormControl,
+  MenuItem,
+  Radio,
+  FormControlLabel,
+  RadioGroup
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 
@@ -22,7 +27,11 @@ const useStyles = makeStyles((theme) => ({
   },
   texto: {
     height: 44
-  }
+  },
+  selectCourse: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1)
+  },
 }));
 
 const RegisterView = () => {
@@ -47,17 +56,23 @@ const RegisterView = () => {
               lastName: '',
               cpf: '',
               email: '',
+              birth: '',
               phone: '',
-              password: ''
+              password: '',
+              course: '',
+              type: 'student'
             }}
             validationSchema={
               Yup.object().shape({
                 firstName: Yup.string().max(255).required('Nome obrigatório'),
                 lastName: Yup.string().max(255).required('Sobrenome obrigatório'),
                 cpf: Yup.string().min(14, 'Esse campo deve ter 14 caracteres').max(14, 'Esse campo deve ter no máximo 14 caracteres').required('CPF obrigatório'),
+                birth: Yup.string().max(10).required('Data do aniversário obrigatória'),
                 email: Yup.string().email('Deve ser um email válido').max(255).required('Email obrigatório'),
                 phone: Yup.string().min(10, '99 99999-9999').max(15, 'Esse campo deve ter no máximo 15 caracteres'),
-                password: Yup.string().min(8, 'A senha deve ter no minimo 8 caracteres').max(255).required('Senha obrigatória')
+                password: Yup.string().max(255).required('Senha obrigatória'),
+                course: Yup.string(),
+                type: Yup.string(),
               })
             }
             onSubmit={() => {
@@ -86,9 +101,34 @@ const RegisterView = () => {
                     gutterBottom
                     variant="body1"
                   >
-                    Use um email válido e o seu CPF para criar nova conta
+                    Use email e CPF válidos para criar a nova conta
                   </Typography>
                 </Box>
+                <FormControl component="fieldset">
+                  <RadioGroup row aria-label="type" name="type" onChange={handleChange} defaultValue="student">
+                    <FormControlLabel value="student" control={<Radio />} label="Quero ser um estudante" />
+                    <FormControlLabel value="teacher" control={<Radio />} label="Quero ser um professor" />
+                  </RadioGroup>
+                </FormControl>
+                <TextField
+                  className={classes.selectCourse}
+                  disabled={values.type === 'student'}
+                  error={Boolean(touched.course && errors.course)}
+                  fullWidth
+                  helperText={touched.course && errors.course}
+                  id="course"
+                  name="course"
+                  onChange={handleChange}
+                  select
+                  label="Área de conhecimento"
+                  value={values.course}
+                  variant="outlined"
+                >
+                  <MenuItem value="" />
+                  <MenuItem value="sistemas de informacao">Sistemas de Informação</MenuItem>
+                  <MenuItem value="administracao">Administração</MenuItem>
+                  <MenuItem value="engenharia">Engenharia Civil</MenuItem>
+                </TextField>
                 <TextField
                   error={Boolean(touched.firstName && errors.firstName)}
                   fullWidth
@@ -126,6 +166,19 @@ const RegisterView = () => {
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.cpf}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.birth && errors.birth)}
+                  fullWidth
+                  required
+                  helperText={touched.birth && errors.birth}
+                  label="Aniversário"
+                  margin="normal"
+                  name="birth"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.birth}
                   variant="outlined"
                 />
                 <TextField

@@ -57,7 +57,7 @@ const RegisterView = () => {
                 cpf: Yup.string().min(14, 'Esse campo deve ter 14 caracteres').max(14, 'Esse campo deve ter no máximo 14 caracteres').required('CPF obrigatório'),
                 email: Yup.string().email('Deve ser um email válido').max(255).required('Email obrigatório'),
                 phone: Yup.string().min(10, '99 99999-9999').max(15, 'Esse campo deve ter no máximo 15 caracteres'),
-                password: Yup.string().max(255).required('Senha obrigatória')
+                password: Yup.string().min(8, 'A senha deve ter no minimo 8 caracteres').max(255).required('Senha obrigatória')
               })
             }
             onSubmit={() => {

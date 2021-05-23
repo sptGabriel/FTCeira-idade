@@ -10,7 +10,7 @@ export default class User {
 
   @PrimaryColumn()
   public readonly id: string
-  @OneToOne(() => Person, { eager: true })
+  @OneToOne(() => Person, { eager: true, cascade: ['update'] })
   @JoinColumn()
   person: Person
   @Column()

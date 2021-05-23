@@ -30,8 +30,10 @@ export class AdminEditProfileHandler {
 		}
     const person = await this.userRepository.findOne({ where: { id } })
     if (!person) throw new BadRequestERROR({ message: `This user not exist` })
-		const BirthDate = birthDate ? this.validBirthDate(birthDate) : false
-		if(!BirthDate) throw new BadRequestERROR({ message: `Invalid Date` })
+    const BirthDate = birthDate ? this.validBirthDate(birthDate) : undefined
+    if (BirthDate === false) {
+      throw new BadRequestERROR({ message: `Invalid Date` })
+    }
 		if(firstName) person.person.firstName = firstName
 		if(lastName) person.person.lastName = lastName
 		if(phone) person.person.phone = phone

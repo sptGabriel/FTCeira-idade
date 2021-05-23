@@ -1,0 +1,30 @@
+{
+  "name": "ftceira-idade",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Gabriel Costa Cerqueira <gabrielcerqueira96@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "prePush": "npm run test:coverage && npm run lint && npm run lint:ts && npm run build",
+    "test": "jest --bail --runInBand --watchAll --setupFiles dotenv/config",
+    "test:coverage": "npm test -- --coverage"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./**/.ts": "npm lint:fix",
+    "./**/*.{js,json}": "npm format"
+  },
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.9"
+  },
+  "dependencies": {}
+}

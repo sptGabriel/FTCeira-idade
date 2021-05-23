@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+
+  ftc-api:
+    build: 
+      context: .
+      dockerfile: packages/backend/Dockerfile
+    entrypoint: ./.docker/entrypoint.sh
+    container_name: ftc-api
+    ports:
+      - 8080:8080
+    env_file:
+      - ./packages/backend/.env
+    volumes:
+      - ./packages/backend/.:/home/ftc-api
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    container_name: db
+    restart: always
+    tty: true
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=ftc
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=ftceira_idade
+    ports:
+      - "5432:5432"
+volumes:
+  db:
+    driver: local

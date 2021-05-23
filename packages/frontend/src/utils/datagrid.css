@@ -1,0 +1,5 @@
+div.MuiDataGridColumnsPanel-container > :first-of-type {
+   visibility:hidden  !important;
+   position: absolute;
+} 
+ 

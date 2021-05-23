@@ -17,6 +17,22 @@ export default class User {
   public email: string
   @Column()
   public password: string
+  @Column({ nullable: true })
+  public avatar: string
   //@Column({ nullable: true })
   //public deletedAt: Date
+
+  public toJson() {
+    return {
+      id: this.id, 
+      email: this.email,
+      avatar: this.avatar,
+      firstName: this.person.firstName,
+      lastName: this.person.lastName,
+      cpf: this.person.cpf,
+      birthDate: this.person.birthDate,
+      phone: this.person.phone,
+      role: this.person.role
+    }
+  }
 }

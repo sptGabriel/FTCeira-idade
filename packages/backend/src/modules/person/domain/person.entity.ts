@@ -57,4 +57,11 @@ export default class Person {
   public answers: QuestionnaireAnswer[]
   @OneToMany(() => CourseHasTeachers, cht => cht.teacher)
   public teachers: CourseHasTeachers[]
+
+  public toJson() {
+    const person: Omit<Person,  'id'> = this
+    return {
+      ...person
+    }
+  }
 }

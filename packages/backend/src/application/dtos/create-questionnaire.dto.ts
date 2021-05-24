@@ -11,6 +11,7 @@ export interface IQuestion {
 
 export type CreateQuestionnaireDTO = {
 	name: string
+  description: string
 	courseId: string
   questions: IQuestion[]
   startDate: Date

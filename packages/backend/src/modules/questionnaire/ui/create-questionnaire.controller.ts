@@ -6,11 +6,9 @@ import { IController } from '~/shared/ports/controller'
 import { RequestModel } from '~/shared/ports/request-model'
 import { IResponseHandler } from '~/shared/ports/response-handler'
 import { IResponseModel } from '~/shared/ports/response-model'
-import { validateDTO } from '~/shared/utils/validateSchema.helper'
 import Person from '../../../modules/person/domain/person.entity'
 import { CreateQuestionnaireDTO } from '~/application/dtos/create-questionnaire.dto'
 import { CreateQuestionnaireHandler } from '~/application/useCases/createQuestionnaire/create-questionnaire.handler'
-import { CreateQuestionnaireSchema } from '~/application/schemas/create-questionnaire.schema'
 
 export class CreateQuestionnaireController implements IController {
   constructor(private readonly presenter: IResponseHandler) {}

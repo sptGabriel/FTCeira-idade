@@ -20,7 +20,7 @@ export class CreateCourseController implements IController {
     const dto = req.body as CreateCourseDTO
     const validate = validateDTO(dto, CreateCourseSchema, 'course')
     if (validate) return left(validate)
-    await useCase.execute(dto)
+    await useCase.execute({...dto, media: req.file.filename})
     return right(await this.presenter.response())
   }
 }

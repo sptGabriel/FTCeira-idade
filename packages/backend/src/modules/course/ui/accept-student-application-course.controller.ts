@@ -18,7 +18,7 @@ export class AcceptStudentApplicationController implements IController {
   ): Promise<Either<BaseError, IResponseModel<any>>> {
     const useCase = container.resolve(AcceptStudentApplicationHandler)
     const dto = req.params as AcceptApplyInCourseDTO
-    const result = await useCase.execute(dto.userId, dto.classId, dto.courseId)
+    const result = await useCase.execute(dto.userId, dto.classId)
     return right(await this.presenter.response(result))
   }
 }

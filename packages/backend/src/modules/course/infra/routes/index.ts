@@ -31,14 +31,20 @@ courseRouter.get(
 courseRouter.post('/', adaptRoute(makeGetCourseByIdControllerFactory()))
 courseRouter.post(
   '/add',
+  coordinatorAuth,
   multer(multerConfig).single('media'),
   adaptRoute(makeCreateCourseControllerFactory()),
 )
 courseRouter.post(
   '/classes/add',
+  coordinatorAuth,
   adaptRoute(makeCreateClassControllerFactory()),
 )
-courseRouter.get('/classes', adaptRoute(makeGetClassRoomsControllerFactory()))
+courseRouter.get(
+  '/classes',
+  coordinatorAuth,
+  adaptRoute(makeGetClassRoomsControllerFactory()),
+)
 courseRouter.put(
   '/classes/apply/:classId',
   studentAuth,

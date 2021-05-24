@@ -1,9 +1,11 @@
 import { Router } from 'express'
+import multer from 'multer'
 import { adaptRoute } from '~/infrastructure/express/adapters/express-route-adapter'
 import { adminAuth } from '~/infrastructure/express/middlewares/admin.auth'
 import { AllRoleAuth } from '~/infrastructure/express/middlewares/all-role.auth copy'
 import { coordinatorAuth } from '~/infrastructure/express/middlewares/coordinator.auth'
 import { studentAuth } from '~/infrastructure/express/middlewares/student.auth'
+import { multerConfig } from '~/infrastructure/multer/config'
 import { makeAdminChangePwdControllerFactory } from '~/shared/factories/controllers/makeAdminChangePwdControllerFactory'
 import { makeAdminEditProfileApplicationControllerFactory } from '~/shared/factories/controllers/makeAdminEditProfileControllerFactory'
 import { makeChangeAvatarControllerFactory } from '~/shared/factories/controllers/makeChangeAvatarControllerFactory'
@@ -56,6 +58,7 @@ personRouter.post(
 personRouter.post(
   '/change-avatar',
   AllRoleAuth,
+  multer(multerConfig).single('avatar'),
   adaptRoute(makeChangeAvatarControllerFactory()),
 )
 export { personRouter }

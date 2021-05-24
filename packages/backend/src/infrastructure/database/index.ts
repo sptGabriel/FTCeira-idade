@@ -14,6 +14,7 @@ export default class Database implements IConnection {
         interval: 1000,
         retryMsg: `Attempted connections to the remaining database`,
       })
+      await this._connection.query(`CREATE SCHEMA IF NOT EXISTS public`)
       await this._connection.runMigrations()
     } catch (error) {
       console.error(error)

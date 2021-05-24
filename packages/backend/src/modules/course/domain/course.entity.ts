@@ -50,9 +50,12 @@ export default class Course {
       tittle: this.tittle,
       category: this.iesCourse,
       media: this.media,
-      students: this.classes
-        .map((cl) => cl.toJson().students)
-        .reduce((s, c) => s + c),
+      students:
+        this.classes.length > 0
+          ? this.classes
+              .map((cl) => cl.toJson().students)
+              .reduce((s, c) => s + c)
+          : 0,
     }
   }
 }

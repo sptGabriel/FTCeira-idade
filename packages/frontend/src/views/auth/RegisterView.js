@@ -54,7 +54,7 @@ const RegisterView = () => {
     iesCourse: ''
   };
 
-  function signUp(values) {
+  async function signUp(values) {
     // console.log(values);
 
     data.lastName = values.lastName;
@@ -70,23 +70,40 @@ const RegisterView = () => {
     if (values.type === 'student') {
       delete data.iesCourse;
     }
-    api.post('/signup', data,
-      {
-        Headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      .then((res) => {
-        console.log(res.code);
-        console.log(res.data);
-        alert('Cadastro feito com sucesso');
-      }).catch((error) => {
-        if (error.response) {
-          // console.log(error.response.status);
-          // console.log(error.response.headers);
-          if (error.response.status === 409) { alert('E-mail já cadastrado'); }
-        }
-      });
+
+    try {
+      const res = await api.post('/signup', data,
+        {
+          Headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+
+      if (res.status === 201) { alert('Usuário cadastrado com sucesso'); }
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status === 409) { alert('Usuário já cadastrado'); }
+        if (error.response.status === 422) { alert('Informe um cpf válido'); }
+      }
+    }
+
+    // api.post('/signup', data,
+    //   {
+    //     Headers: {
+    //       'Content-Type': 'application/json',
+    //     }
+    //   })
+    //   .then((res) => {
+    //     console.log(res.code);
+    //     console.log(res.data);
+    //     alert('Cadastro feito com sucesso');
+    //   }).catch((error) => {
+    //     if (error.response) {
+    //       // console.log(error.response.status);
+    //       // console.log(error.response.headers);
+    //       if (error.response.status === 409) { alert('E-mail já cadastrado'); }
+    //     }
+    //   });
   }
 
   return (

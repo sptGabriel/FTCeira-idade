@@ -6,6 +6,7 @@ import { coordinatorAuth } from '~/infrastructure/express/middlewares/coordinato
 import { studentAuth } from '~/infrastructure/express/middlewares/student.auth'
 import { makeAdminChangePwdControllerFactory } from '~/shared/factories/controllers/makeAdminChangePwdControllerFactory'
 import { makeAdminEditProfileApplicationControllerFactory } from '~/shared/factories/controllers/makeAdminEditProfileControllerFactory'
+import { makeChangeAvatarControllerFactory } from '~/shared/factories/controllers/makeChangeAvatarControllerFactory'
 import { makeChangePwdControllerFactory } from '~/shared/factories/controllers/makeChangePwdControllerFactory'
 import { makeCreatePersonControllerFactory } from '~/shared/factories/controllers/makeCreatePersonControllerFactory'
 import { makeEditProfileControllerFactory } from '~/shared/factories/controllers/makeEditProfileControllerFactory'
@@ -51,5 +52,10 @@ personRouter.post(
   '/change-pwd',
   AllRoleAuth,
   adaptRoute(makeChangePwdControllerFactory()),
+)
+personRouter.post(
+  '/change-avatar',
+  AllRoleAuth,
+  adaptRoute(makeChangeAvatarControllerFactory()),
 )
 export { personRouter }

@@ -45,7 +45,7 @@ const LoginView = () => {
             }}
             validationSchema={Yup.object().shape({
               email: Yup.string().email('Deve ser um email válido').max(255).required('Email obrigatório'),
-              password: Yup.string().max(255).required('Senha obrigatória')
+              password: Yup.string().min(8, 'A senha deve ter no minimo 8 caracteres').max(255).required('Senha obrigatória')
             })}
             onSubmit={() => {
               navigate('/app/home', { replace: true });

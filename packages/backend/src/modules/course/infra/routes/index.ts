@@ -4,19 +4,44 @@ import { adminAuth } from '~/infrastructure/express/middlewares/admin.auth'
 import { coordinatorAuth } from '~/infrastructure/express/middlewares/coordinator.auth'
 import { studentAuth } from '~/infrastructure/express/middlewares/student.auth'
 import { teacherAuth } from '~/infrastructure/express/middlewares/teacher.auth'
+import { multerConfig } from '~/infrastructure/multer/config'
 import { makeAcceptStudentApplicationControllerFactory } from '~/shared/factories/controllers/makeAcceptStudentApplicationControllerFactory'
 import { makeAcceptTeacherApplicationControllerFactory } from '~/shared/factories/controllers/makeAcceptTeacherApplicationControllerFactory'
 import { makeCreateClassControllerFactory } from '~/shared/factories/controllers/makeCreateClassControllerFactory'
 import { makeCreateCourseControllerFactory } from '~/shared/factories/controllers/makeCreateCourseControllerFactory'
+import { makeGetClassRoomsControllerFactory } from '~/shared/factories/controllers/makeGetClassRoomsControllerFactory'
+import { makeGetCourseByIdControllerFactory } from '~/shared/factories/controllers/makegetCourseByIdControllerFactory'
+import { makeGetCoursesControllerFactory } from '~/shared/factories/controllers/makeGetCoursesControllerFactory'
+import { makeEnrolledStudentsControllerFactory } from '~/shared/factories/controllers/makeGetEnrolledStudentsControllerFactory'
 import { makeStudentCourseRegistrationControllerFactory } from '~/shared/factories/controllers/makeStudentCourseRegistrationControllerFactory'
 import { makeTeacherCourseRegistrationControllerFactory } from '~/shared/factories/controllers/makeTeacherCourseRegistrationControllerFactory'
+import multer from 'multer'
 
 const courseRouter = Router()
-courseRouter.post('/add', adaptRoute(makeCreateCourseControllerFactory()))
-courseRouter.post('/classes/add', adaptRoute(makeCreateClassControllerFactory()))
+courseRouter.get(
+  '/',
+  coordinatorAuth,
+  adaptRoute(makeGetCoursesControllerFactory()),
+)
+courseRouter.get(
+  '/enrolledstudents',
+  coordinatorAuth,
+  adaptRoute(makeEnrolledStudentsControllerFactory()),
+)
+courseRouter.post('/', adaptRoute(makeGetCourseByIdControllerFactory()))
+courseRouter.post(
+  '/add',
+  multer(multerConfig).single('media'),
+  adaptRoute(makeCreateCourseControllerFactory()),
+)
+courseRouter.post(
+  '/classes/add',
+  adaptRoute(makeCreateClassControllerFactory()),
+)
+courseRouter.get('/classes', adaptRoute(makeGetClassRoomsControllerFactory()))
 courseRouter.put(
   '/classes/apply/:classId',
-	studentAuth,
+  studentAuth,
   adaptRoute(makeStudentCourseRegistrationControllerFactory()),
 )
 courseRouter.post(
@@ -26,7 +51,7 @@ courseRouter.post(
 )
 courseRouter.post(
   '/mentoring/apply/:courseId',
-	teacherAuth,
+  teacherAuth,
   adaptRoute(makeTeacherCourseRegistrationControllerFactory()),
 )
 courseRouter.put(

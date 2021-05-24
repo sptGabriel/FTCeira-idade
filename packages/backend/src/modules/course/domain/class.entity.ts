@@ -40,4 +40,15 @@ export default class Class {
     eager: true,
   })
   registrations: Registration[]
+
+  public toJson() {
+    const registrations = this.registrations.filter((reg) => reg.approved)
+    return {
+      id: this.id,
+      code: this.cod,
+      course: this.course,
+      shift: this.shift,
+      students: registrations.length > 0 ? registrations.length : 0,
+    }
+  }
 }

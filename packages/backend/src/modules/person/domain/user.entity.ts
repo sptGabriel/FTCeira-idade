@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn } from 'typeorm'
 import { v4 } from 'uuid'
 import Person from '~/modules/person/domain/person.entity'
+import Registration from './registration.entity'
 
 @Entity()
 export default class User {
@@ -21,7 +22,11 @@ export default class User {
   public avatar: string
   //@Column({ nullable: true })
   //public deletedAt: Date
-
+  @OneToMany(() => Registration, (registration) => registration.student, {
+    eager: true
+  })
+  public registrations: Registration[]
+  
   public toJson() {
     return {
       id: this.id, 

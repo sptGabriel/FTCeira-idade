@@ -5,7 +5,6 @@ import { BadRequestERROR } from '~/application/errors/bad-request.error'
 import Registration from '~/modules/person/domain/registration.entity'
 import Class from '~/modules/course/domain/class.entity'
 import Course from '~/modules/course/domain/course.entity'
-import { In, Raw } from 'typeorm'
 
 @injectable()
 export class AcceptStudentApplicationHandler {
@@ -27,7 +26,7 @@ export class AcceptStudentApplicationHandler {
     return this.transactionalRepo.getRepository(Registration)
   }
 
-  async execute(userId: string, classId: string, courseId: string): Promise<any> {
+  async execute(userId: string, classId: string): Promise<any> {
     const classe = await this.classRepository.findOne({
       where: { id: classId },
     })
@@ -38,12 +37,12 @@ export class AcceptStudentApplicationHandler {
         class: classId,
       },
     })
-    if (classe.current >= classe.max) {
+    if (hasReg && classe.current >= classe.max) {
       await this.registrationRepository.delete({
-        student: hasReg?.student,
-        class: hasReg?.class,
+        student: hasReg.student,
+        class: hasReg.class,
       })
-      throw new BadRequestERROR({ message: `Class full` })
+      throw new BadRequestERROR({ message: `ClassRoom full` })
     }
     if (!hasReg) {
       throw new BadRequestERROR({

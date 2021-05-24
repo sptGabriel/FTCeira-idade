@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, OneToOne, PrimaryColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryColumn, UpdateDateColumn } from 'typeorm'
 import { v4 } from 'uuid'
 import CourseHasTeachers from '~/modules/course/domain/classes-has-teachers.entity'
 import QuestionnaireAnswer from '~/modules/questionnaire/domain/questionnaire-answer.entity'
@@ -49,10 +49,14 @@ export default class Person {
   public iesCourse: string
   @OneToOne(() => User, (user) => user.person)
   public user!: User
-  @OneToMany(() => Registration, (registration) => registration.student, {
-    eager: true
-  })
-  public registrations: Registration[]
+  @CreateDateColumn()
+  public createdAt: Date;
+  @UpdateDateColumn()
+  public updatedAt: Date;
+  //@OneToMany(() => Registration, (registration) => registration.student, {
+  //  eager: true
+  //})
+  //public registrations: Registration[]
   @OneToMany(() => QuestionnaireAnswer, (qa) => qa.student, {lazy: true})
   public answers: QuestionnaireAnswer[]
   @OneToMany(() => CourseHasTeachers, cht => cht.teacher)

@@ -29,8 +29,8 @@ export class StudentApplyInCourseHandler {
     if (user.person.role !== 'student') {
       throw new BadRequestERROR({ message: `Invalid Operation` })
     }
-    const alreadyApplied = this.registrationRepository.findOne({
-      where: { student: { id: user.person.id }, class: { id: classId } },
+    const alreadyApplied = await this.registrationRepository.findOne({
+      where: { student: { id: user.id }, class: { id: classId } },
     })
     if (alreadyApplied) {
       throw new BadRequestERROR({
@@ -48,7 +48,7 @@ export class StudentApplyInCourseHandler {
     }
     await this.registrationRepository.save({
       class: classe,
-      student: user.person,
+      student: user,
     })
   }
 }

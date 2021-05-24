@@ -44,4 +44,16 @@ export default class Question {
   public alternatives: QuestionAlternative[]
   @OneToOne(() => Answer, (answer) => answer.question)
   public answer!: Answer
+
+  public toJson() {
+    return {
+      id: this.id,
+      image: this.image,
+      questioning: this.questioning,
+      alternatives: this.alternatives.map((alt) => ({
+        answer: alt.answer,
+        alternative: alt.alternative,
+      }))
+    }
+  }
 }

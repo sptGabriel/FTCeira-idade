@@ -9,7 +9,9 @@ import { makeAdminEditProfileApplicationControllerFactory } from '~/shared/facto
 import { makeChangePwdControllerFactory } from '~/shared/factories/controllers/makeChangePwdControllerFactory'
 import { makeCreatePersonControllerFactory } from '~/shared/factories/controllers/makeCreatePersonControllerFactory'
 import { makeEditProfileControllerFactory } from '~/shared/factories/controllers/makeEditProfileControllerFactory'
+import { makeEnrollmentStudentsControllerFactory } from '~/shared/factories/controllers/makeGetEnrollmentsStudentsControllerFactory'
 import { makeGetUserByIdControllerFactory } from '~/shared/factories/controllers/makegetUserByIdControllerFactory'
+import { makeGetUsersControllerFactory } from '~/shared/factories/controllers/makegetUsersControllerFactory'
 import { makeSigninControllerFactory } from '~/shared/factories/controllers/makeSigninControllerFactory'
 
 const personRouter = Router()
@@ -19,6 +21,16 @@ personRouter.get(
   '/users/me',
   studentAuth,
   adaptRoute(makeGetUserByIdControllerFactory()),
+)
+personRouter.get(
+  '/users/enrollments',
+  studentAuth,
+  adaptRoute(makeEnrollmentStudentsControllerFactory()),
+)
+personRouter.get(
+  '/users',
+  adminAuth,
+  adaptRoute(makeGetUsersControllerFactory()),
 )
 personRouter.post(
   '/edit-profile',

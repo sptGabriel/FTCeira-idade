@@ -21,15 +21,16 @@ export class CreateCourseHandler {
     return this.transactionalRepo.getRepository(Course)
   }
 
-  async execute(dto: CreateCourseDTO): Promise<any> {
-    const { description, name, iesCourse, tittle } = dto
-    const hasCourse = await this.courseRepository.findOne({where:{name}})
-    if(hasCourse) throw new ConflictERROR(`Course already exists`)
+  async execute(dto: CreateCourseDTO & { media: string }): Promise<any> {
+    const { description, name, iesCourse, tittle, media } = dto
+    const hasCourse = await this.courseRepository.findOne({ where: { name } })
+    if (hasCourse) throw new ConflictERROR(`Course already exists`)
     const course = await this.courseRepository.create({
       description,
       name,
       tittle,
       iesCourse,
+      media,
     })
     await this.courseRepository.save(course)
   }

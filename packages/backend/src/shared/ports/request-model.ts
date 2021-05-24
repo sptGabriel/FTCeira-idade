@@ -9,4 +9,5 @@ export interface RequestModel<
   query?: Query
   headers?: Headers
   userId?: string
+  file: any
 }

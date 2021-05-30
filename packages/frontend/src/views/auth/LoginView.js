@@ -28,6 +28,24 @@ const LoginView = () => {
   const navigate = useNavigate();
   const [buttonDisable, setButtonDisable] = useState(false);
 
+  // async function getUserData() {
+  //   try {
+  //     const response = await api.get('/users/me',
+  //       {
+  //         Headers: {
+  //           'Content-Type': 'application/json',
+  //           Authorization: localStorage.getItem('userToken')
+  //         }
+  //       });
+  //     return response;
+  //   } catch (error) {
+  //     if (error.response) {
+  //       return error.response;
+  //     }
+  //     return (0);
+  //   }
+  // }
+
   async function signIn(formData) {
     setButtonDisable(true);
     try {
@@ -39,6 +57,8 @@ const LoginView = () => {
         });
       setButtonDisable(false);
       localStorage.setItem('userToken', data.token);
+      // const userData = getUserData();
+      // console.log(userData)
       navigate('/app/home', { replace: true });
     } catch (error) {
       if (error.response) {

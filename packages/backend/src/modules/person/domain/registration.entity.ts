@@ -1,12 +1,13 @@
-import { Column, Entity, ManyToOne } from "typeorm"
+import { Column, CreateDateColumn, Entity, ManyToOne, UpdateDateColumn } from "typeorm"
 import Class from "~/modules/course/domain/class.entity";
 import Person from "~/modules/person/domain/person.entity";
+import User from "./user.entity";
 
 @Entity()
 export default class Registration {
 
-	@ManyToOne(() => Person, person => person.registrations, {primary: true})
-  student: Person;
+	@ManyToOne(() => User, user => user.registrations, {primary: true})
+  student: User;
 
 	@ManyToOne(() => Class, _class => _class, {primary: true})
   class: Class;
@@ -16,4 +17,8 @@ export default class Registration {
 
 	@Column({default: false})
 	approved: boolean
+	@CreateDateColumn()
+  public createdAt: Date;
+  @UpdateDateColumn()
+  public updatedAt: Date;
 }

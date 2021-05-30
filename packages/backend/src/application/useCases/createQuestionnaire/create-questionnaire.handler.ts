@@ -38,7 +38,15 @@ export class CreateQuestionnaireHandler {
   }
 
   async execute(dto: CreateQuestionnaireDTO): Promise<any> {
-    const { questions, courseId, endDate, startDate, name, value } = dto
+    const {
+      questions,
+      courseId,
+      endDate,
+      startDate,
+      name,
+      value,
+      description,
+    } = dto
     const course = await this.courseRepository.findOne({
       where: { id: courseId },
     })
@@ -50,6 +58,7 @@ export class CreateQuestionnaireHandler {
       name,
       endDate,
       startDate,
+      description,
       isActive: true,
       value,
     })
@@ -66,14 +75,6 @@ export class CreateQuestionnaireHandler {
         ),
       }),
     )
-    //const question = this.questionRepository.create({ image, questioning })
-    //const questionAlternatives = alternatives.map((alt) =>
-    //  this.questionAlternativeRepository.create({
-    //    alternative: alt.alternative,
-    //    answer: alt.answer,
-    //    question,
-    //  }),
-    //)
     await this.questionnaireRepository.save(questionnaire)
     await this.questionRepository.save(Questions)
   }

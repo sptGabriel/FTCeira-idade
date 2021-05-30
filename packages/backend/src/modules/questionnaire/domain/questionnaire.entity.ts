@@ -17,6 +17,9 @@ export default class Questionnaire {
   public name: string
 
   @Column()
+  public description: string
+
+  @Column()
   public startDate: Date
 
   @Column()
@@ -36,4 +39,15 @@ export default class Questionnaire {
 
   @ManyToOne(() => Course, (course) => course.questionnaires, {eager: true})
   course: Course
+
+  public toJson() {
+    return {
+      id: this.id,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      value: this.value,
+      isActive: this.isActive,
+      questions: this.questions.map((qs) => qs.toJson())
+    }
+  }
 }

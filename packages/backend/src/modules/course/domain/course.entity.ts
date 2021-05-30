@@ -4,7 +4,6 @@ import Questionnaire from '~/modules/questionnaire/domain/questionnaire.entity'
 import Class from './class.entity'
 import CourseHasTeachers from './classes-has-teachers.entity'
 
-
 export enum CURSOS_IES {
   SI = 'sistemas',
   ADM = 'administração ',
@@ -21,6 +20,8 @@ export default class Course {
   public readonly id: string
   @Column()
   public name: string
+  @Column({ nullable: true })
+  public media: string
   @Column()
   public description: string
   @Column()
@@ -34,12 +35,27 @@ export default class Course {
     name: 'ies_course',
   })
   public iesCourse: string
-  @OneToMany(() => Class, (_class) => _class.course, {eager: true})
+  @OneToMany(() => Class, (_class) => _class.course)
   public classes: Class[]
-  @OneToMany(() => Questionnaire, questionnares => questionnares.course)
+  @OneToMany(() => Questionnaire, (questionnares) => questionnares.course)
   public questionnaires: Questionnaire[]
-  @OneToMany(() => CourseHasTeachers, cht => cht.course)
+  @OneToMany(() => CourseHasTeachers, (cht) => cht.course)
   public teachers: CourseHasTeachers[]
   //@OneToMany(() => Registration, registration => registration.course)
   //registrations: Registration[]
+  public toJson() {
+    return {
+      id: this.id,
+      description: this.description,
+      tittle: this.tittle,
+      category: this.iesCourse,
+      media: this.media,
+      students:
+        this.classes.length > 0
+          ? this.classes
+              .map((cl) => cl.toJson().students)
+              .reduce((s, c) => s + c)
+          : 0,
+    }
+  }
 }

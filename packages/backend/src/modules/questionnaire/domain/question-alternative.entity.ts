@@ -29,4 +29,5 @@ export default class QuestionAlternative {
     nullable: false,
   })
   public question: Question
+
 }

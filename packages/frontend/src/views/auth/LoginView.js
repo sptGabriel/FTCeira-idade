@@ -27,24 +27,18 @@ const LoginView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [buttonDisable, setButtonDisable] = useState(false);
+  const [dataUser, setDataUser] = useState({});
 
-  // async function getUserData() {
-  //   try {
-  //     const response = await api.get('/users/me',
-  //       {
-  //         Headers: {
-  //           'Content-Type': 'application/json',
-  //           Authorization: localStorage.getItem('userToken')
-  //         }
-  //       });
-  //     return response;
-  //   } catch (error) {
-  //     if (error.response) {
-  //       return error.response;
-  //     }
-  //     return (0);
-  //   }
-  // }
+  async function getUserData() {
+    try {
+      const response = await api.get('/users/me');
+      localStorage.setItem('userData', JSON.stringify(response.data));
+    } catch (error) {
+      if (error.response) {
+        console.log(error.message);
+      }
+    }
+  }
 
   async function signIn(formData) {
     setButtonDisable(true);
@@ -57,8 +51,7 @@ const LoginView = () => {
         });
       setButtonDisable(false);
       localStorage.setItem('userToken', data.token);
-      // const userData = getUserData();
-      // console.log(userData)
+      getUserData();
       navigate('/app/home', { replace: true });
     } catch (error) {
       if (error.response) {

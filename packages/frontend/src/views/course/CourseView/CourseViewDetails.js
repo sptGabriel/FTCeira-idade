@@ -27,6 +27,13 @@ const CourseViewDetails = () => {
     console.log(course.title, course.description, course.students, course.shift);
   }, [course]);
 
+  const container = {
+    marginTop: '10px',
+    // backgroundColor: '#fff',
+    padding: '20px',
+    borderRadius: '10px'
+  };
+
   return (
     <Container>
       <Grid container spacing={3}>
@@ -41,37 +48,33 @@ const CourseViewDetails = () => {
           </CardActionArea>
         </Grid>
 
-        <Grid item xs={4}>
+        <Container style={container} item xs={4}>
           <Typography variant="h1" component="h2">
             {course.title}
           </Typography>
           <br />
-          <Typography variant="body1" component="p">
+          <Typography style={{ width: '60%' }} variant="body1" component="p">
             {course.description}
           </Typography>
           <br />
-          <Typography variant="body1" component="h1">
+          <Button style={{ backgroundColor: '#434592', color: '#fff', marginRight: '5px' }} disabled>
+            {course.shift}
+          </Button>
+          <Button style={{ backgroundColor: '#434592', color: '#fff', marginRight: '5px' }} disabled>
             {course.students}
             {' '}
             vagas
-          </Typography>
-          <br />
-          <Typography variant="h2" component="h1">
-            {course.shift}
-          </Typography>
-          <br />
-          <Typography variant="body1" component="h1">
-            ::: ALTERAR ESSA PÁGINA :::
-          </Typography>
-          <br />
+          </Button>
           <Button
             color="primary"
             variant="outlined"
             onClick={handleSubmit}
+            style={{ backgroundColor: '#0A91F9', color: '#fff' }}
           >
             INSCREVA-SE
           </Button>
-        </Grid>
+          <br />
+        </Container>
 
       </Grid>
     </Container>

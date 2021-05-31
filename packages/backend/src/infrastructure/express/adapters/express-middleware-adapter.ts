@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express'
-import { IMiddleware } from '~/application/ports/middleware'
+import { IMiddleware } from '~/shared/ports/middleware'
 
 export const adaptMiddleware = (middleware: IMiddleware) => {
   return async (request: Request, response: Response, next: NextFunction) => {
     try {
       await middleware
-        .execute({
+        .handle({
           accessToken: request.headers?.authorization?.split(' ')[1],
           ...(request.headers || {}),
         })

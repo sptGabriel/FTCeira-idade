@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -12,6 +12,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
+import api from 'src/services/api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +26,44 @@ const useStyles = makeStyles((theme) => ({
 const LoginView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [buttonDisable, setButtonDisable] = useState(false);
+  const [dataUser, setDataUser] = useState({});
+
+  async function getUserData() {
+    try {
+      const response = await api.get('/users/me');
+      localStorage.setItem('userData', JSON.stringify(response.data));
+    } catch (error) {
+      if (error.response) {
+        console.log(error.message);
+      }
+    }
+  }
+
+  async function signIn(formData) {
+    setButtonDisable(true);
+    try {
+      const { data } = await api.post('/signin', formData,
+        {
+          Headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+      setButtonDisable(false);
+      localStorage.setItem('userToken', data.token);
+      getUserData();
+      navigate('/app/home', { replace: true });
+    } catch (error) {
+      if (error.response) {
+        alert('Dados incorretos: verifique seu E-mail e senha e tente novamente');
+        setButtonDisable(false);
+      }
+    }
+  }
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   return (
     <Page
@@ -47,8 +86,8 @@ const LoginView = () => {
               email: Yup.string().email('Deve ser um email válido').max(255).required('Email obrigatório'),
               password: Yup.string().max(255).required('Senha obrigatória')
             })}
-            onSubmit={() => {
-              navigate('/app/home', { replace: true });
+            onSubmit={(values) => {
+              signIn(values);
             }}
           >
             {({
@@ -124,7 +163,7 @@ const LoginView = () => {
                 <Box my={2}>
                   <Button
                     color="primary"
-                    disabled={isSubmitting}
+                    disabled={buttonDisable}
                     fullWidth
                     size="large"
                     type="submit"

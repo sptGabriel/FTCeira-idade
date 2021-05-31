@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { IController } from '~/application/ports/controller'
-import { Logger } from '~/common/helpers/logger-helper'
+import { IController } from '~/shared/ports/controller'
 
 export const adaptRoute = (controller: IController) => {
   return async (request: Request, response: Response, next: NextFunction) => {
@@ -10,12 +9,18 @@ export const adaptRoute = (controller: IController) => {
         params: request.params,
         body: request.body,
         headers: request.headers,
-        accountId: request.userId,
+        userId: request.userId,
+        file: request.file
       })
-      response.status(result.statusCode).json(result.body)
+      return result.isRight()
+        ? response.status(result.value.statusCode).json(result.value.body)
+        : response
+            .status(result.value.statusCode)
+            .json(result.value.serialize())
     } catch (error) {
+      console.log(error)
       const { originalUrl, method, ip } = request
-      Logger.error(`${error.message} - ${originalUrl} - ${method} - ${ip}`)
+      //Logger.error(`${error.message} - ${originalUrl} - ${method} - ${ip}`)
       next(error)
     }
   }

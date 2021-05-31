@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -17,6 +17,7 @@ import {
   RadioGroup
 } from '@material-ui/core';
 import Page from 'src/components/Page';
+import api from '../../services/api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,8 +36,75 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RegisterView = () => {
+  const [formValues, setFormValues] = useState([]);
   const classes = useStyles();
   const navigate = useNavigate();
+
+  const data = {
+    lastName: '',
+    firstName: '',
+    credentials: {
+      email: '',
+      password: ''
+    },
+    phone: '',
+    cpf: '',
+    birthDate: '',
+    role: '',
+    iesCourse: ''
+  };
+
+  async function signUp(values) {
+    // console.log(values);
+
+    data.lastName = values.lastName;
+    data.firstName = values.firstName;
+    data.credentials.email = values.email;
+    data.credentials.password = values.password;
+    data.phone = values.phone;
+    data.cpf = values.cpf;
+    data.birthDate = values.birth;
+    data.role = values.type;
+    data.iesCourse = values.course;
+
+    if (values.type === 'student') {
+      delete data.iesCourse;
+    }
+
+    try {
+      const res = await api.post('/signup', data,
+        {
+          Headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+
+      if (res.status === 201) { alert('Usuário cadastrado com sucesso'); }
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status === 409) { alert('Usuário já cadastrado'); }
+        if (error.response.status === 422) { alert('Informe um cpf válido'); }
+      }
+    }
+
+    // api.post('/signup', data,
+    //   {
+    //     Headers: {
+    //       'Content-Type': 'application/json',
+    //     }
+    //   })
+    //   .then((res) => {
+    //     console.log(res.code);
+    //     console.log(res.data);
+    //     alert('Cadastro feito com sucesso');
+    //   }).catch((error) => {
+    //     if (error.response) {
+    //       // console.log(error.response.status);
+    //       // console.log(error.response.headers);
+    //       if (error.response.status === 409) { alert('E-mail já cadastrado'); }
+    //     }
+    //   });
+  }
 
   return (
     <Page
@@ -70,13 +138,11 @@ const RegisterView = () => {
                 birth: Yup.string().max(10).required('Data do aniversário obrigatória'),
                 email: Yup.string().email('Deve ser um email válido').max(255).required('Email obrigatório'),
                 phone: Yup.string().min(10, '99 99999-9999').max(15, 'Esse campo deve ter no máximo 15 caracteres'),
-                password: Yup.string().max(255).required('Senha obrigatória'),
-                course: Yup.string(),
-                type: Yup.string(),
+                password: Yup.string().min(8, 'A senha deve ter no minimo 8 caracteres').max(255).required('Senha obrigatória')
               })
             }
-            onSubmit={() => {
-              navigate('/', { replace: true });
+            onSubmit={(values) => {
+              signUp(values);
             }}
           >
             {({
@@ -225,7 +291,7 @@ const RegisterView = () => {
                 <Box my={2}>
                   <Button
                     color="primary"
-                    disabled={isSubmitting}
+                    // disabled={isSubmitting}
                     fullWidth
                     size="large"
                     type="submit"

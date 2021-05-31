@@ -1,14 +1,15 @@
-import { Logger } from '~/common/helpers/logger-helper'
-import { config } from '../database/config'
-import { Connection } from '../database/connection'
+import 'reflect-metadata'
+import '~/infrastructure/containers'
+import { container } from 'tsyringe'
+import { IConnection } from '~/shared/core/interfaces/connection'
 import app from './setup/app'
 
 const port = process.env.port || 8080
-
-Connection.connect(config)
+const db = container.resolve<IConnection>('Database')
+db.connect()
   .then(async () => {
     app.listen(port, () =>
-      Logger.info(`Server running at http://localhost:${port}`),
+      console.log(`Server running at http://localhost:${port}`),
     )
   })
   .catch(console.error)

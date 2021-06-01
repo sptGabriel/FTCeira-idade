@@ -1,7 +1,13 @@
 {
-  "name": "fterceiraidade",
-  "author": "FTerCeiraidade",
-  "licence": "MIT",
+  "name": "fterceiraidade-frontend",
+  "author": "Jobson de Almeida <jobson.ra@outlook.com> ",
+  "contributors": [
+    "Jobson de Almeida <jobson.ra@outlook.com> "
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sptGabriel/FTCeira-idade"
+  },
   "version": "1.0.0",
   "private": false,
   "scripts": {
@@ -26,27 +32,31 @@
     ]
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/data-grid": "^4.0.0-alpha.23",
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/data-grid": "4.0.0-alpha.24",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@material-ui/styles": "^4.10.0",
     "axios": "^0.21.1",
     "chart.js": "^2.9.4",
     "clsx": "^1.1.1",
+    "date-fns": "^2.21.1",
     "formik": "^2.1.5",
     "history": "^5.0.0",
     "lodash": "^4.17.19",
+    "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.10.0",
     "react-dom": "^16.13.1",
     "react-feather": "^2.0.8",
     "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.0.4",
     "react-perfect-scrollbar": "^1.5.8",
     "react-router": "^6.0.0-beta.0",
     "react-router-dom": "^6.0.0-beta.0",
     "react-scripts": "^4.0.0",
+    "react-swipeable-views": "^0.13.9",
     "uuid": "^8.3.0",
     "yup": "^0.32.9"
   },

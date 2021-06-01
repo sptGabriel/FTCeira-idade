@@ -12,9 +12,11 @@ api.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('user
 axios.interceptors.request.use((config) => {
   // Do something before request is sent
   // api.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('userToken')}`;
+  console.log('interceptors.request');
   return config;
 }, (error) => {
   // Do something with request error
+  console.log('interceptors.request error');
   return Promise.reject(error);
 });
 
@@ -22,16 +24,17 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use((response) => {
   // Any status code that lie within the range of 2xx cause this function to trigger
   // Do something with response data
+  console.log('interceptors.response');
   return response;
 }, (error) => {
   // Any status codes that falls outside the range of 2xx cause this function to trigger
   // Do something with response error
+  console.log('interceptors.response error');
   return Promise.reject(error);
 });
 
 // api.interceptors.request.use(async (config) => {
 //   const token = localStorage.getItem('userToken');
-
 //   if (token) {
 //     config.headers.Authorization = `Bearer ${token}`;
 //   } else {
@@ -41,14 +44,14 @@ axios.interceptors.response.use((response) => {
 //   return config;
 // });
 
-axios.interceptors.request.use((config) => {
-  console.log(config);
+// axios.interceptors.request.use((config) => {
+//   console.log(config);
 
-  return config;
-}, (error) => {
-  console.log(error);
-  return Promise.reject(error);
-});
+//   return config;
+// }, (error) => {
+//   console.log(error);
+//   return Promise.reject(error);
+// });
 
 class ApiService {
   auth = async (data) => {

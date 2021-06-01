@@ -23,6 +23,7 @@ import {
   LogOut as LogOutIcon
 } from 'react-feather';
 import CustomTooltip from 'src/utils/CustomTooltip';
+import api from 'src/service/ApiService';
 import NavItem from './NavItem';
 import data from './data';
 
@@ -121,6 +122,22 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
+
+  async function getUserData() {
+    try {
+      const response = await api.get('/users/me');
+      console.log(response);
+      localStorage.setItem('userData', JSON.stringify(response.data));
+    } catch (error) {
+      if (error.response) {
+        console.log(error.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    getUserData();
+  });
 
   const content = (
     <Box

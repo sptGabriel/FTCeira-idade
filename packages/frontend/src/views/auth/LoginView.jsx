@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -48,22 +48,30 @@ const LoginView = () => {
     localStorage.clear();
   });
 
+  const getUserCredentials = async () => {
+    try {
+      const response = await api.me();
+      console.log(response);
+      if (response.data) {
+        localStorage.setItem('userData', JSON.stringify(response.data));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const signIn = (data) => {
     api.auth(data).then((res) => {
       if (res.data.token && res.status === 200) {
         localStorage.setItem('userToken', res.data.token);
-        navigate('/app/home', { replace: true });
-        console.log(JSON.stringify(res, null, 2));
+        getUserCredentials();
+        navigate('/app/home', { replace: false });
       } else {
         handleOpenSnack('falha no login', 'error');
         console.log(JSON.stringify(res, null, 2));
-        /*
-         severity="error"
-         severity="warning"
-         severity="info"
-         severity="success"
-      */
       }
+    }).catch((error) => {
+      console.log(error);
     });
   };
 

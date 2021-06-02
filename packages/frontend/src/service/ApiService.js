@@ -2,56 +2,20 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: 'http://localhost:8080/api',
-  headers: { 'Content-Type': 'application/json' }
+  // headers: { 'Content-Type': 'application/json' }
 });
 
-// okk
-api.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('userToken')}`;
-
-// Add a request interceptor
-axios.interceptors.request.use((config) => {
-  // Do something before request is sent
-  // api.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('userToken')}`;
-  console.log('interceptors.request');
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('userToken');
+  config.headers.Authorization = token ? `Bearer ${token}` : '';
   return config;
-}, (error) => {
-  // Do something with request error
-  console.log('interceptors.request error');
-  return Promise.reject(error);
 });
 
-// Add a response interceptor
 axios.interceptors.response.use((response) => {
-  // Any status code that lie within the range of 2xx cause this function to trigger
-  // Do something with response data
-  console.log('interceptors.response');
   return response;
 }, (error) => {
-  // Any status codes that falls outside the range of 2xx cause this function to trigger
-  // Do something with response error
-  console.log('interceptors.response error');
   return Promise.reject(error);
 });
-
-// api.interceptors.request.use(async (config) => {
-//   const token = localStorage.getItem('userToken');
-//   if (token) {
-//     config.headers.Authorization = `Bearer ${token}`;
-//   } else {
-//     config.headers.Authorization = null;
-//   }
-//   console.log('request', config);
-//   return config;
-// });
-
-// axios.interceptors.request.use((config) => {
-//   console.log(config);
-
-//   return config;
-// }, (error) => {
-//   console.log(error);
-//   return Promise.reject(error);
-// });
 
 class ApiService {
   auth = async (data) => {
@@ -65,20 +29,16 @@ class ApiService {
     }
   }
 
-  // auth = async (data) => {
-  //   try {
-  //     return await api.post('/signin', data, {
-  //       Headers: {
-  //         'Content-Type': 'application/json',
-  //       }
-  //     });
-  //   } catch (error) {
-  //     if (error.response) {
-  //       return error.response;
-  //     }
-  //     return error;
-  //   }
-  // }
+  me = async () => {
+    try {
+      return await api.get('/users/me');
+    } catch (error) {
+      if (error.response) {
+        return error.response;
+      }
+      return error;
+    }
+  }
 
   // ------------------------------ registers teacher ans students
 
@@ -95,57 +55,57 @@ class ApiService {
 
   // -------------------------------------- users
 
-fetchUsers = async (user) => {
-  let endpoint = '';
-  switch (user.role) {
-    case 'student':
-      endpoint = '??????';
-      break;
-    case 'teacher':
-      endpoint = '??????';
-      break;
-    case 'coordinator':
-      endpoint = '??????';
-      break;
-    default:
-      break;
-  }
-
-  try {
-    return await api.get(`/${endpoint}`); // ??????
-  } catch (error) {
-    if (error.response) {
-      return error.response;
+  fetchUsers = async (user) => {
+    let endpoint = '';
+    switch (user.role) {
+      case 'student':
+        endpoint = '??????';
+        break;
+      case 'teacher':
+        endpoint = '??????';
+        break;
+      case 'coordinator':
+        endpoint = '??????';
+        break;
+      default:
+        break;
     }
-    return error;
-  }
-}
 
-fetchUser = async (user) => {
-  let endpoint = '';
-  switch (user.role) {
-    case 'student':
-      endpoint = '??????';
-      break;
-    case 'teacher':
-      endpoint = '??????';
-      break;
-    case 'coordinator':
-      endpoint = '??????';
-      break;
-    default:
-      break;
-  }
-
-  try {
-    return await api.get(`/{user.role}/${endpoint}`); // ???????
-  } catch (error) {
-    if (error.response) {
-      return error.response;
+    try {
+      return await api.get(`/${endpoint}`); // ??????
+    } catch (error) {
+      if (error.response) {
+        return error.response;
+      }
+      return error;
     }
-    return error;
   }
-}
+
+  fetchUser = async (user) => {
+    let endpoint = '';
+    switch (user.role) {
+      case 'student':
+        endpoint = '??????';
+        break;
+      case 'teacher':
+        endpoint = '??????';
+        break;
+      case 'coordinator':
+        endpoint = '??????';
+        break;
+      default:
+        break;
+    }
+
+    try {
+      return await api.get(`/{user.role}/${endpoint}`); // ???????
+    } catch (error) {
+      if (error.response) {
+        return error.response;
+      }
+      return error;
+    }
+  }
 
 editUser = async (user) => {
   let endpoint = '';

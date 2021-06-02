@@ -51,7 +51,6 @@ const LoginView = () => {
   const getUserCredentials = async () => {
     try {
       const response = await api.me();
-      console.log(response);
       if (response.data) {
         localStorage.setItem('userData', JSON.stringify(response.data));
       }

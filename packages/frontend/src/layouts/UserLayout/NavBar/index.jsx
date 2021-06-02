@@ -113,7 +113,20 @@ const useStyles = makeStyles((theme) => ({
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles();
   const location = useLocation();
-  const [user] = useState(data);
+  const [user, setUser] = useState({ name: '', email: '' });
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const userData = JSON.parse(localStorage.getItem('userData'));
+      setUser({
+        name: userData ? userData.firstName : '',
+        email: userData ? userData.email : ''
+      });
+    }, 500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -141,20 +154,19 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             src={user.avatar}
             to="/app/account"
           />
-
         </CustomTooltip>
         <Typography
           className={classes.name}
           color="textPrimary"
           variant="h5"
         >
-          {user.map((_user) => _user.name)}
+          {user.name}
         </Typography>
         <Typography
           color="textSecondary"
           variant="body2"
         >
-          {user.map((_user) => _user.email)}
+          {user.email}
         </Typography>
       </Box>
       <Divider />

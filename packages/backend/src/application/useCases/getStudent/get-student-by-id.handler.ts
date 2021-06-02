@@ -1,7 +1,6 @@
 import { inject } from 'tsyringe'
 import { TransactionalRepository } from '~/shared/core/uow/transactional-repo'
 import { BadRequestERROR } from '~/application/errors/bad-request.error'
-import Course from '~/modules/course/domain/course.entity'
 import Person from '~/modules/person/domain/person.entity'
 
 export class GetStudentByID {

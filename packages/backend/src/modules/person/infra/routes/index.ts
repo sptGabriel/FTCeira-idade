@@ -12,18 +12,41 @@ import { makeChangeAvatarControllerFactory } from '~/shared/factories/controller
 import { makeChangePwdControllerFactory } from '~/shared/factories/controllers/makeChangePwdControllerFactory'
 import { makeCreatePersonControllerFactory } from '~/shared/factories/controllers/makeCreatePersonControllerFactory'
 import { makeEditProfileControllerFactory } from '~/shared/factories/controllers/makeEditProfileControllerFactory'
+import { makeGetCoordinatorsControllerFactory } from '~/shared/factories/controllers/makeGetCoordinatorsControllerFactory'
 import { makeEnrollmentStudentsControllerFactory } from '~/shared/factories/controllers/makeGetEnrollmentsStudentsControllerFactory'
+import { makeGetStudentsControllerFactory } from '~/shared/factories/controllers/makegetStudentsControllerFactory'
+import { makeGetTeachersControllerFactory } from '~/shared/factories/controllers/makeGetTeachersControllerFactory'
 import { makeGetUserByIdControllerFactory } from '~/shared/factories/controllers/makegetUserByIdControllerFactory'
 import { makeGetUsersControllerFactory } from '~/shared/factories/controllers/makegetUsersControllerFactory'
 import { makeSigninControllerFactory } from '~/shared/factories/controllers/makeSigninControllerFactory'
 
 const personRouter = Router()
-personRouter.post('/signup', adaptRoute(makeCreatePersonControllerFactory()))
-personRouter.post('/signin', adaptRoute(makeSigninControllerFactory()))
+personRouter.post('/signup',adaptRoute(makeCreatePersonControllerFactory()))
+personRouter.post('/signin',adaptRoute(makeSigninControllerFactory()))
+personRouter.post(
+  '/ftc3idade/coordinators',
+  coordinatorAuth,
+  adaptRoute(makeSigninControllerFactory()),
+  )
 personRouter.get(
   '/users/me',
   studentAuth,
   adaptRoute(makeGetUserByIdControllerFactory()),
+)
+personRouter.get(
+  '/users/students',
+  adminAuth,
+  adaptRoute(makeGetStudentsControllerFactory()),
+)
+personRouter.get(
+  '/users/coordinators',
+  coordinatorAuth,
+  adaptRoute(makeGetCoordinatorsControllerFactory()),
+)
+personRouter.get(
+  '/users/teachers',
+  coordinatorAuth,
+  adaptRoute(makeGetTeachersControllerFactory()),
 )
 personRouter.get(
   '/users/enrollments',

@@ -29,47 +29,56 @@ const items = [
   {
     href: '/app/home',
     icon: HomeIcon,
-    title: 'Home (estudante)'
+    title: 'Home',
+    type: 'common'
   },
   {
     href: '/app/enrollments',
     icon: EnrollmentIcon,
-    title: 'Matrículas (estudante)'
+    title: 'Matrículas',
+    type: 'user'
   },
   {
     href: '/app/student-assessment-applications',
     icon: AssessmentIcon,
-    title: 'Avaliações (estudante)'
+    title: 'Avaliações',
+    type: 'user'
   },
   {
     href: '/app/dashboard',
     icon: BarChartIcon,
-    title: 'Dashboard'
+    title: 'Dashboard',
+    type: 'admin'
   },
   {
     href: '/app/students',
     icon: UsersIcon,
-    title: 'Discentes'
+    title: 'Discentes',
+    type: 'admin'
   },
   {
     href: '/app/teachers',
     icon: UsersIcon,
-    title: 'Docentes'
+    title: 'Docentes',
+    type: 'admin'
   },
   {
     href: '/app/coordinators',
     icon: UsersIcon,
-    title: 'Coordenadores'
+    title: 'Coordenadores',
+    type: 'admin'
   },
   {
     href: '/app/courses',
     icon: CourseIcon,
-    title: 'Cursos'
+    title: 'Cursos',
+    type: 'admin'
   },
   {
     href: '/app/classrooms',
     icon: ClassRoomIcon,
-    title: 'Turmas'
+    title: 'Turmas',
+    type: 'admin'
   },
   // {
   //   href: '/app/teste',
@@ -119,7 +128,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       const userData = JSON.parse(localStorage.getItem('userData'));
       setUser({
         name: userData ? userData.firstName : '',
-        email: userData ? userData.email : ''
+        email: userData ? userData.email : '',
       });
     }, 500);
     return () => {
@@ -177,6 +186,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
               key={item.title}
               title={item.title}
               icon={item.icon}
+              type={item.type}
             />
           ))}
         </List>

@@ -39,18 +39,23 @@ const Profile = ({ className, ...rest }) => {
     setSrc(URL.createObjectURL(event.target.files[0]));
     setImage(event.target.files[0]);
     console.log(event.target.files[0]);
+    URL.revokeObjectURL(event.target.files[0]);
   };
 
   const teste = useCallback(() => {
     const formData = new FormData();
     formData.append('avatar', image);
 
-    const entries = [...formData.entries()];
-    console.log(entries.File.name);
-    console.log(entries.File.name);
+    // const entries = [...formData.entries()];
+    // console.log(entries[0]);
 
     const values = [...formData.values()];
-    console.log(values);
+    console.log(values[0].lastModified);
+    console.log(values[0].lastModifiedDate);
+    console.log(values[0].name);
+    console.log(values[0].size);
+    console.log(values[0].type);
+    console.log(values[0].webkitRelativePath);
 
     // api.editAvatarUser(image).then((res) => {
     //   console.log(res);

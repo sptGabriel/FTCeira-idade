@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import api from 'src/service/ApiService';
 import CustomSnackbar from 'src/components/CustomSnackbar';
+import { conformsTo } from 'lodash';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -41,6 +42,7 @@ const CourseRegisterDetails = () => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [severity, setSeverity] = useState('');
+  // const [formData, setFormData] = useState();
 
   const handleOpenSnack = (text, type) => {
     setMessage(text);
@@ -57,14 +59,17 @@ const CourseRegisterDetails = () => {
   };
 
   const [course, setCourse] = useState({
-    description: '',
+
     // avatar: '/static/images/blank.png',
-    title: 'não precisa',
+    // avartar: '',
     name: '',
-    iesCourse: ''
+    description: '',
+    tittle: 'não precisa',
+    iesCourse: 'sistemas',
   });
 
   const [src, setSrc] = useState('/static/images/blank.png');
+  const [image, setImage] = useState();
 
   const handleChange = (event) => {
     setCourse({
@@ -75,20 +80,32 @@ const CourseRegisterDetails = () => {
 
   const imageChange = (event) => {
     setSrc(URL.createObjectURL(event.target.files[0]));
+    setImage(event.target.files[0]);
   };
 
   const handleSubmit = useCallback(() => {
-    console.log(JSON.stringify(course, null, 2));
-    api.addCourse(course).then((res) => {
-      if (res.status === 201) {
-        console.log(JSON.stringify(res, null, 2));
-        handleOpenSnack('curso registrado com sucesso', 'success');
-      } else {
-        handleOpenSnack('falha no registro do curso', 'error');
-        console.log(JSON.stringify(res, null, 2));
-      }
-    });
-  }, [course]);
+    const formData = new FormData();
+    formData.append('media', image.name);
+    formData.append('course', JSON.stringify(course));
+
+    console.log(image);
+    const formKeys = formData.keys();
+    const formEntries = formData.entries();
+
+    do {
+      console.log(formEntries.next().value);
+    } while (!formKeys.next().done);
+
+    // api.addCourse(course).then((res) => {
+    //   if (res.status === 201) {
+    //     console.log(JSON.stringify(res, null, 2));
+    //     handleOpenSnack('curso registrado com sucesso', 'success');
+    //   } else {
+    //     handleOpenSnack('falha no registro do curso', 'error');
+    //     console.log(JSON.stringify(res, null, 2));
+    //   }
+    // });
+  }, [course, image]);
 
   const handleButtonClick = () => {
     hiddenFileInput.current.click();
@@ -198,8 +215,8 @@ const CourseRegisterDetails = () => {
                   variant="outlined"
                 >
                   <MenuItem selected value="sistemas">Sistemas de Informação</MenuItem>
-                  <MenuItem value="administracao">Administração</MenuItem>
-                  <MenuItem value="engenharia">Engenharia Civil</MenuItem>
+                  <MenuItem value="administração">Administração</MenuItem>
+                  <MenuItem value="direito">Direito</MenuItem>
                 </TextField>
               </Grid>
             </Grid>

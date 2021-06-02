@@ -45,9 +45,9 @@ const ComponentCourse = ({
     setResults(courses);
   }, []);
 
-  // api.fetchCourses().then((res) => {
-  //   console.log(JSON.stringify(res, null, 2));
-  // });
+  api.fetchCourses().then((res) => {
+    console.log(JSON.stringify(res, null, 2));
+  });
 
   useEffect(() => {
     setTotalCourses(results.length);

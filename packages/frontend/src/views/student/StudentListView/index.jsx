@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Container,
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
+import api from 'src/service/ApiService';
 import Component from './Component';
 import data from './data';
 
@@ -21,6 +22,14 @@ const StudentListView = () => {
   const classes = useStyles();
   const [loading] = useState(false);
   const [students] = useState(data);
+
+  useEffect(() => {
+    api.fetchUsers('students').then((res) => {
+      console.log(res);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }, []);
 
   return (
     <Page

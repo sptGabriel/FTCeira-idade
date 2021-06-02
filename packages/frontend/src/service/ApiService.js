@@ -55,24 +55,9 @@ class ApiService {
 
   // -------------------------------------- users
 
-  fetchUsers = async (user) => {
-    let endpoint = '';
-    switch (user.role) {
-      case 'student':
-        endpoint = '??????';
-        break;
-      case 'teacher':
-        endpoint = '??????';
-        break;
-      case 'coordinator':
-        endpoint = '??????';
-        break;
-      default:
-        break;
-    }
-
+  fetchUsers = async (type) => {
     try {
-      return await api.get(`/${endpoint}`); // ??????
+      return await api.get(`/users/${type}`); // ??????
     } catch (error) {
       if (error.response) {
         return error.response;
@@ -82,23 +67,8 @@ class ApiService {
   }
 
   fetchUser = async (user) => {
-    let endpoint = '';
-    switch (user.role) {
-      case 'student':
-        endpoint = '??????';
-        break;
-      case 'teacher':
-        endpoint = '??????';
-        break;
-      case 'coordinator':
-        endpoint = '??????';
-        break;
-      default:
-        break;
-    }
-
     try {
-      return await api.get(`/{user.role}/${endpoint}`); // ???????
+      return await api.get(`/users/${user}`); // ???????
     } catch (error) {
       if (error.response) {
         return error.response;
@@ -108,22 +78,8 @@ class ApiService {
   }
 
 editUser = async (user) => {
-  let endpoint = '';
-  switch (user.role) {
-    case 'student':
-      endpoint = '??????';
-      break;
-    case 'teacher':
-      endpoint = '??????';
-      break;
-    case 'coordinator':
-      endpoint = '??????';
-      break;
-    default:
-      break;
-  }
   try {
-    return await api.put(`/{user.role}/${endpoint}`, user); // ??????
+    return await api.post('/edit-profile', user); // ??????
   } catch (error) {
     if (error.response) {
       return error.response;
@@ -132,23 +88,26 @@ editUser = async (user) => {
   }
 }
 
-deleteUser = async (user) => {
-  let endpoint = '';
-  switch (user.role) {
-    case 'student':
-      endpoint = '??????';
-      break;
-    case 'teacher':
-      endpoint = '??????';
-      break;
-    case 'coordinator':
-      endpoint = '??????';
-      break;
-    default:
-      break;
-  }
+// deleteUser = async (user) => {
+//   try {
+//     return await api.put(`/users/${user}`);// ?????????????
+//   } catch (error) {
+//     if (error.response) {
+//       return error.response;
+//     }
+//     return error;
+//   }
+// }
+
+editAvatarUser = async (avatar) => {
   try {
-    return await api.put(`/{user.role}/${endpoint}`);// ?????????????
+    return await api.post('/change-avatar', avatar, {
+      headers: {
+        accept: 'application/json',
+        'Accept-Language': 'pt-BR,pt-br;q=0.8',
+        'Content-Type': `multipart/form-data; boundary=${avatar._boundary}`,
+      }
+    });
   } catch (error) {
     if (error.response) {
       return error.response;
@@ -246,7 +205,10 @@ fetchAnswersAssessmentCorrection = async (id) => {
 
   addCourse = async (course) => {
     try {
-      return await api.post('/courses/add', course);// ?????????????
+      return await api.post('/courses/add', course);
+      // {
+      //   'Content-Type': 'multipart/form-data',
+      // });
     } catch (error) {
       if (error.response) {
         return error.response;
@@ -347,7 +309,7 @@ fetchCoursePerformance = async (data) => {
 
   fetchClassRoomById = async (id) => {
     try {
-      return await api.get(`/classroom/${id}`); // ???????
+      return await api.get(`/course/class/${id}`); // ???????
     } catch (error) {
       if (error.response) {
         return error.response;
@@ -358,7 +320,7 @@ fetchCoursePerformance = async (data) => {
 
   editClassRoom = async (classroom) => {
     try {
-      return await api.put('/classroom/', classroom);// ?????????????
+      return await api.put('/courses/class/', classroom);// ?????????????
     } catch (error) {
       if (error.response) {
         return error.response;
@@ -369,7 +331,7 @@ fetchCoursePerformance = async (data) => {
 
   deleteClassRoom = async (id) => {
     try {
-      return await api.put('/classroom/'`${id}`);// ?????????????
+      return await api.put('/courses/classes/'`${id}`);// ?????????????
     } catch (error) {
       if (error.response) {
         return error.response;

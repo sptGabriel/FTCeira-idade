@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { Bar } from 'react-chartjs-2';
-
 import {
   Box,
   Button,
@@ -15,6 +14,7 @@ import {
   Fade,
   Menu
 } from '@material-ui/core';
+import customTooltips from './tool';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -102,10 +102,26 @@ const LearningPerformance = ({
       mode: 'index',
       titleFontColor: theme.palette.text.primary,
       callbacks: {
-        // label: (tooltipItem, data) => {
-        label: (tooltipItem) => {
-          return tooltipItem.value;
+        custom: customTooltips,
+        callbacks: {
+          label: (tooltipItem, data) => {
+            const index = tooltipItem.datasetIndex === undefined ? tooltipItem.index : tooltipItem.datasetIndex;
+            const itemData = data.datasets[index];
+            // Return custom data to tooltip, these will be available inside the tooltip.body
+            return {
+              id: data.id,
+              pictureUrl: itemData.pictureUrl,
+              label: itemData.label,
+              value: tooltipItem.yLabel,
+              xLabel: tooltipItem.xLabel,
+              percent: data.percent
+            };
+          }
+
         }
+        // label: (tooltipItem) => {
+        //   return tooltipItem.value;
+        // }
       }
     }
   };

@@ -24,7 +24,6 @@ import {
 } from 'react-feather';
 import CustomTooltip from 'src/utils/CustomTooltip';
 import NavItem from './NavItem';
-import data from './data';
 
 const items = [
   {
@@ -197,7 +196,6 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           variant="temporary"
         >
           {content}
-
           <Button
             className={classes.button}
             component={RouterLink}

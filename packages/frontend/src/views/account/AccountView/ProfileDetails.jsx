@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
@@ -12,6 +12,7 @@ import {
   TextField,
   makeStyles
 } from '@material-ui/core';
+import api from 'src/service/ApiService';
 
 const useStyles = makeStyles(() => ({
   root: {}
@@ -20,15 +21,24 @@ const useStyles = makeStyles(() => ({
 const ProfileDetails = ({ className, ...rest }) => {
   const classes = useStyles();
 
-  // dados do usuário logado
+  const user = JSON.parse(localStorage.getItem('userData'));
+
   const [values, setValues] = useState({
-    firstname: 'Aaa',
-    lastname: 'Bbb',
-    cpf: '465.797.132-54',
-    email: 'usuario@ftc.edu.br',
-    phone: '73 98495-4119',
-    birth: '01/01/2000'
+    firstName: user ? user.firstName : '',
+    lastName: user ? user.lastName : '',
+    cpf: user ? user.cpf : '',
+    email: user ? user.email : '',
+    phone: user ? user.phone : '',
+    birthDate: user ? user.birthDate : ''
   });
+
+  const onSubmit = useCallback(() => {
+    api.editUser(values).then((res) => {
+      console.log(JSON.stringify(res, null, 2));
+    }).catch((error) => {
+      console.log(error);
+    });
+  }, [values]);
 
   const handleChange = (event) => {
     setValues({
@@ -64,8 +74,9 @@ const ProfileDetails = ({ className, ...rest }) => {
                 fullWidth
                 required
                 label="Nome"
-                name="firstname"
-                value={values.firstname}
+                name="firstName"
+                onChange={handleChange}
+                value={values.firstName}
                 variant="outlined"
               />
             </Grid>
@@ -78,8 +89,9 @@ const ProfileDetails = ({ className, ...rest }) => {
                 fullWidth
                 required
                 label="Sobrenome"
-                name="lastname"
-                value={values.lastname}
+                name="lastName"
+                onChange={handleChange}
+                value={values.lastName}
                 variant="outlined"
               />
             </Grid>
@@ -136,8 +148,9 @@ const ProfileDetails = ({ className, ...rest }) => {
                 fullWidth
                 required
                 label="Aniversário"
-                name="birth"
-                value={values.birth}
+                name="birthDate"
+                onChange={handleChange}
+                value={values.birthDate}
                 variant="outlined"
               />
             </Grid>
@@ -152,6 +165,7 @@ const ProfileDetails = ({ className, ...rest }) => {
           <Button
             color="primary"
             variant="contained"
+            onClick={onSubmit}
           >
             Salvar
           </Button>

@@ -68,12 +68,12 @@ const RegisterView = () => {
       cpf: '',
       birthDate: '',
       role: '',
-      course: ''
+      iesCourse: ''
     }
   });
 
   const handleRadio = () => {
-    setValue('course', '', {
+    setValue('iesCourse', '', {
       shouldValidate: true,
       shouldDirty: true
     });
@@ -98,7 +98,7 @@ const RegisterView = () => {
   const onSubmit = (data) => {
     if (data.role === 'student') {
       const newData = Object.keys(data).reduce((object, key) => {
-        if (key !== 'course') {
+        if (key !== 'iesCourse') {
           object[key] = data[key];
         }
         return object;
@@ -148,8 +148,6 @@ const RegisterView = () => {
               </Typography>
             </Box>
 
-            <button type="button" onClick={() => unregister('role')}>unregister</button>
-
             <Controller
               name="role"
               control={control}
@@ -197,7 +195,7 @@ const RegisterView = () => {
                   <MenuItem value="engenharia">Engenharia Civil</MenuItem>
                 </TextField>
               )}
-              name="course"
+              name="iesCourse"
               control={control}
             />
 

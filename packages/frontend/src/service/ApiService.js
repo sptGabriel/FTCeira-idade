@@ -11,7 +11,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-axios.interceptors.response.use((response) => {
+api.interceptors.response.use((response) => {
   return response;
 }, (error) => {
   return Promise.reject(error);
@@ -205,15 +205,12 @@ fetchAnswersAssessmentCorrection = async (id) => {
 
   addCourse = async (course) => {
     try {
-      return await api.post('/courses/add', course);
-      // {
-      //   'Content-Type': 'multipart/form-data',
-      // });
+      return await api.post('/courses/add', course,
+        {
+          'Content-Type': 'multipart/form-data',
+        });
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 

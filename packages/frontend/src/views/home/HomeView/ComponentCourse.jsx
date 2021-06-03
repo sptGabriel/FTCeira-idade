@@ -39,6 +39,7 @@ const ComponentCourse = ({
   );
   const [totalCourses, setTotalCourses] = useState();
   const [totalPages, setTotalPages] = useState();
+  // const [results, setResults] = useState([]);
   const [results, setResults] = useState([]);
 
   useEffect(() => {

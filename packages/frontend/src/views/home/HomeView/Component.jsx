@@ -49,6 +49,7 @@ const Component = ({ className, course, ...rest }) => {
   const clickActions = (action) => {
     switch (action) {
       case 'view':
+        localStorage.setItem('course_home', course.id);
         navigate('/app/course-view', { replace: false });
         break;
       default:
@@ -68,7 +69,7 @@ const Component = ({ className, course, ...rest }) => {
             component="img"
             alt=""
             height="360"
-            image={course.image}
+            image={course.media}
             title=""
             className={classes.image}
           />
@@ -76,7 +77,7 @@ const Component = ({ className, course, ...rest }) => {
         <CustomTooltip title="Clique para mais informações" placement="top-end">
           <CardContent className={classes.details}>
             <Typography gutterBottom variant="h3" component="h1">
-              {course.title}
+              {course.tittle}
             </Typography>
             <Typography variant="body1" color="textSecondary" component="p">
               {course.description}

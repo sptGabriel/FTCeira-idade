@@ -12,6 +12,9 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use((response) => {
+  if (response.status === 204) {
+    console.log('Successfully');
+  }
   return response;
 }, (error) => {
   return Promise.reject(error);
@@ -22,10 +25,7 @@ class ApiService {
     try {
       return await api.post('/signin', data);
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 
@@ -33,10 +33,7 @@ class ApiService {
     try {
       return await api.get('/users/me');
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 
@@ -46,10 +43,7 @@ class ApiService {
     try {
       return await api.post('/signup', user);
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 
@@ -59,10 +53,7 @@ class ApiService {
     try {
       return await api.get(`/users/${type}`); // ??????
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 
@@ -70,10 +61,7 @@ class ApiService {
     try {
       return await api.get(`/users/${user}`); // ???????
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 
@@ -81,10 +69,7 @@ editUser = async (user) => {
   try {
     return await api.post('/edit-profile', user); // ??????
   } catch (error) {
-    if (error.response) {
-      return error.response;
-    }
-    return error;
+    return error.response.data;
   }
 }
 
@@ -92,10 +77,7 @@ editUser = async (user) => {
 //   try {
 //     return await api.put(`/users/${user}`);// ?????????????
 //   } catch (error) {
-//     if (error.response) {
-//       return error.response;
-//     }
-//     return error;
+//     return error.response;
 //   }
 // }
 
@@ -103,16 +85,11 @@ editAvatarUser = async (avatar) => {
   try {
     return await api.post('/change-avatar', avatar, {
       headers: {
-        accept: 'application/json',
-        'Accept-Language': 'pt-BR,pt-br;q=0.8',
-        'Content-Type': `multipart/form-data; boundary=${avatar._boundary}`,
+        'Content-Type': 'multipart/form-data',
       }
     });
   } catch (error) {
-    if (error.response) {
-      return error.response;
-    }
-    return error;
+    return error.response;
   }
 }
 
@@ -122,10 +99,7 @@ fetchAssessmentsApplication = async () => {
   try {
     return await api.get('/lista.de.avaliacoes.nao.respondidas');// ?????????????
   } catch (error) {
-    if (error.response) {
-      return error.response;
-    }
-    return error;
+    return error.response.data;
   }
 }
 
@@ -133,10 +107,7 @@ addAssessmentApplication = async (answers) => {
   try {
     return await api.post('/respostas.avaliacao.um.aluno', answers);// ?????????????
   } catch (error) {
-    if (error.response) {
-      return error.response;
-    }
-    return error;
+    return error.response.data;
   }
 }
 
@@ -159,10 +130,7 @@ fetchStudentsPerformance = async (data) => {
   try {
     return await api.get(`/${endpoint}`);// ?????????????
   } catch (error) {
-    if (error.response) {
-      return error.response;
-    }
-    return error;
+    return error.response.data;
   }
 }
 
@@ -172,10 +140,7 @@ fetchAssessmentsCorrection = async () => {
   try {
     return await api.get('/lista.de.avaliacoes.respondidas.para.correcao');// ?????????????
   } catch (error) {
-    if (error.response) {
-      return error.response;
-    }
-    return error;
+    return error.response.data;
   }
 }
 
@@ -183,10 +148,7 @@ fetchAssessmentCorrection = async (id) => {
   try {
     return await api.get('/avaliacao.especifica.para.correcao', id);// ?????????????
   } catch (error) {
-    if (error.response) {
-      return error.response;
-    }
-    return error;
+    return error.response.data;
   }
 }
 
@@ -194,10 +156,7 @@ fetchAnswersAssessmentCorrection = async (id) => {
   try {
     return await api.get('/respostas.avaliacao.especifica.para.correcao', id);// ?????????????
   } catch (error) {
-    if (error.response) {
-      return error.response;
-    }
-    return error;
+    return error.response.data;
   }
 }
 
@@ -218,10 +177,7 @@ fetchAnswersAssessmentCorrection = async (id) => {
     try {
       return await api.get('/courses');// ?????????????
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 
@@ -229,10 +185,7 @@ fetchAnswersAssessmentCorrection = async (id) => {
     try {
       return await api.get(`/course/${id}`); // ???????
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 
@@ -240,10 +193,7 @@ fetchAnswersAssessmentCorrection = async (id) => {
     try {
       return await api.put('/courses/', course);// ?????????????);
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 
@@ -251,10 +201,7 @@ fetchAnswersAssessmentCorrection = async (id) => {
     try {
       return await api.put('/courses/'`${id}`);// ?????????????
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 
@@ -274,22 +221,17 @@ fetchCoursePerformance = async (data) => {
   try {
     return await api.get(`/${endpoint}`);// ?????????????
   } catch (error) {
-    if (error.response) {
-      return error.response;
-    }
-    return error;
+    return error.response.data;
   }
 }
+
 // ------------------------- classrooms
 
   addClassRoom = async (classroom) => {
     try {
       return await api.post('/courses/classes/add', classroom);// ?????????????
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 
@@ -297,10 +239,7 @@ fetchCoursePerformance = async (data) => {
     try {
       return await api.get('/classrooms');// ?????????????
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 
@@ -308,10 +247,7 @@ fetchCoursePerformance = async (data) => {
     try {
       return await api.get(`/course/class/${id}`); // ???????
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 
@@ -319,10 +255,7 @@ fetchCoursePerformance = async (data) => {
     try {
       return await api.put('/courses/class/', classroom);// ?????????????
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 
@@ -330,10 +263,7 @@ fetchCoursePerformance = async (data) => {
     try {
       return await api.put('/courses/classes/'`${id}`);// ?????????????
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 
@@ -353,10 +283,7 @@ fetchCoursePerformance = async (data) => {
     try {
       return await api.get(`/${endpoint}`);// ?????????????
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 
@@ -366,10 +293,7 @@ fetchCoursePerformance = async (data) => {
     try {
       return await api.post('/questionnaires/add', assessment);// ?????????????
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 
@@ -377,10 +301,7 @@ fetchCoursePerformance = async (data) => {
     try {
       return await api.post(`/questionnaires/${questionnaireId}`, answers);// ?????????????
     } catch (error) {
-      if (error.response) {
-        return error.response;
-      }
-      return error;
+      return error.response.data;
     }
   }
 }

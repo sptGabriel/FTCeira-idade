@@ -74,7 +74,8 @@ const NavItem = ({
       {(type === 'admin' && user.role === 'student')
          || (type === 'root' && user.role === 'student')
          || (type === 'root' && user.role === 'teacher')
-         || (type === 'user' && user.role === 'teacher') ? (<></>)
+         || (type === 'user' && user.role === 'teacher')
+         || (type === 'user' && user.role === 'coordinator') ? (<></>)
         : (
           <ListItem
             className={clsx(classes.item, className)}

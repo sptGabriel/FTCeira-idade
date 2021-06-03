@@ -30,7 +30,7 @@ const items = [
     href: '/app/home',
     icon: HomeIcon,
     title: 'Home',
-    type: 'user'
+    type: 'common'
   },
   {
     href: '/app/enrollments',

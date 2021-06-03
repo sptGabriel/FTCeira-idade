@@ -49,7 +49,7 @@ const Component = ({ className, course, ...rest }) => {
   const clickActions = (action) => {
     switch (action) {
       case 'view':
-        localStorage.setItem('course_home', course.id);
+        localStorage.setItem('course_home', JSON.stringify(course, null, 2));
         navigate('/app/course-view', { replace: false });
         break;
       default:

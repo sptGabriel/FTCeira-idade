@@ -5,7 +5,7 @@ import Registration from '~/modules/person/domain/registration.entity'
 
 export enum Shift {
   MAT = 'matutino',
-  VESP = 'vespertino ',
+  VESP = 'vespertino',
 }
 
 @Entity()

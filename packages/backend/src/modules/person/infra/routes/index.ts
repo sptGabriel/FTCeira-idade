@@ -21,16 +21,16 @@ import { makeGetUsersControllerFactory } from '~/shared/factories/controllers/ma
 import { makeSigninControllerFactory } from '~/shared/factories/controllers/makeSigninControllerFactory'
 
 const personRouter = Router()
-personRouter.post('/signup',adaptRoute(makeCreatePersonControllerFactory()))
-personRouter.post('/signin',adaptRoute(makeSigninControllerFactory()))
+personRouter.post('/signup', adaptRoute(makeCreatePersonControllerFactory()))
+personRouter.post('/signin', adaptRoute(makeSigninControllerFactory()))
 personRouter.post(
   '/ftc3idade/coordinators',
   coordinatorAuth,
   adaptRoute(makeSigninControllerFactory()),
-  )
+)
 personRouter.get(
   '/users/me',
-  studentAuth,
+  AllRoleAuth,
   adaptRoute(makeGetUserByIdControllerFactory()),
 )
 personRouter.get(

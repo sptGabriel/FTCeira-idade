@@ -6,7 +6,7 @@ import CourseHasTeachers from './classes-has-teachers.entity'
 
 export enum CURSOS_IES {
   SI = 'sistemas',
-  ADM = 'administração ',
+  ADM = 'administração',
   DIR = 'direito',
 }
 

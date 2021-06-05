@@ -2,6 +2,8 @@ import 'date-fns';
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import momenttz from 'moment-timezone';
 import {
   Card,
   CardContent,
@@ -42,8 +44,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Details = ({ className, ...rest }) => {
   const classes = useStyles();
-  const isLocal = localStorage.getItem('assessment_register');
-  const storageHeader = JSON.parse(localStorage.getItem('assessment_register'));
+  //  const isLocal = localStorage.getItem('assessment_register');
+  // const storageHeader = JSON.parse(localStorage.getItem('assessment_register'));
+
+  const isLocal = localStorage.getItem('selected_assessment');
+  const storageHeader = JSON.parse(localStorage.getItem('selected_assessment'));
 
   const [values, setValues] = useState({
     description: isLocal !== null ? storageHeader.description : '',
@@ -54,6 +59,13 @@ const Details = ({ className, ...rest }) => {
     isActive: isLocal !== null ? storageHeader.isActive : '',
     questions: []
   });
+
+  console.log(values.endDate);
+  console.log(moment(storageHeader.endDate).format('DD/MM/YYYY'));
+  console.log(moment(storageHeader.endDate).format('L'));
+  console.log(moment.locale());
+
+  console.log(momenttz(storageHeader.endDate).tz('America/Bahia').format('DD/MM/YYYY'));
 
   const handleChange = (event) => {
     if (event.target.name === 'isActive') {

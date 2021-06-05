@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import {
   Box,
   Container,
@@ -7,9 +7,10 @@ import {
 } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import Page from 'src/components/Page';
+import api from 'src/service/ApiService';
 import Toolbar from './Toolbar';
 import Component from './Component';
-import data from './data';
+// import data from './data';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,11 +31,22 @@ const useStyles = makeStyles((theme) => ({
 
 const ClassRoomGrid = () => {
   const classes = useStyles();
-  const [classrooms] = useState(data);
+  const [classrooms] = useState([]);
   const [limit] = useState(9);
   const [page, setPage] = useState(
     localStorage.getItem('pagination_classroom') ? parseFloat(localStorage.getItem('pagination_classroom')) : 1
   );
+
+  const [results, setResults] = useState([]);
+
+  useEffect(() => {
+    api.fetchClassRooms().then((res) => {
+      if (res.status === 201) {
+        console.log(JSON.stringify(res.data, null, 2));
+        setResults(res.data);
+      }
+    });
+  }, []);
 
   const handlePageChange = useCallback((event, newPage) => {
     setPage(newPage);
@@ -53,7 +65,7 @@ const ClassRoomGrid = () => {
             container
             spacing={3}
           >
-            {classrooms.slice((page - 1) * limit, (page - 1) * limit + limit).map((classroom) => (
+            {results.slice((page - 1) * limit, (page - 1) * limit + limit).map((classroom) => (
               <Grid
                 item
                 key={classroom.id}

@@ -152,11 +152,6 @@ const Results = ({
           spacing={1}
         >
           <Grid item>
-            <CustomTooltip title="visualizar">
-              <VisibilityIcon className={classes.button} onClick={() => { clickActions('view'); }} />
-            </CustomTooltip>
-          </Grid>
-          <Grid item>
             <CustomTooltip title="editar">
               <EditIcon className={classes.button} onClick={() => { clickActions('edit'); }} />
             </CustomTooltip>

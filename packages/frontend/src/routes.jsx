@@ -106,7 +106,8 @@ const routes = [
       { path: '/', element: <Navigate to="/login" /> }, //  <Navigate to="/app/dashboard" /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
-  }
+  },
+
 ];
 
 export default routes;

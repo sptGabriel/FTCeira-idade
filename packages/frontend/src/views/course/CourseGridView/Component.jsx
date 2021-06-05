@@ -78,7 +78,7 @@ const Component = ({ className, course, ...rest }) => {
           gutterBottom
           variant="h4"
         >
-          {course.title}
+          {course.tittle}
         </Typography>
         <Typography
           align="center"

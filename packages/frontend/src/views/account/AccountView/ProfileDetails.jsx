@@ -58,6 +58,7 @@ const ProfileDetails = ({ className, ...rest }) => {
 
   const prepareObject = useCallback(() => {
     const formData = new FormData();
+<<<<<<< HEAD
     formData.append('avatar', image);
 
     api.editAvatarUser(formData).then((res) => {
@@ -69,6 +70,22 @@ const ProfileDetails = ({ className, ...rest }) => {
     }).catch((error) => {
       console.log(error);
       // URL.revokeObjectURL(src);
+=======
+    formData.append('id', user.id);
+    formData.append('avatar', values.email);
+    formData.append('avatar', image);
+
+    const entries = [...formData.entries()];
+    console.log(entries.name);
+
+    const d = [...formData.values()];
+    console.log(d);
+
+    api.editAvatarUser(formData).then((res) => {
+      console.log(res);
+    }).catch((error) => {
+      console.log(error);
+>>>>>>> 9a547a72bddddcb7d4a211493534d30ca33214c3
     });
   }, [image]);
 
@@ -124,20 +141,37 @@ const ProfileDetails = ({ className, ...rest }) => {
             </CardContent>
             <Divider />
             <CardActions>
+<<<<<<< HEAD
               <IconButton color="primary" aria-label="upload picture" component="span" onClick={handleButtonClick}>
                 <PhotoCamera style={{ fontSize: 40 }} />
               </IconButton>
 
+=======
+>>>>>>> 9a547a72bddddcb7d4a211493534d30ca33214c3
               <Button
                 color="primary"
                 fullWidth
                 variant="contained"
                 onClick={prepareObject}
+<<<<<<< HEAD
                 disabled={!image}
               >
                 salvar imagem
               </Button>
 
+=======
+              >
+                insira uma nova foto
+              </Button>
+              <Button
+                color="primary"
+                component="span"
+                variant="contained"
+                onClick={handleButtonClick}
+              >
+                Upload
+              </Button>
+>>>>>>> 9a547a72bddddcb7d4a211493534d30ca33214c3
               <input
                 accept="image/*"
                 id="button-file"

@@ -103,10 +103,18 @@ const CourseRegisterDetails = () => {
 
       api.addCourse(formData).then((res) => {
         if (res.status === 201) {
+<<<<<<< HEAD
           // console.log(JSON.stringify(res, null, 2));
           handleOpenSnack('curso registrado com sucesso', 'success');
           setSrc('/static/images/blank.png');
           URL.revokeObjectURL(image);
+=======
+          console.log(JSON.stringify(res, null, 2));
+          handleOpenSnack('curso registrado com sucesso', 'success');
+          setSrc('/static/images/blank.png');
+          URL.revokeObjectURL(image);
+          // setImage(undefined);
+>>>>>>> 9a547a72bddddcb7d4a211493534d30ca33214c3
           setCourse({
             name: '',
             description: '',
@@ -115,7 +123,11 @@ const CourseRegisterDetails = () => {
           });
         } else {
           handleOpenSnack('falha no registro do curso', 'error');
+<<<<<<< HEAD
           // console.log(JSON.stringify(res, null, 2));
+=======
+          console.log(JSON.stringify(res, null, 2));
+>>>>>>> 9a547a72bddddcb7d4a211493534d30ca33214c3
         }
       });
     } else {
@@ -230,6 +242,10 @@ const CourseRegisterDetails = () => {
                   value={course.iesCourse}
                   variant="outlined"
                 >
+<<<<<<< HEAD
+=======
+                  {/* <MenuItem selected value={course.iesCourse}>Selecione</MenuItem> */}
+>>>>>>> 9a547a72bddddcb7d4a211493534d30ca33214c3
                   <MenuItem value="administração">Administração</MenuItem>
                   <MenuItem value="sistemas">Sistemas de Informação</MenuItem>
                   <MenuItem value="direito">Direito</MenuItem>

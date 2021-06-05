@@ -99,14 +99,14 @@ const Results = ({
       flex: 1
     },
     {
-      field: 'initial_date',
+      field: 'startDate',
       headerName: 'Data inicial',
       headerAlign: 'center',
       align: 'center',
       width: 150
     },
     {
-      field: 'end_date',
+      field: 'endDate',
       headerName: 'Data final',
       headerAlign: 'center',
       align: 'center',

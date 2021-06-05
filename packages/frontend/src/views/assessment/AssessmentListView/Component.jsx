@@ -17,7 +17,6 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import labels from '../../../utils/labels';
 import CustomTooltip from '../../../utils/CustomTooltip';
 
@@ -77,9 +76,6 @@ const Results = ({
 
   const clickActions = (action) => {
     switch (action) {
-      case 'view':
-        navigate('/app/assessment-view', { replace: false });
-        break;
       case 'edit':
         navigate('/app/assessment-edit', { replace: false });
         break;
@@ -131,11 +127,6 @@ const Results = ({
           spacing={1}
         >
           <Grid item>
-            <CustomTooltip title="visualizar">
-              <VisibilityIcon className={classes.button} onClick={() => { clickActions('view'); }} />
-            </CustomTooltip>
-          </Grid>
-          <Grid item>
             <CustomTooltip title="editar">
               <EditIcon className={classes.button} onClick={() => { clickActions('edit'); }} />
             </CustomTooltip>
@@ -163,7 +154,7 @@ const Results = ({
             rows={assessments}
             columns={columns.map((column) => ({
               ...column,
-              disableClickEventBubbling: true,
+              //  disableClickEventBubbling: true,
             }))}
             pageSize={10}
             page={page}
@@ -176,6 +167,10 @@ const Results = ({
             localeText={translate}
             loading={loading}
             onPageChange={handlePageChange}
+            disableSelectionOnClick
+            onRowClick={(rowData) => {
+              localStorage.setItem('selected_assessment', JSON.stringify(rowData.row, null, 2));
+            }}
           />
         </div>
       </Box>

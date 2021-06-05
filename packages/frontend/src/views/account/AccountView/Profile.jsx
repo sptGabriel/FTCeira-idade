@@ -9,17 +9,9 @@ import {
   CardActions,
   CardContent,
   Divider,
-  Typography,
   makeStyles
 } from '@material-ui/core';
 import api from 'src/service/ApiService';
-
-// dados do usuário logado
-// const user = {
-//   avatar: '/static/images/avatars/avatar.png',
-//   name: '',
-//   email: ''
-// };
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -78,19 +70,7 @@ const Profile = ({ className, ...rest }) => {
             className={classes.avatar}
             src={src}
           />
-          {/* <Typography
-            color="textPrimary"
-            gutterBottom
-            variant="h3"
-          >
-            xxxx
-          </Typography>
-          <Typography
-            color="textSecondary"
-            variant="body1"
-          >
-            zzzzz
-          </Typography> */}
+
         </Box>
       </CardContent>
       <Divider />

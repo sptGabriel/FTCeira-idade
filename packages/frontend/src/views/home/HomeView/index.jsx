@@ -33,6 +33,7 @@ const HomeView = () => {
     >
       <Container maxWidth={false}>
         <ComponentCourse courses={data} />
+        {/* <ComponentCourse /> */}
       </Container>
     </Page>
   );

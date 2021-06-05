@@ -18,7 +18,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import labels from './labels';
 import CustomTooltip from '../../../utils/CustomTooltip';
 
@@ -151,11 +150,6 @@ const Results = ({
           className={classes.actions}
           spacing={1}
         >
-          <Grid item>
-            <CustomTooltip title="visualizar">
-              <VisibilityIcon className={classes.button} onClick={() => { clickActions('view'); }} />
-            </CustomTooltip>
-          </Grid>
           <Grid item>
             <CustomTooltip title="editar">
               <EditIcon className={classes.button} onClick={() => { clickActions('edit'); }} />

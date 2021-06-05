@@ -41,6 +41,7 @@ const Component = ({ className, classroom, ...rest }) => {
   const navigate = useNavigate();
 
   const clickActions = (action) => {
+    localStorage.setItem('selected_class', JSON.stringify(classroom, null, 2));
     switch (action) {
       case 'chart':
         navigate('/app/classroom-performance', { replace: false });
@@ -86,7 +87,7 @@ const Component = ({ className, classroom, ...rest }) => {
           color="textPrimary"
           variant="body1"
         >
-          {classroom.course}
+          {classroom.course.name}
         </Typography>
       </CardContent>
       <Box flexGrow={1} />

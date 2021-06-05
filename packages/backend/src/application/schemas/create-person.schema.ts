@@ -39,5 +39,5 @@ export const CreatePersonSchema = Joi.object({
   }),
   birthDate: Joi.date().raw().required(),
   role: Joi.string().valid('teacher', 'student').required(),
-  iesCourse: Joi.string().valid('administração', 'sistemas', 'enfermagem'),
+  iesCourse: Joi.string().valid('sistemas', 'administração', 'direito'),
 })

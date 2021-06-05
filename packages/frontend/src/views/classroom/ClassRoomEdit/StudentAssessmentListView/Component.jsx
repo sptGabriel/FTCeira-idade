@@ -13,6 +13,7 @@ import {
 } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import labels from '../../../../utils/labels';
 import CustomTooltip from '../../../../utils/CustomTooltip';
 
@@ -115,6 +116,11 @@ const Component = ({
           <Grid item>
             <CustomTooltip title="correção">
               <EditIcon className={classes.button} onClick={() => { clickActions('correction'); }} />
+            </CustomTooltip>
+          </Grid>
+          <Grid item>
+            <CustomTooltip title="excluir">
+              <DeleteIcon className={classes.button} onClick={() => { clickActions('delete'); }} />
             </CustomTooltip>
           </Grid>
         </Grid>

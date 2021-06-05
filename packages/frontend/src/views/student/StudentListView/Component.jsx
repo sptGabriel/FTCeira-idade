@@ -18,12 +18,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import CustomDialog from 'src/components/CustomDialog';
 import labels from '../../../utils/labels';
 import CustomTooltip from '../../../utils/CustomTooltip';
-import CustomSnackbar from '../../../components/CustomSnackbar';
+// import CustomSnackbar from '../../../components/CustomSnackbar';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -75,31 +74,31 @@ const Component = ({
   const [page, setPage] = useState(
     localStorage.getItem('pagination_student') ? parseFloat(localStorage.getItem('pagination_student')) : 0
   );
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
-  const [message, setMessage] = useState('');
+  // const [message, setMessage] = useState('');
 
-  const handleOpenSnack = (text) => {
-    setMessage(text);
-    setOpen(true);
-  };
-  const handleCloseSnack = (event, reason) => {
-    if (reason === 'clickaway') {
-      setOpen(false);
-      return;
-    }
-    setOpen(false);
-  };
+  // const handleOpenSnack = (text) => {
+  //   setMessage(text);
+  //   setOpen(true);
+  // };
+  // const handleCloseSnack = (event, reason) => {
+  //   if (reason === 'clickaway') {
+  //     setOpen(false);
+  //     return;
+  //   }
+  //   setOpen(false);
+  // };
 
   const handleOpenDialog = useCallback((status) => {
     setOpenDialog(status);
-    console.log('okkk');
   });
 
-  // const handleCloseDialog = (confirm) => {
-  //   setOpenDialog(false);
-  //   console.log(confirm === true ? 'confirmado' : 'cancelado');
-  // };
+  const handleAction = useCallback(() => {
+    setOpenDialog(false);
+    console.log('confirmado');
+    // handleOpenSnack('registro excluído com sucesso');
+  });
 
   const handlePageChange = (event) => {
     setPage(event.page);
@@ -160,16 +159,11 @@ const Component = ({
       case 'chart':
         navigate('/app/student-performance', { replace: false });
         break;
-      case 'view':
-        // navigate('/app/student-view', { replace: false });
-        handleOpenSnack('registro excluído com sucesso');
-        break;
       case 'edit':
         navigate('/app/student-edit', { replace: false });
         break;
       case 'delete':
         // navigate('/app/student-delete', { replace: false });
-        // handleOpenSnack('registro excluído com sucesso');
         handleOpenDialog(true);
         break;
       default:
@@ -250,11 +244,6 @@ const Component = ({
             </CustomTooltip>
           </Grid>
           <Grid item>
-            <CustomTooltip title="visualizar">
-              <VisibilityIcon className={classes.button} onClick={() => { clickActions('view'); }} />
-            </CustomTooltip>
-          </Grid>
-          <Grid item>
             <CustomTooltip title="editar">
               <EditIcon className={classes.button} onClick={() => { clickActions('edit'); }} />
             </CustomTooltip>
@@ -274,20 +263,13 @@ const Component = ({
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <CustomSnackbar
+      {/* <CustomSnackbar
         message={message}
         openStatus={open}
         handleClose={handleCloseSnack}
         timeClose={6000}
         severity="success"
-      />
-      {/*
-         severity="error"
-         severity="warning"
-         severity="info"
-         severity="success"
-      */}
-
+      /> */}
       <Box minWidth="md">
         <TableToolbar className title="Discentes" />
         <div style={{ display: 'flex', width: '100%' }}>
@@ -309,8 +291,6 @@ const Component = ({
             localeText={translate}
             loading={loading}
             onPageChange={handlePageChange}
-           // editedStudent={editedStudent}
-           // onEditCellChange={handleEditCellChange}
           />
 
         </div>
@@ -318,6 +298,7 @@ const Component = ({
       <CustomDialog
         openStatus={openDialog}
         handleClose={() => handleOpenDialog(false)}
+        handleAction={() => handleAction()}
       />
     </Card>
   );

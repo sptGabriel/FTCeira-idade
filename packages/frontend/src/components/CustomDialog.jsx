@@ -7,35 +7,29 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
 
-const CustomDialog = ({ openStatus, handleClose }) => {
+const CustomDialog = ({ openStatus, handleClose, handleAction }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setOpen(openStatus);
   });
 
-  // function callResponse(res) {
-  //   setResponse(res);
-  //   return response;
-  // }
-
   return (
     <Dialog
       open={open}
       onClose={handleClose}
     >
-      <DialogTitle>Use Google s location service?</DialogTitle>
+      <DialogTitle>Tem certeza?</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Let Google help apps determine location. This means sending anonymous location data to
-          Google, even when no apps are running.
+          Texto texto texto texto texto texto texto texto texto texto texto
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleClose} color="primary">
           Cancelar
         </Button>
-        <Button onClick={handleClose} color="primary" autoFocus>
+        <Button onClick={handleAction} color="primary" autoFocus>
           Ok
         </Button>
       </DialogActions>
@@ -45,7 +39,8 @@ const CustomDialog = ({ openStatus, handleClose }) => {
 
 CustomDialog.propTypes = {
   openStatus: PropTypes.bool,
-  handleClose: PropTypes.func
+  handleClose: PropTypes.func,
+  handleAction: PropTypes.func
 };
 
 export default CustomDialog;

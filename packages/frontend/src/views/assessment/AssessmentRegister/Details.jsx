@@ -40,13 +40,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Details = ({ className, ...rest }) => {
   const classes = useStyles();
+  const storageCourse = JSON.parse(localStorage.getItem('selected_course'));
 
   const [values, setValues] = useState({
+    name: 'NAO PRECISA',
     description: '',
     startDate: '',
     endDate: '',
     value: 0,
-    course: 'Sistemas de Informação',
+    courseId: storageCourse ? storageCourse.id : '',
     isActive: true,
     questions: []
   });

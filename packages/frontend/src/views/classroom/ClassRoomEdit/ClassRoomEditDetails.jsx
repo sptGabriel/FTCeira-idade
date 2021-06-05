@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import {
   Button,
   Card,
@@ -13,16 +13,19 @@ import {
   MenuItem,
   Container
 } from '@material-ui/core';
+import { useForm, Controller } from 'react-hook-form';
+// import CustomSnackbar from 'src/components/CustomSnackbar';
+// import api from 'src/service/ApiService';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
   },
-  selectShift: {
+  selectMax: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1)
   },
-  selectCourse: {
+  selectShift: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(0.5)
   },
@@ -30,24 +33,68 @@ const useStyles = makeStyles((theme) => ({
 
 const ClassRooomEditDetails = () => {
   const classes = useStyles();
+  // const [open, setOpen] = useState(false);
+  // const [message, setMessage] = useState('');
+  // const [severity, setSeverity] = useState('');
 
-  const [classroom, setClassRoom] = useState({
-    code: 'dfgdgffgjfgj',
-    course: 'sistemas de informacao',
-    students: 10,
-    shift: 'noturno'
+  // const handleOpenSnack = (text, type) => {
+  //   setMessage(text);
+  //   setSeverity(type);
+  //   setOpen(true);
+  // };
+  // const handleCloseSnack = (event, reason) => {
+  //   if (reason === 'clickaway') {
+  //     setOpen(false);
+  //     return;
+  //   }
+  //   setOpen(false);
+  // };
+
+  // courses
+  //  const [courses, setCourses] = useState([]);
+  // useEffect(() => {
+  //   api.fetchCourses().then((res) => {
+  //     if (res.status === 201) {
+  //       // console.log(JSON.stringify(res.data, null, 2));
+  //       setCourses(res.data);
+  //     } else {
+  //       setCourses([]);
+  //     }
+  //   });
+  // }, []);
+
+  const storageClass = JSON.parse(localStorage.getItem('selected_class'));
+
+  const {
+    handleSubmit, control, watch
+  } = useForm({
+    mode: 'onChange',
+    defaultValues: {
+      cod: storageClass ? storageClass.code : '',
+      max: storageClass ? storageClass.students : '',
+      shift: storageClass ? storageClass.shift : '',
+      startDate: '01-02-2020', // necessário?
+      endDate: '02-03-2020', // necessário?
+      courseId: storageClass ? storageClass.course.id : '',
+    }
   });
 
-  const handleChange = (event) => {
-    setClassRoom({
-      ...classroom,
-      [event.target.name]: event.target.value
-    });
-  };
+  watch((data) => {
+    console.log(JSON.stringify(data, null, 2));
+  });
 
-  const handleSubmit = useCallback(() => {
-    console.log(classroom.code, classroom.course, classroom.students, classroom.shift);
-  }, [classroom]);
+  const onSubmit = (data) => {
+    console.log(JSON.stringify(data, null, 2));
+    // api.editClassRoom(data).then((res) => {
+    // console.log(JSON.stringify(res, null, 2));
+    // if (res.status === 201) {
+    // handleOpenSnack('registro da classe efetuado com sucesso', 'success');
+    //    }
+    // }).catch((error) => {
+    //  handleOpenSnack('falha no registro da classe', 'error');
+    // console.log(JSON.stringify(error, null, 2));
+    // });
+  };
 
   return (
     <Container maxWidth="sm">
@@ -58,10 +105,7 @@ const ClassRooomEditDetails = () => {
           titleTypographyProps={{ variant: 'h4' }}
         />
         <Divider />
-        <form
-          autoComplete="off"
-          noValidate
-        >
+        <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
             <Grid
               container
@@ -71,16 +115,19 @@ const ClassRooomEditDetails = () => {
                 item
                 xs={12}
               >
-                <TextField
-                  fullWidth
-                  id="code"
-                  label="Código"
-                  margin="dense"
-                  name="code"
-                  onChange={handleChange}
-                  required
-                  value={classroom.code}
-                  variant="outlined"
+                <Controller
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      required
+                      label="Código"
+                      margin="normal"
+                      variant="outlined"
+                    />
+                  )}
+                  name="cod"
+                  control={control}
                 />
               </Grid>
               <Grid
@@ -88,57 +135,58 @@ const ClassRooomEditDetails = () => {
                 xs={12}
               >
                 <TextField
-                  className={classes.selectCourse}
                   fullWidth
                   required
                   disabled
-                  id="course"
-                  name="course"
-                  size="small"
                   label="Curso"
-                  value={classroom.course}
                   variant="outlined"
+                  name="course"
+                  defaultValue={storageClass.course.tittle}
                 />
               </Grid>
               <Grid
                 item
                 xs
               >
-                <TextField
-                  fullWidth
-                  id="students"
-                  label="Total de vagas"
-                  margin="dense"
-                  name="students"
-                  onChange={handleChange}
-                  required
-                  type="number"
-                  value={classroom.students}
-                  variant="outlined"
+                <Controller
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      required
+                      className={classes.selectMax}
+                      label="Vagas"
+                      type="number"
+                      margin="normal"
+                      variant="outlined"
+                    />
+                  )}
+                  name="max"
+                  control={control}
                 />
               </Grid>
               <Grid
                 item
                 xs
               >
-                <TextField
-                  className={classes.selectShift}
-                  fullWidth
-                  required
-                  id="shif"
+                <Controller
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      required
+                      select
+                      label="Turno"
+                      variant="outlined"
+                      className={classes.selectShift}
+                    >
+                      <MenuItem value="matutino">Matutino</MenuItem>
+                      <MenuItem value="vespertino">Vespertino</MenuItem>
+                    </TextField>
+                  )}
                   name="shift"
-                  onChange={handleChange}
-                  select
-                  size="small"
-                  label="Turno"
-                  value={classroom.shift}
-                  variant="outlined"
-                >
-                  <MenuItem value="" />
-                  <MenuItem value="matutino">Matutino</MenuItem>
-                  <MenuItem value="vespertino">Vespertino</MenuItem>
-                  <MenuItem value="noturno">Noturno</MenuItem>
-                </TextField>
+                  control={control}
+                />
               </Grid>
             </Grid>
           </CardContent>
@@ -147,7 +195,7 @@ const ClassRooomEditDetails = () => {
             <Box flexGrow={1}>
               <Button
                 color="primary"
-                onClick={handleSubmit}
+                type="submit"
                 variant="contained"
               >
                 Salvar

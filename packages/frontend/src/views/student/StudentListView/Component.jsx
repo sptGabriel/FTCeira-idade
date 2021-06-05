@@ -18,7 +18,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import CustomDialog from 'src/components/CustomDialog';
 import labels from '../../../utils/labels';
@@ -160,10 +159,6 @@ const Component = ({
       case 'chart':
         navigate('/app/student-performance', { replace: false });
         break;
-      case 'view':
-        // navigate('/app/student-view', { replace: false });
-        handleOpenSnack('registro excluído com sucesso');
-        break;
       case 'edit':
         navigate('/app/student-edit', { replace: false });
         break;
@@ -247,11 +242,6 @@ const Component = ({
           <Grid item>
             <CustomTooltip title="desempenho">
               <BarChartIcon className={classes.button} onClick={() => { clickActions('chart'); }} />
-            </CustomTooltip>
-          </Grid>
-          <Grid item>
-            <CustomTooltip title="visualizar">
-              <VisibilityIcon className={classes.button} onClick={() => { clickActions('view'); }} />
             </CustomTooltip>
           </Grid>
           <Grid item>

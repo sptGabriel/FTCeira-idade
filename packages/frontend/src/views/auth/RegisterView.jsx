@@ -190,9 +190,9 @@ const RegisterView = () => {
                   variant="outlined"
                 >
                   <MenuItem value="">selecione</MenuItem>
+                  <MenuItem value="administração">Administração</MenuItem>
                   <MenuItem value="sistemas">Sistemas de Informação</MenuItem>
-                  <MenuItem value="administracao">Administração</MenuItem>
-                  <MenuItem value="engenharia">Engenharia Civil</MenuItem>
+                  <MenuItem value="direito">Direito</MenuItem>
                 </TextField>
               )}
               name="iesCourse"
@@ -250,7 +250,7 @@ const RegisterView = () => {
                   {...field}
                   fullWidth
                   required
-                  label="birthDate"
+                  label="Data nascimento"
                   margin="normal"
                   variant="outlined"
                 />

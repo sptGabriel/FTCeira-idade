@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   Button,
   CardActionArea,
@@ -11,20 +11,32 @@ import { v4 as uuid } from 'uuid';
 
 const CourseViewDetails = () => {
   // dados do curso selecionado ------------------
-  const [course] = useState({
-    id: uuid(),
-    description: 'O Curso de Informática Básica e Avançada da Intensiva Cursos foi desenvolvido cuidadosamente para ensinar desde os conceitos básicos da informática, passando pelo Word (editor de textos) e Excel (editor de planilhas) e chegando até a introdução às redes de computador.',
-    avatar: '/static/avatars/course.jpg',
-    title: 'Windows 10 e Office 365',
-    students: 28,
-    shift: 'noturno'
+  const getCourse = localStorage.getItem('course_home');
+  const [course, setCourse] = useState({
+    id: '',
+    description: '',
+    media: '',
+    tittle: '',
+    shift: '',
+    students: '',
   });
 
-  const [avatar] = useState(course.avatar);
+  useEffect(() => {
+    setCourse({
+      id: getCourse ? getCourse.id : '',
+      description: getCourse ? getCourse.description : '',
+      media: getCourse ? getCourse.media : '',
+      tittle: getCourse ? getCourse.tittle : '',
+      shift: 'falta essa variavel',
+      students: 'falta essa variavel'
+    });
+  }, []);
+
+  // const [avatar] = useState(course.avatar);
   //--------------------
 
   const handleSubmit = useCallback(() => {
-    console.log(course.title, course.description, course.students, course.shift);
+    console.log(course.tittle, course.description, course.students, course.shift);
   }, [course]);
 
   return (
@@ -35,15 +47,15 @@ const CourseViewDetails = () => {
           <CardActionArea>
             <CardMedia
               component="img"
-              image={avatar}
-              title="title"
+              image={course.media}
+              title="tittle"
             />
           </CardActionArea>
         </Grid>
 
         <Grid item xs={4}>
           <Typography variant="h1" component="h2">
-            {course.title}
+            {course.tittle}
           </Typography>
           <br />
           <Typography variant="body1" component="p">

@@ -21,7 +21,7 @@ const Toolbar = ({ className, ...rest }) => {
   const navigate = useNavigate();
 
   const addClassRoom = () => {
-    navigate('/app/classroom-register', { replace: true });
+    navigate('/app/classroom-register', { replace: false });
   };
 
   return (

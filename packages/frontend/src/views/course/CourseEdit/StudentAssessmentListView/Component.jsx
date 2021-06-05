@@ -16,6 +16,7 @@ import {
 } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import labels from '../../../../utils/labels';
 import CustomTooltip from '../../../../utils/CustomTooltip';
 // import CustomSnackbar from '../../../../components/CustomSnackbar';
@@ -89,10 +90,10 @@ const Component = ({
       // case 'edit':
       //   navigate('/app/student-edit', { replace: false });
       //   break;
-        // case 'delete':
-        // navigate('/app/student-delete', { replace: false });
+      case 'delete':
+        navigate('/app/student-delete', { replace: false });
         // handleOpenSnack('registro excluído com sucesso');
-        // break;
+        break;
       default:
         break;
     }
@@ -140,6 +141,11 @@ const Component = ({
           <Grid item>
             <CustomTooltip title="correção">
               <EditIcon className={classes.button} onClick={() => { clickActions('correction'); }} />
+            </CustomTooltip>
+          </Grid>
+          <Grid item>
+            <CustomTooltip title="excluir">
+              <DeleteIcon className={classes.button} onClick={() => { clickActions('delete'); }} />
             </CustomTooltip>
           </Grid>
         </Grid>

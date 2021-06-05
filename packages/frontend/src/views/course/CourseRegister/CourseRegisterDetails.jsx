@@ -1,4 +1,6 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, {
+  useState, useEffect, useCallback, useRef
+} from 'react';
 import {
   Button,
   Card,
@@ -16,7 +18,6 @@ import {
 } from '@material-ui/core';
 import api from 'src/service/ApiService';
 import CustomSnackbar from 'src/components/CustomSnackbar';
-import { conformsTo } from 'lodash';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -42,7 +43,6 @@ const CourseRegisterDetails = () => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [severity, setSeverity] = useState('');
-  // const [formData, setFormData] = useState();
 
   const handleOpenSnack = (text, type) => {
     setMessage(text);
@@ -59,13 +59,10 @@ const CourseRegisterDetails = () => {
   };
 
   const [course, setCourse] = useState({
-
-    // avatar: '/static/images/blank.png',
-    // avartar: '',
     name: '',
     description: '',
-    tittle: 'não precisa',
-    iesCourse: 'sistemas',
+    tittle: 'campo será removido',
+    iesCourse: '',
   });
 
   const [src, setSrc] = useState('/static/images/blank.png');
@@ -76,35 +73,54 @@ const CourseRegisterDetails = () => {
       ...course,
       [event.target.name]: event.target.value
     });
+    console.log(event.target.value);
   };
 
   const imageChange = (event) => {
-    setSrc(URL.createObjectURL(event.target.files[0]));
-    setImage(event.target.files[0]);
+    if (event.target.files[0]) {
+      setSrc(URL.createObjectURL(event.target.files[0]));
+      setImage(event.target.files[0]);
+    }
+    // URL.revokeObjectURL(src);
   };
 
+  useEffect(() => {
+    return () => {
+    //  setSrc(URL.revokeObjectURL(src));
+      console.log(image);
+      console.log(src);
+    };
+  }, [image, src]);
+
   const handleSubmit = useCallback(() => {
-    const formData = new FormData();
-    formData.append('media', image.name);
-    formData.append('course', JSON.stringify(course));
+    if (image) {
+      const formData = new FormData();
+      formData.append('name', course.name);
+      formData.append('description', course.description);
+      formData.append('tittle', course.tittle);
+      formData.append('iesCourse', course.iesCourse);
+      formData.append('media', image);
 
-    console.log(image);
-    const formKeys = formData.keys();
-    const formEntries = formData.entries();
-
-    do {
-      console.log(formEntries.next().value);
-    } while (!formKeys.next().done);
-
-    // api.addCourse(course).then((res) => {
-    //   if (res.status === 201) {
-    //     console.log(JSON.stringify(res, null, 2));
-    //     handleOpenSnack('curso registrado com sucesso', 'success');
-    //   } else {
-    //     handleOpenSnack('falha no registro do curso', 'error');
-    //     console.log(JSON.stringify(res, null, 2));
-    //   }
-    // });
+      api.addCourse(formData).then((res) => {
+        if (res.status === 201) {
+          // console.log(JSON.stringify(res, null, 2));
+          handleOpenSnack('curso registrado com sucesso', 'success');
+          setSrc('/static/images/blank.png');
+          URL.revokeObjectURL(image);
+          setCourse({
+            name: '',
+            description: '',
+            tittle: 'não precisa',
+            iesCourse: undefined,
+          });
+        } else {
+          handleOpenSnack('falha no registro do curso', 'error');
+          // console.log(JSON.stringify(res, null, 2));
+        }
+      });
+    } else {
+      handleOpenSnack('defina uma imagem', 'info');
+    }
   }, [course, image]);
 
   const handleButtonClick = () => {
@@ -214,8 +230,8 @@ const CourseRegisterDetails = () => {
                   value={course.iesCourse}
                   variant="outlined"
                 >
-                  <MenuItem selected value="sistemas">Sistemas de Informação</MenuItem>
                   <MenuItem value="administração">Administração</MenuItem>
+                  <MenuItem value="sistemas">Sistemas de Informação</MenuItem>
                   <MenuItem value="direito">Direito</MenuItem>
                 </TextField>
               </Grid>

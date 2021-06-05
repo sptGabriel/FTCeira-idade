@@ -42,12 +42,14 @@ const ComponentCourse = ({
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    setResults(courses);
+    api.fetchCourses().then((res) => {
+      console.log(res.status);
+      if (res.status === 201) {
+        console.log(JSON.stringify(res.data, null, 2));
+        setResults(res.data);
+      }
+    });
   }, []);
-
-  api.fetchCourses().then((res) => {
-    console.log(JSON.stringify(res, null, 2));
-  });
 
   useEffect(() => {
     setTotalCourses(results.length);
@@ -73,7 +75,7 @@ const ComponentCourse = ({
           container
           spacing={3}
         >
-          { results.slice((page - 1) * limit, (page - 1) * limit + limit).map((result) => (
+          {results && results.slice((page - 1) * limit, (page - 1) * limit + limit).map((result) => (
             <Grid
               item
               key={uuid()}

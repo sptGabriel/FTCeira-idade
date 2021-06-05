@@ -4,6 +4,13 @@ import PropTypes from 'prop-types';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 
+/*
+* severity="error"
+* severity="warning"
+* severity="info"
+* severity="success"
+*/
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }

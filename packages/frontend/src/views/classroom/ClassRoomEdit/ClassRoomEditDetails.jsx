@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import {
   Button,
   Card,
@@ -14,8 +14,8 @@ import {
   Container
 } from '@material-ui/core';
 import { useForm, Controller } from 'react-hook-form';
-import CustomSnackbar from 'src/components/CustomSnackbar';
-import api from 'src/service/ApiService';
+// import CustomSnackbar from 'src/components/CustomSnackbar';
+// import api from 'src/service/ApiService';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,40 +33,40 @@ const useStyles = makeStyles((theme) => ({
 
 const ClassRooomEditDetails = () => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState('');
-  const [severity, setSeverity] = useState('');
+  // const [open, setOpen] = useState(false);
+  // const [message, setMessage] = useState('');
+  // const [severity, setSeverity] = useState('');
 
-  const handleOpenSnack = (text, type) => {
-    setMessage(text);
-    setSeverity(type);
-    setOpen(true);
-  };
-  const handleCloseSnack = (event, reason) => {
-    if (reason === 'clickaway') {
-      setOpen(false);
-      return;
-    }
-    setOpen(false);
-  };
+  // const handleOpenSnack = (text, type) => {
+  //   setMessage(text);
+  //   setSeverity(type);
+  //   setOpen(true);
+  // };
+  // const handleCloseSnack = (event, reason) => {
+  //   if (reason === 'clickaway') {
+  //     setOpen(false);
+  //     return;
+  //   }
+  //   setOpen(false);
+  // };
 
   // courses
-  const [courses, setCourses] = useState([]);
-  useEffect(() => {
-    api.fetchCourses().then((res) => {
-      if (res.status === 201) {
-        // console.log(JSON.stringify(res.data, null, 2));
-        setCourses(res.data);
-      } else {
-        setCourses([]);
-      }
-    });
-  }, []);
+  //  const [courses, setCourses] = useState([]);
+  // useEffect(() => {
+  //   api.fetchCourses().then((res) => {
+  //     if (res.status === 201) {
+  //       // console.log(JSON.stringify(res.data, null, 2));
+  //       setCourses(res.data);
+  //     } else {
+  //       setCourses([]);
+  //     }
+  //   });
+  // }, []);
 
   const storageClass = JSON.parse(localStorage.getItem('selected_class'));
 
   const {
-    handleSubmit, control, watch, setValue
+    handleSubmit, control, watch
   } = useForm({
     mode: 'onChange',
     defaultValues: {

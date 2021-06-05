@@ -11,7 +11,6 @@ import PropTypes from 'prop-types';
 import CustomTooltip from 'src/utils/CustomTooltip';
 import api from 'src/service/ApiService';
 import Component from './Component';
-import data from './data';
 
 const useStyles = makeStyles((theme) => ({
   root: {

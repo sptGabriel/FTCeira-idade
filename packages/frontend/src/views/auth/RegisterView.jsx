@@ -55,7 +55,7 @@ const RegisterView = () => {
   };
 
   const {
-    unregister, handleSubmit, control, setValue, getValues
+    handleSubmit, control, setValue, getValues
   } = useForm({
     defaultValues: {
       lastName: '',

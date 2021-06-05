@@ -44,10 +44,7 @@ const ComponentCourse = ({
 
   useEffect(() => {
     api.fetchCourses().then((res) => {
-<<<<<<< HEAD
       console.log(res.status);
-=======
->>>>>>> 9a547a72bddddcb7d4a211493534d30ca33214c3
       if (res.status === 201) {
         console.log(JSON.stringify(res.data, null, 2));
         setResults(res.data);

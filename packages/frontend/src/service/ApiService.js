@@ -51,7 +51,7 @@ class ApiService {
 
   fetchUsers = async (type) => {
     try {
-      return await api.get('/users/students'); // ??????
+      return await api.get(`/users/${type}`); // ??????
     } catch (error) {
       return error.response.data;
     }

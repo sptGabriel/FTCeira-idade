@@ -7,7 +7,6 @@ import {
   CardMedia,
   Typography
 } from '@material-ui/core';
-import { v4 as uuid } from 'uuid';
 
 const CourseViewDetails = () => {
   // dados do curso selecionado ------------------

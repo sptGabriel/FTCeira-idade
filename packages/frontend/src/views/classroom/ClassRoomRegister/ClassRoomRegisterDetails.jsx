@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 import api from 'src/service/ApiService';
 import {
@@ -84,7 +84,7 @@ const ClassRoomRegisterDetails = () => {
       }
     }).catch((error) => {
       handleOpenSnack('falha no registro da classe', 'error');
-      console.log(JSON.stringify(data, null, 2));
+      console.log(JSON.stringify(error, null, 2));
     });
   };
 

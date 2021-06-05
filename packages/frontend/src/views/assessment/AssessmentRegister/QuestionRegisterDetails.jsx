@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import api from 'src/service/ApiService';
 import FieldArray from './fieldArray';
 
 const useStyles = makeStyles((theme) => ({
@@ -58,11 +59,16 @@ export function Questions({ className, ...rest }) {
   });
 
   const onSubmit = (data) => {
-    const a = JSON.parse(localStorage.getItem('assessment_header'));
+    const localAssessment = JSON.parse(localStorage.getItem('assessment_header'));
     if (localStorage.getItem('assessment_header') !== null) {
-      const b = { ...a, questions: data.questions };
-      localStorage.setItem('assessment_register', JSON.stringify(b, null, 2));
-      console.log(JSON.stringify(b, null, 2));
+      const assessment = { ...localAssessment, questions: data.questions };
+      localStorage.setItem('assessment_register', JSON.stringify(assessment, null, 2));
+      console.log(JSON.stringify(assessment, null, 2));
+      api.addAssessment(assessment).then((res) => {
+        console.log(res);
+      }).catch((error) => {
+        console.log(error);
+      });
     }
   };
 

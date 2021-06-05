@@ -40,6 +40,7 @@ const Component = ({ className, course, ...rest }) => {
   const navigate = useNavigate();
 
   const clickActions = (action) => {
+    localStorage.setItem('selected_course', JSON.stringify(course, null, 2));
     switch (action) {
       case 'chart':
         navigate('/app/course-performance', { replace: false });

@@ -2,7 +2,6 @@ import 'date-fns';
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import momenttz from 'moment-timezone';
 import {
   Card,
@@ -44,28 +43,30 @@ const useStyles = makeStyles((theme) => ({
 
 const Details = ({ className, ...rest }) => {
   const classes = useStyles();
-  //  const isLocal = localStorage.getItem('assessment_register');
-  // const storageHeader = JSON.parse(localStorage.getItem('assessment_register'));
-
   const isLocal = localStorage.getItem('selected_assessment');
   const storageHeader = JSON.parse(localStorage.getItem('selected_assessment'));
 
   const [values, setValues] = useState({
     description: isLocal !== null ? storageHeader.description : '',
-    startDate: isLocal !== null ? storageHeader.startDate : '',
-    endDate: isLocal !== null ? storageHeader.endDate : '',
+    startDate: isLocal !== null ? momenttz(storageHeader.startDate).tz('America/Bahia').format('DD/MM/yyyy') : '',
+    endDate: isLocal !== null ? momenttz(storageHeader.endDate).tz('America/Bahia').format('DD/MM/yyyy') : '',
+    // startDate: isLocal !== null ? storageHeader.startDate : '',
+    // endDate: isLocal !== null ? storageHeader.endDate : '',
+
     value: isLocal !== null ? storageHeader.value : '',
-    course: isLocal !== null ? storageHeader.course : '',
     isActive: isLocal !== null ? storageHeader.isActive : '',
     questions: []
+    // questions: isLocal !== null ? storageHeader.questions.map((item) => ({
+    //   id: item.id,
+    //   image: null,
+    //   questioning: item.questioning,
+    //   alternatives: isLocal !== null ? item.alternatives.map((object) => ({
+    //     alternative: object.alternative,
+    //     answer: object.answer,
+    //   })) : []
+    // })) : []
+
   });
-
-  console.log(values.endDate);
-  console.log(moment(storageHeader.endDate).format('DD/MM/YYYY'));
-  console.log(moment(storageHeader.endDate).format('L'));
-  console.log(moment.locale());
-
-  console.log(momenttz(storageHeader.endDate).tz('America/Bahia').format('DD/MM/YYYY'));
 
   const handleChange = (event) => {
     if (event.target.name === 'isActive') {
@@ -82,7 +83,8 @@ const Details = ({ className, ...rest }) => {
   };
 
   useEffect(() => {
-    localStorage.setItem('assessment_header', JSON.stringify(values, null, 2));
+    // localStorage.setItem('assessment_header', JSON.stringify(values, null, 2));
+  // console.log(JSON.stringify(values, null, 2));
   }, [values]);
 
   return (
@@ -128,9 +130,9 @@ const Details = ({ className, ...rest }) => {
                 required
                 name="startDate"
                 label="Data inicial"
-                type="date"
+                // type="date"
                 variant="outlined"
-                value={values.startDate}
+                value={values.startDate.substring(0, 10)}
                 onChange={handleChange}
                 InputLabelProps={{
                   shrink: true,
@@ -141,9 +143,9 @@ const Details = ({ className, ...rest }) => {
                 required
                 name="endDate"
                 label="Data final"
-                type="date"
+               // type="date"
                 variant="outlined"
-                value={values.endDate}
+                value={values.endDate.substring(0, 10)}
                 onChange={handleChange}
                 InputLabelProps={{
                   shrink: true,

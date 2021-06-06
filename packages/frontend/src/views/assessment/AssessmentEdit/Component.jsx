@@ -25,27 +25,6 @@ const Component = ({
     name: `questions.${nestIndex}.alternatives`
   });
 
-  // console.log('fields;;;;;;;;;;;;;');
-  // const f = fields.map((g) => {
-  //   return g.answer;
-  // });
-  // console.log(f);
-
-  // const handleChange = (event) => {
-  //   if (event.target.name === 'answer') {
-  //     console.log(event.target.checked);
-  //   setValues({
-  //     ...values,
-  //     [event.target.name]: event.target.checked
-  //   });
-  // } else {
-  //   setValues({
-  //     ...values,
-  //     [event.target.name]: event.target.value
-  //   });
-  //   }
-  // };
-
   return (
     <>
       {fields.map((item, k) => {

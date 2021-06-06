@@ -16,12 +16,19 @@ import { makeEnrolledStudentsControllerFactory } from '~/shared/factories/contro
 import { makeStudentCourseRegistrationControllerFactory } from '~/shared/factories/controllers/makeStudentCourseRegistrationControllerFactory'
 import { makeTeacherCourseRegistrationControllerFactory } from '~/shared/factories/controllers/makeTeacherCourseRegistrationControllerFactory'
 import multer from 'multer'
+import { makeGetActiveCoursesControllerFactory } from '~/shared/factories/controllers/makeGetActiveCoursesControllerFactory'
+import { AllRoleAuth } from '~/infrastructure/express/middlewares/all-role.auth copy'
 
 const courseRouter = Router()
 courseRouter.get(
-  '/',
+  '/all',
   coordinatorAuth,
   adaptRoute(makeGetCoursesControllerFactory()),
+)
+courseRouter.get(
+  '/',
+  AllRoleAuth,
+  adaptRoute(makeGetActiveCoursesControllerFactory()),
 )
 courseRouter.get(
   '/enrolledstudents',

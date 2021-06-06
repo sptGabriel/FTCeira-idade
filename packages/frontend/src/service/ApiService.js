@@ -305,6 +305,14 @@ fetchCoursePerformance = async (data) => {
     }
   }
 
+  editAssessment = async (assessment) => {
+    try {
+      return await api.post(`/questionnaires/${assessment.id}`, assessment);
+    } catch (error) {
+      return error.response.data;
+    }
+  }
+
   addApplicationAnswers = async (questionnaireId, answers) => {
     try {
       return await api.post(`/questionnaires/${questionnaireId}`, answers);// ?????????????

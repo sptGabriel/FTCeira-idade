@@ -1,7 +1,8 @@
-import { inject } from 'tsyringe'
+import { inject, injectable } from 'tsyringe'
 import { TransactionalRepository } from '~/shared/core/uow/transactional-repo'
 import Person from '~/modules/person/domain/person.entity'
 
+@injectable()
 export class GetAllCoordinators {
   constructor(
     @inject(TransactionalRepository)

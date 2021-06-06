@@ -1,4 +1,3 @@
-import 'date-fns';
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';

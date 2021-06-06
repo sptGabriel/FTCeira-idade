@@ -32,6 +32,7 @@ import StudentAssessmentApplicationView from 'src/views/student/StudentAssessmen
 import StudentAssessmentApplication from 'src/views/student/StudentAssessmentApplication';
 import StudentAssessmentCorrection from 'src/views/student/StudentAssessmentCorrection';
 
+import AssessmentView from 'src/views/assessment/AssessmentView';
 import AssessmentListView from 'src/views/assessment/AssessmentListView';
 import AssessmentRegister from 'src/views/assessment/AssessmentRegister';
 import AssessmentEdit from 'src/views/assessment/AssessmentEdit';
@@ -81,6 +82,7 @@ const routes = [
       { path: 'course-register', element: <CourseRegister /> },
       { path: 'course-performance', element: <CoursePerformanceView /> },
 
+      { path: 'assessment', element: <AssessmentView /> },
       { path: 'assessments', element: <AssessmentListView /> },
       { path: 'assessment-edit', element: <AssessmentEdit /> },
       { path: 'assessment-register', element: <AssessmentRegister /> },

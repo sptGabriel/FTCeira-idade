@@ -45,6 +45,7 @@ export default class Questionnaire {
       id: this.id,
       startDate: this.startDate,
       endDate: this.endDate,
+      description: this.description,
       value: this.value,
       isActive: this.isActive,
       questions: this.questions.map((qs) => qs.toJson())

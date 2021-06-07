@@ -47,7 +47,7 @@ const CourseViewDetails = () => {
   }, []);
 
   const {
-    handleSubmit, control, setValue, watch
+    handleSubmit, control, setValue
   } = useForm({
     defaultValues: {
       courseId: getCourse ? getCourse.id : '',

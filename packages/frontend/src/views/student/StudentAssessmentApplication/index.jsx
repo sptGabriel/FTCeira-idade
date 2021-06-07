@@ -18,7 +18,6 @@ import {
 import Page from 'src/components/Page';
 import api from 'src/service/ApiService';
 import Details from './Details';
-import datas from './data';
 import { QuestionCard } from './component';
 
 const useStyles = makeStyles((theme) => ({

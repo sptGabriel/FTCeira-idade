@@ -128,7 +128,10 @@ const Results = ({
         >
           <Grid item>
             <CustomTooltip title="visualizar">
-              <ViewIcon className={classes.button} onClick={() => { clickActions('view'); }} />
+              <ViewIcon
+                className={classes.button}
+                onClick={() => { clickActions('view'); }}
+              />
             </CustomTooltip>
           </Grid>
           <Grid item>

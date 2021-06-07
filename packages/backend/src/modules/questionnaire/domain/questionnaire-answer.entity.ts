@@ -4,12 +4,10 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryColumn,
 } from 'typeorm'
 import { v4 } from 'uuid'
 import Person from '~/modules/person/domain/person.entity'
-import User from '~/modules/person/domain/user.entity'
 import Answer from './answer.entity'
 import Questionnaire from './questionnaire.entity'
 
@@ -21,12 +19,24 @@ export default class QuestionnaireAnswer {
 
   @PrimaryColumn()
   public readonly id: string
-  @ManyToOne(() => Questionnaire, (questionnaire) => questionnaire.answers)
+  @ManyToOne(() => Questionnaire,(questionnaire) => questionnaire.answers)
   public questionnaire: Questionnaire
-  @ManyToOne(() => Person, (person) => person.answers)
+  @ManyToOne(() => Person,(person) => person.answers)
   public student: Person
-  @OneToMany(() => Answer, (qa) => qa.userAnswer, {
-    cascade: ['insert', 'update'],
+  //@OneToMany(() => Answer, (qa) => qa.userAnswer, {
+  //  cascade: ['insert', 'update'],
+  //})
+  //public answers: Answer[]
+  @Column({
+    type: 'jsonb',
+    array: true,
+    default: () => "'[]'",
+    nullable: false,
   })
-  public answers: Answer[]
+  @Column('jsonb',{ nullable: false })
+  public answer!: Array<{
+    questionId: string,
+    answerText?: string,
+    answerNumeric?: number
+  }>;
 }

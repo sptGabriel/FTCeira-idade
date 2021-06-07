@@ -315,7 +315,7 @@ fetchCoursePerformance = async (data) => {
 
   addApplicationAnswers = async (questionnaireId, answers) => {
     try {
-      return await api.post(`/questionnaires/${questionnaireId}`, answers);// ?????????????
+      return await api.post(`/questionnaires/${questionnaireId}`, answers);
     } catch (error) {
       return error.response.data;
     }

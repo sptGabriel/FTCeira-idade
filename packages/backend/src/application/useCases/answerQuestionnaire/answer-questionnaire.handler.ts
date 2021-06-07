@@ -45,16 +45,17 @@ export class AnswerQuestionnaireHandler {
     const user = await this.userRepository.findOne({ where: { id: userId } })
     if (!user) throw new BadRequestERROR({ message: `User doesnt exist` })
     const questionnaire = await this.questionnaireRepository.findOne({
-      relations: ['questions'],
+      relations: ['questions', 'course'],
       where: { id: questionnaireId },
     })
     if (!questionnaire) {
       throw new BadRequestERROR({ message: `Questionnaire doesnt exist` })
     }
-    const classedIds = questionnaire.course.classes.map((cl) => cl.id)
+    const classes = await questionnaire.course.classes
+    const classedIds = classes.map((cl) => cl.id)
     const isRegistered = await this.registrationRepository.findOne({
       where: {
-        student: { id: user.person.id },
+        student: { id: user.id },
         class: In(classedIds),
         approved: true,
       },

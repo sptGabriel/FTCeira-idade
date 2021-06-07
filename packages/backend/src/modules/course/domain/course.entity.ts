@@ -35,7 +35,7 @@ export default class Course {
     name: 'ies_course',
   })
   public iesCourse: string
-  @OneToMany(() => Class, (_class) => _class.course)
+  @OneToMany(() => Class, (_class) => _class.course, { lazy: true })
   public classes: Class[]
   @OneToMany(() => Questionnaire, (questionnares) => questionnares.course)
   public questionnaires: Questionnaire[]

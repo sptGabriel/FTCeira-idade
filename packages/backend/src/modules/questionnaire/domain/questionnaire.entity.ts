@@ -37,7 +37,7 @@ export default class Questionnaire {
   @OneToMany(() => QuestionnaireAnswer, (qa) => qa.student, { lazy: true })
   public answers: QuestionnaireAnswer[]
 
-  @ManyToOne(() => Course, (course) => course.questionnaires, {eager: true})
+  @ManyToOne(() => Course, (course) => course.questionnaires, { eager: true })
   course: Course
 
   public toJson() {
@@ -48,7 +48,7 @@ export default class Questionnaire {
       description: this.description,
       value: this.value,
       isActive: this.isActive,
-      questions: this.questions.map((qs) => qs.toJson())
+      questions: this.questions.map((qs) => qs.toJson()),
     }
   }
 }

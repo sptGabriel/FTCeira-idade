@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import api from 'src/service/ApiService';
 import FieldArray from './fieldArray';
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// SERVIÇO OU STORAGE
 const storageQuestions = JSON.parse(localStorage.getItem('selected_assessment'));
 const isLocal = localStorage.getItem('selected_assessment');
 
@@ -40,35 +40,6 @@ const defaultValues = isLocal !== null ? {
       },
     ]
   };
-
-// const f = storageHeader.questions[1].alternatives.map((object) => {
-//   return object.alternative;
-// });
-
-// questions: isLocal !== null ? storageHeader.questions.map((item) => ({
-//   id: item.id,
-//   image: null,
-//   questioning: item.questioning,
-//   alternatives: isLocal !== null ? item.alternatives.map((object) => ({
-//     alternative: object.alternative,
-//     answer: object.answer,
-//   })) : []
-// })) : []
-
-// const storageQuestions = JSON.parse(localStorage.getItem('assessment_edit'));
-// const isLocal = localStorage.getItem('assessment_edit');
-
-// const defaultValues = isLocal !== null ? {
-//   questions: storageQuestions.questions
-// }
-//   : {
-//     questions: [
-//       {
-//         questioning: '',
-//         alternatives: []
-//       },
-//     ]
-//   };
 
 export function Test() {
   return (
@@ -93,24 +64,22 @@ export function Questions({ className, ...rest }) {
     mode: 'onChange'
   });
 
-  // const onSubmit = (data) => {
-  //   const a = JSON.parse(localStorage.getItem('assessment_header'));
-  //   if (localStorage.getItem('assessment_header') !== null) {
-  //     const b = { ...a, questions: data.questions };
-  //     localStorage.setItem('assessment_edit', JSON.stringify(b, null, 2));
-  //   }
-  // };
-
   const onSubmit = (data) => {
     const a = JSON.parse(localStorage.getItem('assessment_header'));
     if (localStorage.getItem('assessment_header') !== null) {
       const b = { ...a, questions: data.questions };
       localStorage.setItem('assessment_edit', JSON.stringify(b, null, 2));
+      api.editAssessment(b).then((res) => {
+        console.log(res);
+      }).catch((error) => {
+        console.log(error);
+      });
     }
+    console.log(localStorage.getItem('assessment_edit'));
   };
 
   // WATCH
-  // console.log(JSON.stringify(watch('questions'), null, 2));
+  console.log(JSON.stringify(watch('questions'), null, 2));
 
   return (
     <Container

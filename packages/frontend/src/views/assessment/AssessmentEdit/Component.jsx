@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFieldArray, Controller } from 'react-hook-form';
+import { useFieldArray } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import {
   TextField, Button, Checkbox, Grid
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Component = ({
-  nestIndex, control, register, setValue, getValues
+  nestIndex, control, register, setValue
 }) => {
   const classes = useStyles();
 
@@ -24,27 +24,6 @@ const Component = ({
     control,
     name: `questions.${nestIndex}.alternatives`
   });
-
-  // console.log('fields;;;;;;;;;;;;;');
-  // const f = fields.map((g) => {
-  //   return g.answer;
-  // });
-  // console.log(f);
-
-  const handleChange = (event) => {
-    if (event.target.name === 'answer') {
-      console.log(event.target.checked);
-    //   setValues({
-    //     ...values,
-    //     [event.target.name]: event.target.checked
-    //   });
-    // } else {
-    //   setValues({
-    //     ...values,
-    //     [event.target.name]: event.target.value
-    //   });
-    }
-  };
 
   return (
     <>
@@ -69,22 +48,12 @@ const Component = ({
             <Grid item>
               <Checkbox
                 {...register(`questions.${nestIndex}.alternatives.${k}.answer`)}
-                value={item.answer}
                 onChange={(e) => {
                   setValue(`questions.${nestIndex}.alternatives.${k}.answer`, e.target.checked);
                 }}
                 inputProps={{ 'aria-label': 'primary checkbox' }}
-                defaultValue={item.answer}
-               // checked={item.answer}
+                defaultChecked={item.answer}
               />
-
-              <input
-                type="checkbox"
-                {...register(`questions.${nestIndex}.alternatives.${k}.answer`)}
-                value={item.answer}
-                checked={item.answer}
-              />
-
             </Grid>
             <Grid item>
               <IconButton

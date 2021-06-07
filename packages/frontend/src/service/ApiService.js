@@ -173,9 +173,17 @@ fetchAnswersAssessmentCorrection = async (id) => {
     }
   }
 
+  fetchCoursesAll = async () => {
+    try {
+      return await api.get('/courses/all');
+    } catch (error) {
+      return error.response.data;
+    }
+  }
+
   fetchCourses = async () => {
     try {
-      return await api.get('/courses');// ?????????????
+      return await api.get('/courses');
     } catch (error) {
       return error.response.data;
     }

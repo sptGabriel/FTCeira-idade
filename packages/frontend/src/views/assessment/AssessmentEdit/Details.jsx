@@ -1,4 +1,3 @@
-import 'date-fns';
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
@@ -47,25 +46,13 @@ const Details = ({ className, ...rest }) => {
   const storageHeader = JSON.parse(localStorage.getItem('selected_assessment'));
 
   const [values, setValues] = useState({
+    id: isLocal !== null ? storageHeader.id : '',
     description: isLocal !== null ? storageHeader.description : '',
     startDate: isLocal !== null ? momenttz(storageHeader.startDate).tz('America/Bahia').format('DD/MM/yyyy') : '',
     endDate: isLocal !== null ? momenttz(storageHeader.endDate).tz('America/Bahia').format('DD/MM/yyyy') : '',
-    // startDate: isLocal !== null ? storageHeader.startDate : '',
-    // endDate: isLocal !== null ? storageHeader.endDate : '',
-
     value: isLocal !== null ? storageHeader.value : '',
     isActive: isLocal !== null ? storageHeader.isActive : '',
     questions: []
-    // questions: isLocal !== null ? storageHeader.questions.map((item) => ({
-    //   id: item.id,
-    //   image: null,
-    //   questioning: item.questioning,
-    //   alternatives: isLocal !== null ? item.alternatives.map((object) => ({
-    //     alternative: object.alternative,
-    //     answer: object.answer,
-    //   })) : []
-    // })) : []
-
   });
 
   const handleChange = (event) => {
@@ -83,8 +70,8 @@ const Details = ({ className, ...rest }) => {
   };
 
   useEffect(() => {
-    // localStorage.setItem('assessment_header', JSON.stringify(values, null, 2));
-  // console.log(JSON.stringify(values, null, 2));
+    localStorage.setItem('assessment_header', JSON.stringify(values, null, 2));
+    console.log(JSON.stringify(values, null, 2));
   }, [values]);
 
   return (
@@ -122,7 +109,6 @@ const Details = ({ className, ...rest }) => {
                 variant="outlined"
               />
             </Grid>
-
             <Grid
               item
             >

@@ -15,7 +15,7 @@ import {
   GridFilterToolbarButton
 } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
-import EditIcon from '@material-ui/icons/Edit';
+import ViewIcon from '@material-ui/icons/Visibility';
 import DeleteIcon from '@material-ui/icons/Delete';
 import labels from '../../../utils/labels';
 import CustomTooltip from '../../../utils/CustomTooltip';
@@ -76,8 +76,8 @@ const Results = ({
 
   const clickActions = (action) => {
     switch (action) {
-      case 'edit':
-        navigate('/app/assessment-edit', { replace: false });
+      case 'view':
+        navigate('/app/assessment', { replace: false });
         break;
       case 'delete':
         navigate('/app/assessment-delete', { replace: false });
@@ -86,7 +86,7 @@ const Results = ({
         break;
     }
   };
-  // ------------
+
   const columns = [
     {
       field: 'description',
@@ -127,8 +127,11 @@ const Results = ({
           spacing={1}
         >
           <Grid item>
-            <CustomTooltip title="editar">
-              <EditIcon className={classes.button} onClick={() => { clickActions('edit'); }} />
+            <CustomTooltip title="visualizar">
+              <ViewIcon
+                className={classes.button}
+                onClick={() => { clickActions('view'); }}
+              />
             </CustomTooltip>
           </Grid>
           <Grid item>

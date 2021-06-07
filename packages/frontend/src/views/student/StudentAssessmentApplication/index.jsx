@@ -16,8 +16,8 @@ import {
   useFieldArray,
 } from 'react-hook-form';
 import Page from 'src/components/Page';
+import api from 'src/service/ApiService';
 import Details from './Details';
-import datas from './data';
 import { QuestionCard } from './component';
 
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +43,8 @@ const StudentAssessmentApplication = () => {
   const classes = useStyles();
   const [tmpResponse, setTmpResponse] = useState([]);
   const loadResponses = localStorage.getItem('assessment_responses') ? JSON.parse(localStorage.getItem('assessment_responses')) : [];
+  const getApplication = localStorage.getItem('selected_application') ? JSON.parse(localStorage.getItem('selected_application')) : [];
+  // const getUser = localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : [];
 
   const {
     control,
@@ -69,30 +71,36 @@ const StudentAssessmentApplication = () => {
 
     if (isInitalRender.current) {
       isInitalRender.current = false;
-      const responses = datas.map((response) => (
+      const responses = getApplication.questions.map((response) => (
         {
-          id: response.id,
-          answer: ''
+          questionId: response.id,
+          answerText: ''
         }
       ));
 
       if (loadResponses.answers) {
         append(loadResponses.answers);
-        setTmpResponse({ assessment_id: uuid(), student_id: uuid(), answers: loadResponses.answers });
+        // setTmpResponse({ assessment_id: getApplication.id, student_id: getUser.id, answers: loadResponses.answers });
+        setTmpResponse({ answers: loadResponses.answers });
       } else {
         append(responses);
-        setTmpResponse({ assessment_id: uuid(), student_id: uuid(), answers: responses });
+        // setTmpResponse({ assessment_id: getApplication.id, student_id: getUser.id, answers: responses });
+        setTmpResponse({ answers: responses });
       }
     }
   }, [fields, register, setValue, unregister, trigger, append]);
 
   const onSubmit = () => {
-    // console.log(JSON.stringify(data, null, 2));
     console.log(JSON.stringify(tmpResponse, null, 2));
+    api.addApplicationAnswers(getApplication.id, tmpResponse).then((res) => {
+      console.log(res);
+    }).catch((error) => {
+      console.log(error);
+    });
   };
 
   const handleChange = (index, event) => {
-    tmpResponse.answers[index].answer = event;
+    tmpResponse.answers[index].answerText = event;
     localStorage.setItem('assessment_responses', JSON.stringify(tmpResponse));
     console.log(tmpResponse.answers[index]);
   };
@@ -106,7 +114,7 @@ const StudentAssessmentApplication = () => {
         <Box mt={3}>
 
           <Grid item xs={12} className={classes.details}>
-            <Details />
+            <Details data={getApplication.description} />
           </Grid>
 
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -114,13 +122,11 @@ const StudentAssessmentApplication = () => {
             {fields.map((question, questionIndex) => (
               <QuestionCard
                 key={uuid()}
-                name={`answers[${questionIndex}].answer`}
+                name={`answers[${questionIndex}].answerText`}
                 register={register}
-                defaultValue={tmpResponse.answers[questionIndex].answer}
-                questioning={datas[questionIndex].questioning}
-                // image={datas[questionIndex].image}
-                alternatives={datas[questionIndex].alternatives}
-                className={datas[questionIndex].type === 'subjetiva' ? classes.card : null}
+                defaultValue={tmpResponse.answers[questionIndex].answerText}
+                questioning={getApplication.questions[questionIndex].questioning}
+                alternatives={getApplication.questions[questionIndex].alternatives}
                 onChange={(event) => handleChange(questionIndex, event.target.value)}
               />
             ))}

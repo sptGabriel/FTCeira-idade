@@ -16,7 +16,8 @@ import {
   GridFilterToolbarButton
 } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import EditIcon from '@material-ui/icons/Edit';
+import momenttz from 'moment-timezone';
 import labels from '../../../utils/labels';
 import CustomTooltip from '../../../utils/CustomTooltip';
 
@@ -65,13 +66,13 @@ const Results = ({
     localStorage.setItem('pagination_assessment_s', event.page);
   };
 
-  const handleCellClick = (param, event) => {
-    console.log('cell clicked:', param.value);
-    console.log('object: ', param.row);
-    if (param.colIndex === 2) {
-      event.stopPropagation();
-    }
-  };
+  // const handleCellClick = (param, event) => {
+  //   console.log('cell clicked:', param.value);
+  //   console.log('object: ', param.row);
+  //   if (param.colIndex === 2) {
+  //     event.stopPropagation();
+  //   }
+  // };
 
   const clickActions = (action) => {
     switch (action) {
@@ -112,7 +113,7 @@ const Results = ({
       }
     },
     {
-      field: 'end_date',
+      field: 'endDate',
       headerName: 'Prazo final',
       // flex: w ? 1 : null,
       // width: w ? null : 180,
@@ -129,7 +130,7 @@ const Results = ({
         const { value } = params;
         return (
           <Typography variant="body1" component="p">
-            {value}
+            {momenttz(value).tz('America/Bahia').format('DD/MM/yyyy')}
           </Typography>
         );
       },
@@ -158,8 +159,8 @@ const Results = ({
           spacing={1}
         >
           <Grid item>
-            <CustomTooltip title="visualizar detalhes dessa avaliação">
-              <VisibilityIcon className={classes.button} onClick={() => { clickActions('view'); }} />
+            <CustomTooltip title="responder avaliação">
+              <EditIcon className={classes.button} onClick={() => { clickActions('view'); }} />
             </CustomTooltip>
           </Grid>
         </Grid>
@@ -189,14 +190,14 @@ const Results = ({
             pagination
             localeText={translate}
             loading={loading}
-          //  density="comfortable"
-            onCellClick={handleCellClick}
             className={classes.datagrid}
             onPageChange={handlePageChange}
-          //  onSortModelChange={handleSortModelChange}
+            disableSelectionOnClick
+            onRowClick={(rowData) => {
+              localStorage.setItem('selected_application', JSON.stringify(rowData.row, null, 2));
+            }}
           />
         </div>
-        {/* </div> */}
       </Box>
     </Card>
   );

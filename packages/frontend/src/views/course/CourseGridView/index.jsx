@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
     height: '100%'
   },
   pagination: {
-    // position: 'absolute',
     bottom: '0px',
     zIndex: '0'
   },
@@ -35,11 +34,10 @@ const CourseList = () => {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    api.fetchCourses().then((res) => {
-      console.log(res.status);
-      if (res.status === 201) {
-        // console.log(JSON.stringify(res.data, null, 2));
+    api.fetchCoursesAll().then((res) => {
+      if (res.status === 200) {
         setResults(res.data);
+        console.log(JSON.stringify(res.data, null, 2));
       }
     });
   }, []);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Grid,
@@ -6,8 +6,8 @@ import {
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
+import api from 'src/service/ApiService';
 import Component from './Component';
-import data from './data';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,7 +19,16 @@ const useStyles = makeStyles((theme) => ({
 const StudentAssessmentListView = () => {
   const classes = useStyles();
   const [loading] = useState(false);
-  const [assessments] = useState(data);
+  const [assessments, setAssessments] = useState([]);
+
+  useEffect(() => {
+    api.fetchAssessments().then((res) => {
+      console.log(JSON.stringify(res.data, null, 2));
+      setAssessments(res.data);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }, []);
 
   return (
     <Page

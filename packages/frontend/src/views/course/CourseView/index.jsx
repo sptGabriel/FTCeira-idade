@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  // Container,
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
@@ -27,11 +26,7 @@ const CourseEdit = () => {
     >
       <div>
         {/* <Container maxWidth="lg"> */}
-        {/* <Container maxWidth="lg"> */}
-
         <CourseViewDetails />
-
-        {/* </Container> */}
       </div>
     </Page>
   );

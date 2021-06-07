@@ -73,18 +73,18 @@ export class AnswerQuestionnaireHandler {
     const userAnswer = new QuestionnaireAnswer()
     userAnswer.student = user.person
     userAnswer.questionnaire = questionnaire
-    userAnswer.answers = []
+    userAnswer.answer = []
     for (let res of answers) {
-      const answer = new Answer()
       let has = questionnaire.questions.find((i) => i.id === res.questionId)
       if (has) {
-        answer.answerNumeric = res.answerNumeric
-        answer.answerText = res.answerText
-        answer.question = has
-        userAnswer.answers.push(answer)
+        userAnswer.answer.push({
+          questionId: has.id,
+          answerNumeric: res.answerNumeric,
+          answerText: res.answerText,
+        })
       }
     }
-    if (userAnswer.answers.length < questionnaire.answers.length) {
+    if (userAnswer.answer.length < questionnaire.answers.length) {
       throw new BadRequestERROR({ message: `Invalid Operations` })
     }
     await this.userAnswerRepository.save(userAnswer)

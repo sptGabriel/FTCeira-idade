@@ -7,7 +7,6 @@ import {
   Card,
   Grid,
   Typography,
-  TextField,
   Radio,
   RadioGroup,
   FormControl,
@@ -38,7 +37,6 @@ export function Test() {
 export function QuestionCard({
   className, control, register, questioning, image, alternatives, defaultValue, name, ...rest
 }) {
-  // export function QuestionCard(className, control, register, questioning, alternatives, name, ...rest) {
   const classes = useStyles();
   return (
     <Grid
@@ -53,24 +51,7 @@ export function QuestionCard({
           </Typography>
         </CardContent>
 
-        {/* {image ? (
-        // <Box
-        //   display="flex"
-        //   justifyContent="center"
-        //   alignItems="center"
-        // >
-          <CardMedia
-            className={classes.media}
-            component="img"
-            alt="image"
-            image={image}
-            title="image"
-          />
-
-        ) : <div /> } */}
-
         <CardContent>
-
           { alternatives.length > 0
             ? (
               <FormControl component="fieldset">
@@ -80,9 +61,9 @@ export function QuestionCard({
                       <FormControlLabel
                         {...rest}
                         {...register(name)}
-                        value={item}
+                        value={item.alternative}
                         control={<Radio />}
-                        label={item}
+                        label={item.alternative}
                         key={uuid()}
                         className={classes.radio}
                       />
@@ -92,25 +73,7 @@ export function QuestionCard({
               </FormControl>
             )
             : (
-              <TextField
-                {...rest}
-                {...register(name)}
-                className={classes.textField}
-                fullWidth
-                control={control}
-                defaultValue={defaultValue}
-                variant="outlined"
-                multiline
-                rows={4}
-                inputProps={{
-                  style: {
-                    fontWeight: 400,
-                    fontSize: 20,
-                    letterSpacing: '-0.06px'
-                  }
-                }}
-                key={uuid()}
-              />
+              <div />
             )}
         </CardContent>
       </Card>

@@ -1,5 +1,4 @@
-import 'date-fns';
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
@@ -11,15 +10,13 @@ import {
   makeStyles,
   Typography
 } from '@material-ui/core';
-import data from './data_details';
 
 const useStyles = makeStyles(() => ({
   root: {},
 }));
 
-const Details = ({ className, ...rest }) => {
+const Details = ({ className, data, ...rest }) => {
   const classes = useStyles();
-  const [values] = useState(data);
 
   return (
     <Grid
@@ -46,7 +43,7 @@ const Details = ({ className, ...rest }) => {
               item
               xs={12}
             >
-              <Typography variant="h4" component="p">{values.description}</Typography>
+              <Typography variant="h4" component="p">{data}</Typography>
             </Grid>
           </Grid>
         </CardContent>
@@ -57,7 +54,8 @@ const Details = ({ className, ...rest }) => {
 };
 
 Details.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  data: PropTypes.string
 };
 
 export default Details;

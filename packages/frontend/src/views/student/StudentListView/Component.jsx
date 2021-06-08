@@ -186,7 +186,7 @@ const Component = ({
       field: '_',
       headerName: 'Nome',
       flex: 1,
-      valueGetter: (params) => `${params.row.firstname || ''} ${params.row.lastname || ''}`,
+      valueGetter: (params) => `${params.row.firstName || ''} ${params.row.lastName || ''}`,
     },
     {
       field: 'cpf',
@@ -200,7 +200,7 @@ const Component = ({
       editable: true
     },
     {
-      field: 'birth',
+      field: 'birthDate',
       headerName: 'Aniversário',
       width: 150,
       headerAlign: 'center',

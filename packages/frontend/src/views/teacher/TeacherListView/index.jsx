@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Container,
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
+import api from 'src/service/ApiService';
 import Component from './Component';
-import data from './data';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,6 +19,16 @@ const useStyles = makeStyles((theme) => ({
 
 const TeacherListView = () => {
   const classes = useStyles();
+  const [teachers, setTeachers] = useState([]);
+
+  useEffect(() => {
+    api.fetchUsers('teachers').then((res) => {
+      console.log(JSON.stringify(res.data, null, 2));
+      setTeachers(res.data);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }, []);
 
   return (
     <Page
@@ -27,7 +37,7 @@ const TeacherListView = () => {
     >
       <Container maxWidth={false}>
         <Box mt={3}>
-          <Component teachers={data} loading={false} />
+          <Component teachers={teachers} loading={false} />
         </Box>
       </Container>
     </Page>

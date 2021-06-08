@@ -7,7 +7,6 @@ import {
 import Page from 'src/components/Page';
 import api from 'src/service/ApiService';
 import Component from './Component';
-import data from './data';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,11 +20,12 @@ const useStyles = makeStyles((theme) => ({
 const StudentListView = () => {
   const classes = useStyles();
   const [loading] = useState(false);
-  const [students] = useState(data);
+  const [students, setStudents] = useState([]);
 
   useEffect(() => {
     api.fetchUsers('students').then((res) => {
-      console.log(res);
+      console.log(JSON.stringify(res.data, null, 2));
+      setStudents(res.data);
     }).catch((error) => {
       console.log(error);
     });

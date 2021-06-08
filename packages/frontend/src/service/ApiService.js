@@ -37,6 +37,14 @@ class ApiService {
     }
   }
 
+  students = async () => {
+    try {
+      return await api.get('/users/students');
+    } catch (error) {
+      return error.response.data;
+    }
+  }
+
   // ------------------------------ registers teacher ans students
 
   addUser = async (user) => {

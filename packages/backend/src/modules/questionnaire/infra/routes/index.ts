@@ -7,6 +7,7 @@ import { makeAnswerQuestionnaireControllerFactory } from '~/shared/factories/con
 import { makeCreateQuestionnaireControllerFactory } from '~/shared/factories/controllers/makeCreateQuestionnaireControllerFactory'
 import { makeGetQuestionnairesControllerFactory } from '~/shared/factories/controllers/makeGetQuestionnairesControllerFactory'
 import { AllRoleAuth } from '~/infrastructure/express/middlewares/all-role.auth copy'
+import { makeGetNotAnsweredQuestionnairesControllerFactory } from '~/shared/factories/controllers/makeGetNotAnsweredQuestionnairesControllerFactory'
 
 const questionnaireRouter = Router()
 
@@ -18,6 +19,11 @@ questionnaireRouter.post(
 questionnaireRouter.get(
   '/',
   AllRoleAuth,
+  adaptRoute(makeGetNotAnsweredQuestionnairesControllerFactory()),
+)
+questionnaireRouter.get(
+  '/all',
+  coordinatorAuth,
   adaptRoute(makeGetQuestionnairesControllerFactory()),
 )
 questionnaireRouter.post(

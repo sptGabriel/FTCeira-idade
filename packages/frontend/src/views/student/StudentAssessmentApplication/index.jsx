@@ -17,6 +17,7 @@ import {
 } from 'react-hook-form';
 import Page from 'src/components/Page';
 import api from 'src/service/ApiService';
+import { useNavigate } from 'react-router-dom';
 import Details from './Details';
 import { QuestionCard } from './component';
 
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 const StudentAssessmentApplication = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
   const [tmpResponse, setTmpResponse] = useState([]);
   const loadResponses = localStorage.getItem('assessment_responses') ? JSON.parse(localStorage.getItem('assessment_responses')) : [];
   const getApplication = localStorage.getItem('selected_application') ? JSON.parse(localStorage.getItem('selected_application')) : [];
@@ -93,7 +95,10 @@ const StudentAssessmentApplication = () => {
   const onSubmit = () => {
     console.log(JSON.stringify(tmpResponse, null, 2));
     api.addApplicationAnswers(getApplication.id, tmpResponse).then((res) => {
-      console.log(res);
+      if (res.status === 200) {
+        console.log(res.data);
+        navigate('/app/assessment', { replace: false });
+      }
     }).catch((error) => {
       console.log(error);
     });

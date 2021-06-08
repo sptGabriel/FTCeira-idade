@@ -1,15 +1,31 @@
-import React, { useState, useEffect, useRef } from 'react';
 import {
-  Box,
-  Container,
+  Button,
   Grid,
+  Box,
+  Typography,
+  Divider,
+  Card,
+  CardHeader,
+  CardContent,
+  Container,
   makeStyles,
+  TextField
 } from '@material-ui/core';
-import Fade from '@material-ui/core/Fade';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { v4 as uuid } from 'uuid';
+import React, {
+  useRef,
+  useEffect,
+  useState,
+} from 'react';
+import {
+  useForm,
+  useFieldArray,
+} from 'react-hook-form';
 import Page from 'src/components/Page';
-import Details from './Details';
-import { Questions } from './QuestionRegisterDetails';
+import api from 'src/service/ApiService';
+// import datas from './assessment_data';
+// import studentAssessmentAnswers from './student_assessment_answers';
+// import { QuestionCard } from './component';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,105 +36,214 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   card: {
-    padding: theme.spacing(2),
-    margin: 'auto',
     maxWidth: 1024,
   },
-  gridFilter: {
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: theme.spacing(7),
-      marginTop: theme.spacing(0.5),
-      marginBottom: theme.spacing(0.5)
-    },
+  details: {
+    marginBottom: theme.spacing(2)
   },
-  title: {
-    flexGrow: 1,
+  gridFooter: {
+    margin: theme.spacing(2),
   },
-  parameterText: {
-    color: 'white',
+  button: {
+    height: 55
   },
-
-  hiddenButton: {
-    visibility: 'hidden'
-  },
-  teste: {
-    display: 'block',
-    marginLeft: 'auto',
-    marginRight: 'auto'
+  note: {
+    width: 100
   }
-
 }));
 
 const AssessmentView = () => {
   const classes = useStyles();
-  const [query, setQuery] = useState('idle');
-  const timerRef = useRef();
+  const [tmpResponse, setTmpResponse] = useState([]);
+
+  const [arrayDetails, setArrayDetails] = useState({
+    id: '',
+    description: '',
+    startDate: '',
+    endDate: '',
+    value: 0,
+    questions: [
+      {
+        id: '',
+        image: null,
+        questioning: '',
+        alternatives: []
+      },
+    ]
+  });
 
   useEffect(() => {
-    clearTimeout(timerRef.current);
-
-    if (query !== 'idle') {
-      setQuery('idle');
-      return;
-    }
-    setQuery('progress');
-    timerRef.current = window.setTimeout(() => {
-      setQuery('success');
-    }, 1000);
+    api.fetchAssessments().then((res) => {
+      if (res.status === 200) {
+        // console.log(JSON.stringify(res.data, null, 2));
+        console.log(res.data);
+        setArrayDetails({
+          id: res.data[0].id,
+          description: res.data[0].description,
+          startDate: res.data[0].startDate,
+          endDate: res.data[0].endDate,
+          value: res.data[0].value,
+          questions: res.data[0].questions
+        });
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
   }, []);
+
+  useEffect(() => {
+    // console.log(arrayDetails);
+    console.log(JSON.stringify(arrayDetails, null, 2));
+  }, [arrayDetails]);
+  // useEffect(() => {
+  //   api.fetchAssessments().then((res) => {
+  //     console.log(res);
+  //   }).catch((error) => {
+  //     console.log(error);
+  //   });
+  // }, []);
+
+  const {
+    control,
+    register,
+    setValue,
+    unregister,
+    trigger,
+  } = useForm();
+
+  const { fields, append } = useFieldArray({
+    control,
+    name: 'answers'
+  });
+
+  const isInitalRender = useRef(true);
+
+  useEffect(() => {
+    if (!fields.length && !isInitalRender.current) {
+      trigger('answers');
+    }
+
+    if (isInitalRender.current) {
+      isInitalRender.current = false;
+      // const studentresponses = studentAssessmentAnswers.map((response) => (
+      const studentresponses = arrayDetails.questions.map((response) => (
+        response
+      ));
+      append(studentresponses);
+      setTmpResponse({ answers: studentresponses });
+      console.log(tmpResponse);
+    }
+  }, [fields, register, setValue, unregister, trigger, append]);
+
+  const a = [];
+  const arrayQuestions = [];
+  fields.map((question, questionIndex) => (
+    <div key={uuid()}>{question}</div>
+
+    //   <QuestionCard
+    //     key={uuid()}
+    //     name={`answers[${questionIndex}].answer`}
+    //     register={register}
+    //     defaultValue={tmpResponse.answers[questionIndex].answer}
+    //     questioning={res.questions[questionIndex].questioning}
+    //     image={res.questions[questionIndex].image}
+    //     alternatives={res.questions[questionIndex].alternatives}
+    //     className={res.questions[questionIndex].type === 'subjetiva' ? classes.card : null}
+    //  />
+
+    // datas.forEach((res) => {
+    //   arrayQuestions.push(
+    //     <div key={uuid()}>res</div>
+    //   <QuestionCard
+    //     key={uuid()}
+    //     name={`answers[${questionIndex}].answer`}
+    //     register={register}
+    //     defaultValue={tmpResponse.answers[questionIndex].answer}
+    //     questioning={res.questions[questionIndex].questioning}
+    //     image={res.questions[questionIndex].image}
+    //     alternatives={res.questions[questionIndex].alternatives}
+    //     className={res.questions[questionIndex].type === 'subjetiva' ? classes.card : null}
+    //  />
+    //   );
+    // })
+  ));
 
   return (
     <Page
       className={classes.root}
-      title="Avaliação"
+      title="Correção"
     >
       <Container maxWidth={false}>
         <Box mt={3}>
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-            className={classes.card}
-          >
-            <Grid
-              item
-              xs
-              container
-              direction="column"
-              spacing={2}
-            >
 
-              {query === 'success' ? (
-                <div>
-                  <Grid
-                    item
-                    xs
-                  >
-                    <Details />
-                  </Grid>
-                  <Grid
-                    item
-                    xs
-                  >
-                    <Questions />
-                  </Grid>
-                </div>
-              ) : (
-                <Fade
-                  className={classes.teste}
-                  in={query === 'progress'}
-                  style={{
-                    transitionDelay: query === 'progress' ? '800ms' : '0ms',
-                  }}
-                  unmountOnExit
+          <Grid item xs={12} className={classes.details}>
+            <Card>
+              <CardHeader
+                title="Correção de Avaliação"
+                // subheader=""
+                titleTypographyProps={{ variant: 'h4' }}
+              />
+              <Divider />
+              <CardContent>
+                <Grid
+                  container
+                  spacing={3}
                 >
-                  <CircularProgress />
-                </Fade>
-              )}
-
-            </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                  >
+                    <Typography variant="body1" component="p">
+                      <b>descrição:</b>
+                      {' '}
+                      {arrayDetails.description}
+                    </Typography>
+                    <Typography variant="body1" component="p">
+                      <b>data inicial:</b>
+                      {' '}
+                      {arrayDetails.startDate}
+                    </Typography>
+                    <Typography variant="body1" component="p">
+                      <b>data final:</b>
+                      {' '}
+                      {arrayDetails.endDate}
+                    </Typography>
+                    <Typography variant="body1" component="p">
+                      <b>valor máximo:</b>
+                      {' '}
+                      {arrayDetails.value}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </CardContent>
+              <Divider />
+            </Card>
           </Grid>
+
+          <form>
+            {/* {fields.map((question, questionIndex) => (
+              <QuestionCard
+                key={uuid()}
+                name={`answers[${questionIndex}].answer`}
+                register={register}
+                defaultValue={tmpResponse.answers[questionIndex].answer}
+                questioning={datas[questionIndex].questioning}
+                image={datas[questionIndex].image}
+                alternatives={datas[questionIndex].alternatives}
+                className={datas[questionIndex].type === 'subjetiva' ? classes.card : null}
+              />
+            ))} */}
+
+            {/* {fields.forEach((teste) => {
+               console.log(JSON.stringify(teste, null, 2)); //respostas
+               console.log(JSON.stringify(datas, null, 2));
+            })} */}
+
+            <div className="App">
+              {/* {arrayQuestions} */}
+            </div>
+
+          </form>
         </Box>
       </Container>
     </Page>

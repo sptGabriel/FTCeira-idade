@@ -1,63 +1,112 @@
 import React from 'react';
-import { useFieldArray } from 'react-hook-form';
 import PropTypes from 'prop-types';
+import { v4 as uuid } from 'uuid';
+import { makeStyles } from '@material-ui/core/styles';
 import {
-  TextField, Checkbox, Grid
+  CardContent,
+  Card,
+  Grid,
+  Typography,
+  TextField,
+  Radio,
+  RadioGroup,
+  FormControl,
+  FormControlLabel
 } from '@material-ui/core';
 
-const Component = ({
-  nestIndex, control, register
-}) => {
-  const { fields } = useFieldArray({
-    control,
-    name: `questions.${nestIndex}.alternatives`
-  });
+const useStyles = makeStyles((theme) => ({
+  media: {
+    maxWidth: 512,
+    padding: theme.spacing(4)
+  },
+}));
 
+export function version() {
   return (
-    <>
-      {fields.map((item, k) => {
-        return (
-          <Grid
-            container
-            spacing={3}
-            key={item.id}
-          >
-            <Grid item xs>
+    <Typography gutterBottom variant="p" component="p">
+      1.0
+    </Typography>
+  );
+}
+
+export function QuestionCard({
+  className, control, register, questioning, image, alternatives, defaultValue, name, ...rest
+}) {
+  const classes = useStyles();
+  return (
+    <Grid
+      item
+      xs={12}
+      {...rest}
+    >
+      <Card>
+        <CardContent>
+          <Typography gutterBottom variant="subtitle1" component="p">
+            {questioning}
+          </Typography>
+        </CardContent>
+
+        <CardContent>
+
+          { alternatives.length > 0
+            ? (
+              <FormControl
+                component="fieldset"
+                inputprops={{
+                  readOnly: true,
+                }}
+              >
+                <RadioGroup
+                  aria-label="answers"
+                  defaultValue={defaultValue}
+                >
+                  {alternatives.map((item) => {
+                    return (
+                      <FormControlLabel
+                        {...rest}
+                        {...register(name)}
+                        value={item}
+                        control={(
+                          <Radio inputProps={{ disabled: true, 'aria-label': 'primary checkbox' }} />
+                        )}
+                        label={item}
+                        key={uuid()}
+                      />
+                    );
+                  })}
+                </RadioGroup>
+              </FormControl>
+            )
+            : (
               <TextField
+                {...rest}
+                {...register(name)}
                 fullWidth
+                control={control}
+                defaultValue={defaultValue}
                 variant="outlined"
-                {...register(`questions.${nestIndex}.alternatives.${k}.alternative`)}
-                defaultValue={item.alternative}
-                placeholder="alternativa"
                 multiline
-                rows={2}
+                rows={3}
+                className={className}
+                key={uuid()}
                 InputProps={{
                   readOnly: true,
                 }}
               />
-            </Grid>
-            <Grid item>
-              <Checkbox
-                {...register(`questions.${nestIndex}.alternatives.${k}.answer`)}
-                inputProps={{ 'aria-label': 'primary checkbox', disabled: true, }}
-                defaultChecked={item.answer}
-              />
-            </Grid>
-
-          </Grid>
-        );
-      })}
-    </>
+            )}
+        </CardContent>
+      </Card>
+    </Grid>
   );
-};
+}
 
-export default Component;
-
-Component.propTypes = {
+QuestionCard.propTypes = {
   className: PropTypes.string,
-  nestIndex: PropTypes.any,
-  control: PropTypes.any,
   register: PropTypes.any,
-  setValue: PropTypes.func,
-  getValues: PropTypes.func,
+  questioning: PropTypes.string,
+  image: PropTypes.string,
+  alternatives: PropTypes.array,
+  name: PropTypes.any,
+  control: PropTypes.any,
+  defaultValue: PropTypes.any,
 };

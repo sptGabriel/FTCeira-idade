@@ -8,6 +8,7 @@ import {
   CardContent,
   Container,
   makeStyles,
+  TextField
 } from '@material-ui/core';
 import { v4 as uuid } from 'uuid';
 import React, {
@@ -17,7 +18,7 @@ import React, {
 } from 'react';
 import Page from 'src/components/Page';
 import api from 'src/service/ApiService';
-import { QuestionCard } from './component';
+import { QuestionCard } from './Component';
 
 const useStyles = makeStyles((theme) => ({
   root: {

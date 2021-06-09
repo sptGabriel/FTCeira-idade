@@ -105,7 +105,7 @@ const AssessmentView = () => {
         setQuestionsTemplate([...questionsTemplate, elem]);
       });
     });
-    console.log(JSON.stringify(questionsTemplate[0].answer, null, 2));
+    // console.log(JSON.stringify(questionsTemplate[0].answer, null, 2));
     // const json = { ...tmpAnswers };
     // setQuestionsTemplate({ answers: mergedArray.filter((e) => e.answer === true) });
     // for (let i = 0; i < tmpAnswers.length; i++) {

@@ -1,25 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   CardContent,
   Card,
   Grid,
   Typography,
-  TextField,
   Radio,
   RadioGroup,
   FormControl,
   FormControlLabel
 } from '@material-ui/core';
-
-const useStyles = makeStyles((theme) => ({
-  media: {
-    maxWidth: 512,
-    padding: theme.spacing(4)
-  },
-}));
 
 export function version() {
   return (
@@ -30,9 +21,8 @@ export function version() {
 }
 
 export function QuestionCard({
-  className, control, register, questioning, image, alternatives, defaultValue, name, ...rest
+  className, questioning, alternatives, register, defaultValue, name, ...rest
 }) {
-  const classes = useStyles();
   return (
     <Grid
       item
@@ -48,52 +38,33 @@ export function QuestionCard({
 
         <CardContent>
 
-          { alternatives.length > 0
-            ? (
-              <FormControl
-                component="fieldset"
-                inputprops={{
-                  readOnly: true,
-                }}
-              >
-                <RadioGroup
-                  aria-label="answers"
-                  defaultValue={defaultValue}
-                >
-                  {alternatives.map((item) => {
-                    return (
-                      <FormControlLabel
-                        {...rest}
-                        {...register(name)}
-                        value={item}
-                        control={(
-                          <Radio inputProps={{ disabled: true, 'aria-label': 'primary checkbox' }} />
+          <FormControl
+            component="fieldset"
+            inputprops={{
+              readOnly: true,
+            }}
+          >
+            <RadioGroup
+              aria-label="answers"
+              defaultValue={defaultValue}
+            >
+              {alternatives && alternatives.map((item) => {
+                return (
+                  <FormControlLabel
+                    {...rest}
+                    name={name}
+                    value={item.alternative}
+                    control={(
+                      <Radio inputProps={{ disabled: true, 'aria-label': 'primary checkbox' }} />
                         )}
-                        label={item}
-                        key={uuid()}
-                      />
-                    );
-                  })}
-                </RadioGroup>
-              </FormControl>
-            )
-            : (
-              <TextField
-                {...rest}
-                {...register(name)}
-                fullWidth
-                control={control}
-                defaultValue={defaultValue}
-                variant="outlined"
-                multiline
-                rows={3}
-                className={className}
-                key={uuid()}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            )}
+                    label={item.alternative}
+                    key={uuid()}
+                  />
+                );
+              })}
+            </RadioGroup>
+          </FormControl>
+
         </CardContent>
       </Card>
     </Grid>

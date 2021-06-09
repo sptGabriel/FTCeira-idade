@@ -88,13 +88,13 @@ const StudentAssessmentCorrection = () => {
     if (isInitalRender.current) {
       isInitalRender.current = false;
 
-      // const studentresponses = studentAssessmentAnswers[0].answers.map((response) => (
       const studentresponses = studentAssessmentAnswers.map((response) => (
         response
       ));
       append(studentresponses);
       setTmpResponse({ answers: studentresponses });
       // setTmpResponse({ studentresponses });
+      console.log(`+++++${studentresponses}`);
     }
   }, [fields, register, setValue, unregister, trigger, append]);
 
@@ -102,9 +102,13 @@ const StudentAssessmentCorrection = () => {
     console.log(JSON.stringify(data, null, 2));
   };
 
+  console.log(JSON.stringify(fields, null, 2));
+
   fields.map((question, questionIndex) => (
 
     datas.forEach((res) => {
+      // console.log(`+++++${tmpResponse.answers[questionIndex].answer}`);
+
       arrayQuestions.push(
         <QuestionCard
           key={uuid()}

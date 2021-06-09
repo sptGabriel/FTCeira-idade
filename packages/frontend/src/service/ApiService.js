@@ -297,9 +297,9 @@ fetchCoursePerformance = async (data) => {
 
   // ------------------------- aasessments and applications
 
-  fetchAssessments = async () => {
+  fetchAssessmentsAll = () => {
     try {
-      return await api.get('/questionnaires');
+      return api.get('/questionnaires/all');
     } catch (error) {
       return error.response.data;
     }

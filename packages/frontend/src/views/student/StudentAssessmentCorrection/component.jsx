@@ -34,6 +34,7 @@ export function QuestionCard({
   className, control, register, questioning, image, alternatives, defaultValue, name, ...rest
 }) {
   const classes = useStyles();
+
   return (
     <Grid
       item

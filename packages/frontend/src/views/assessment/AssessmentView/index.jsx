@@ -1,5 +1,4 @@
 import {
-  Button,
   Grid,
   Box,
   Typography,
@@ -9,7 +8,6 @@ import {
   CardContent,
   Container,
   makeStyles,
-  TextField
 } from '@material-ui/core';
 import { v4 as uuid } from 'uuid';
 import React, {
@@ -17,15 +15,9 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import {
-  useForm,
-  useFieldArray,
-} from 'react-hook-form';
 import Page from 'src/components/Page';
 import api from 'src/service/ApiService';
-// import datas from './assessment_data';
-// import studentAssessmentAnswers from './student_assessment_answers';
-// import { QuestionCard } from './component';
+import { QuestionCard } from './component';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,125 +39,111 @@ const useStyles = makeStyles((theme) => ({
   button: {
     height: 55
   },
-  note: {
+  value: {
     width: 100
   }
 }));
 
 const AssessmentView = () => {
   const classes = useStyles();
-  const [tmpResponse, setTmpResponse] = useState([]);
+  const arrayQuestions = [];
+  const isMountedRef = useRef(null);
 
-  const [arrayDetails, setArrayDetails] = useState({
+  // const [arrayDetails] = useState({
+  //   id: datas[0].id,
+  //   description: datas[0].description,
+  //   startDate: datas[0].startDate,
+  //   endDate: datas[0].endDate,
+  //   value: datas[0].value,
+  //   questions: datas[0].questions
+  // });
+
+  const [arrayValues, setArrayValues] = useState({
     id: '',
     description: '',
     startDate: '',
     endDate: '',
     value: 0,
-    questions: [
-      {
-        id: '',
-        image: null,
-        questioning: '',
-        alternatives: []
-      },
-    ]
+    questions: []
   });
 
   useEffect(() => {
-    api.fetchAssessments().then((res) => {
+    isMountedRef.current = true;
+
+    api.fetchAssessmentsAll().then((res) => {
       if (res.status === 200) {
-        // console.log(JSON.stringify(res.data, null, 2));
-        console.log(res.data);
-        setArrayDetails({
+        setArrayValues({
           id: res.data[0].id,
           description: res.data[0].description,
           startDate: res.data[0].startDate,
           endDate: res.data[0].endDate,
           value: res.data[0].value,
-          questions: res.data[0].questions
+          questions: res.data[0].questions,
         });
+        isMountedRef.current = false;
+      } else {
+        console.log('erro');
       }
+      isMountedRef.current = false;
     }).catch((error) => {
       console.log(error);
+      isMountedRef.current = false;
     });
   }, []);
 
+  //----------------
+
+  const tmpAnswers = [];
+  const t = [];
+  const [questionsTemplate, setQuestionsTemplate] = useState([]);
   useEffect(() => {
-    // console.log(arrayDetails);
-    console.log(JSON.stringify(arrayDetails, null, 2));
-  }, [arrayDetails]);
-  // useEffect(() => {
-  //   api.fetchAssessments().then((res) => {
-  //     console.log(res);
-  //   }).catch((error) => {
-  //     console.log(error);
-  //   });
-  // }, []);
+    isMountedRef.current = true;
+    // eslint-disable-next-line array-callback-return
+    arrayValues.questions.map((e) => {
+      e.alternatives.forEach((elem) => {
+        setQuestionsTemplate([...questionsTemplate, elem]);
+      });
+    });
+    console.log(JSON.stringify(questionsTemplate[0].answer, null, 2));
+    // const json = { ...tmpAnswers };
+    // setQuestionsTemplate({ answers: mergedArray.filter((e) => e.answer === true) });
+    // for (let i = 0; i < tmpAnswers.length; i++) {
+    // if (tmpAnswers[i].answer === false) {
+    // tmpAnswers.splice(i, 1);
+    // console.log(tmpAnswers[i].answer);
+    // }
+    // }
+    // setQuestionsTemplate(tmpAnswers);
+    // console.log(JSON.stringify(questionsTemplate[0].answer, null, 2));
+    isMountedRef.current = false;
+    //-----
+  }, [arrayValues]);
 
-  const {
-    control,
-    register,
-    setValue,
-    unregister,
-    trigger,
-  } = useForm();
-
-  const { fields, append } = useFieldArray({
-    control,
-    name: 'answers'
-  });
-
-  const isInitalRender = useRef(true);
-
-  useEffect(() => {
-    if (!fields.length && !isInitalRender.current) {
-      trigger('answers');
+  //----------------
+  const teste = [
+    {
+      id: '9c866d80-bf54-4e1d-849d-58e886b0d632',
+      answer: true,
+      alternative: 'a1 a1 a1'
+    },
+    {
+      id: 'e7cb0e43-4c8c-4373-9ed2-9e3c99fcbe7c',
+      answer: true,
+      alternative: 'c2 c2 c2'
     }
+  ];
 
-    if (isInitalRender.current) {
-      isInitalRender.current = false;
-      // const studentresponses = studentAssessmentAnswers.map((response) => (
-      const studentresponses = arrayDetails.questions.map((response) => (
-        response
-      ));
-      append(studentresponses);
-      setTmpResponse({ answers: studentresponses });
-      console.log(tmpResponse);
-    }
-  }, [fields, register, setValue, unregister, trigger, append]);
-
-  const a = [];
-  const arrayQuestions = [];
-  fields.map((question, questionIndex) => (
-    <div key={uuid()}>{question}</div>
-
-    //   <QuestionCard
-    //     key={uuid()}
-    //     name={`answers[${questionIndex}].answer`}
-    //     register={register}
-    //     defaultValue={tmpResponse.answers[questionIndex].answer}
-    //     questioning={res.questions[questionIndex].questioning}
-    //     image={res.questions[questionIndex].image}
-    //     alternatives={res.questions[questionIndex].alternatives}
-    //     className={res.questions[questionIndex].type === 'subjetiva' ? classes.card : null}
-    //  />
-
-    // datas.forEach((res) => {
-    //   arrayQuestions.push(
-    //     <div key={uuid()}>res</div>
-    //   <QuestionCard
-    //     key={uuid()}
-    //     name={`answers[${questionIndex}].answer`}
-    //     register={register}
-    //     defaultValue={tmpResponse.answers[questionIndex].answer}
-    //     questioning={res.questions[questionIndex].questioning}
-    //     image={res.questions[questionIndex].image}
-    //     alternatives={res.questions[questionIndex].alternatives}
-    //     className={res.questions[questionIndex].type === 'subjetiva' ? classes.card : null}
-    //  />
-    //   );
-    // })
+  arrayValues.questions.map((question, questionIndex) => (
+    arrayQuestions.push(
+      <QuestionCard
+        key={uuid()}
+        name={`answers[${questionIndex}].answer`}
+        // defaultValue={tmpAnswers[questionIndex].alternative}
+        defaultValue={teste[questionIndex].alternative}
+        // questioning={`${question.questioning}${questionIndex}`}
+        alternatives={question.alternatives}
+      />
+    )
   ));
 
   return (
@@ -195,24 +173,21 @@ const AssessmentView = () => {
                   >
                     <Typography variant="body1" component="p">
                       <b>descrição:</b>
-                      {' '}
-                      {arrayDetails.description}
+                      {arrayValues.description}
                     </Typography>
                     <Typography variant="body1" component="p">
                       <b>data inicial:</b>
-                      {' '}
-                      {arrayDetails.startDate}
+                      {arrayValues.startDate}
                     </Typography>
                     <Typography variant="body1" component="p">
                       <b>data final:</b>
-                      {' '}
-                      {arrayDetails.endDate}
+                      {arrayValues.endDate}
                     </Typography>
                     <Typography variant="body1" component="p">
-                      <b>valor máximo:</b>
-                      {' '}
-                      {arrayDetails.value}
+                      <b>nota máxima:</b>
+                      {arrayValues.value}
                     </Typography>
+
                   </Grid>
                 </Grid>
               </CardContent>
@@ -221,28 +196,9 @@ const AssessmentView = () => {
           </Grid>
 
           <form>
-            {/* {fields.map((question, questionIndex) => (
-              <QuestionCard
-                key={uuid()}
-                name={`answers[${questionIndex}].answer`}
-                register={register}
-                defaultValue={tmpResponse.answers[questionIndex].answer}
-                questioning={datas[questionIndex].questioning}
-                image={datas[questionIndex].image}
-                alternatives={datas[questionIndex].alternatives}
-                className={datas[questionIndex].type === 'subjetiva' ? classes.card : null}
-              />
-            ))} */}
-
-            {/* {fields.forEach((teste) => {
-               console.log(JSON.stringify(teste, null, 2)); //respostas
-               console.log(JSON.stringify(datas, null, 2));
-            })} */}
-
             <div className="App">
-              {/* {arrayQuestions} */}
+              {arrayQuestions}
             </div>
-
           </form>
         </Box>
       </Container>

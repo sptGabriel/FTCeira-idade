@@ -35,7 +35,7 @@ const AssessmentListView = ({ title }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.fetchAssessments().then((res) => {
+    api.fetchAssessmentsAll().then((res) => {
       console.log(JSON.stringify(res.data, null, 2));
       setAssessments(res.data);
     }).catch((error) => {
